@@ -189,3 +189,39 @@ def test_time_budget_stops_llm_use():
     assert not pool.available
     with pytest.raises(LLMUnavailable):
         pool.complete_json([], Extraction.model_validate)
+
+
+def test_hard_deadline_abandons_trickling_request():
+    import time as _t
+
+    class Slow(FakeClient):
+        def _create(self, **kw):
+            if self.base_url == "https://a":
+                _t.sleep(5)  # simulates a server trickling keep-alive bytes
+            return super()._create(**kw)
+
+    FakeClient.script = {"https://a": [VALID], "https://b": [VALID]}
+    conf = {"providers": [
+        {"name": p, "base_url": f"https://{p}", "api_key_env": "K", "models": ["m1"], "rpm": 100000, "timeout": 0.3}
+        for p in ("a", "b")]}
+    pool = ProviderPool(conf, env={"K": "k"}, client_factory=Slow, sleep=lambda s: None)
+    start = _t.monotonic()
+    assert pool.complete_json([], Extraction.model_validate)[1] == "b/m1"
+    assert _t.monotonic() - start < 2
+    assert pool.providers[0].strikes == 1
+
+
+def test_empty_choices_is_transient_and_moves_on():
+    class Empty(FakeClient):
+        def _create(self, **kw):
+            if self.base_url == "https://a":
+                FakeClient.calls.append((self.base_url, kw["model"], kw))
+                return SimpleNamespace(choices=None, error={"message": "upstream error"})
+            return super()._create(**kw)
+
+    FakeClient.script = {"https://b": [VALID]}
+    conf = {"providers": [{"name": p, "base_url": f"https://{p}", "api_key_env": "K", "models": ["m1"], "rpm": 100000}
+                          for p in ("a", "b")]}
+    pool = ProviderPool(conf, env={"K": "k"}, client_factory=Empty, sleep=lambda s: None)
+    assert pool.complete_json([], Extraction.model_validate)[1] == "b/m1"
+    assert pool.providers[0].strikes == 1 and pool.providers[0].exhausted is None

@@ -107,6 +107,9 @@ def run(
             except llm.LLMUnavailable as e:
                 log.info("LLM unavailable for %s: %s", it.url, e)
                 counts["llm_failed"] += 1
+            except Exception:  # a provider quirk must never kill the run
+                log.exception("unexpected LLM error for %s; using rules", it.url)
+                counts["llm_failed"] += 1
         counts[method] += 1
         prev = cache.reports.get(key)
         cache.reports[key] = Report(

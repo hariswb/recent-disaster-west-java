@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import re
+import threading
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
@@ -26,6 +27,34 @@ class LLMUnavailable(Exception):
 
 class InvalidOutput(Exception):
     pass
+
+
+class HardTimeout(Exception):
+    """A request exceeded its wall-clock deadline."""
+
+
+def call_with_deadline[R](fn: Callable[[], R], seconds: float) -> R:
+    """Run fn in a daemon thread and give up after `seconds` of wall-clock time.
+
+    The HTTP client's own timeout is per read, so a server that trickles
+    keep-alive bytes (queued free-tier requests) can hold a call open forever.
+    An abandoned daemon thread cannot block interpreter exit."""
+    box: dict = {}
+
+    def target():
+        try:
+            box["value"] = fn()
+        except BaseException as e:  # re-raised in the caller
+            box["error"] = e
+
+    t = threading.Thread(target=target, daemon=True)
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        raise HardTimeout(f"no response within {seconds:.0f}s")
+    if "error" in box:
+        raise box["error"]
+    return box["value"]
 
 
 # --------------------------------------------------------------------------
@@ -72,6 +101,7 @@ class Provider:
     rpm: int = 10
     max_calls: int = 50
     model_params: dict[str, dict] = field(default_factory=dict)
+    timeout: float = 60
     client: OpenAI | None = None
     model_idx: int = 0
     calls: int = 0
@@ -194,8 +224,9 @@ class ProviderPool:
                 rpm=p.get("rpm", 10),
                 max_calls=p.get("max_calls_per_run", 50),
                 model_params=p.get("model_params") or {},
+                timeout=p.get("timeout", 60),
             )
-            prov.client = client_factory(base_url=prov.base_url, api_key=key, timeout=p.get("timeout", 60), max_retries=0)
+            prov.client = client_factory(base_url=prov.base_url, api_key=key, timeout=prov.timeout, max_retries=0)
             self.providers.append(prov)
         self._next = 0
 
@@ -236,8 +267,18 @@ class ProviderPool:
             p.calls += 1
             self.total_calls += 1
             try:
-                resp = p.client.chat.completions.create(**kwargs)
+                resp = call_with_deadline(lambda kw=kwargs: p.client.chat.completions.create(**kw), p.timeout)
+                if not getattr(resp, "choices", None):
+                    # HTTP 200 without choices: some gateways (OpenRouter) report
+                    # upstream failures this way.
+                    p.cooldown[model] = time.monotonic() + SERVER_ERROR_COOLDOWN
+                    detail = getattr(resp, "error", None) or getattr(resp, "model_extra", None) or ""
+                    self._strike(p, f"{model}: empty response {str(detail)[:150]}")
                 return resp.choices[0].message.content or ""
+            except HardTimeout as e:
+                # Slow/queued model: rest it and try a sibling model or provider.
+                p.cooldown[model] = time.monotonic() + SERVER_ERROR_COOLDOWN
+                self._strike(p, f"{model}: {e}")
             except openai.RateLimitError as e:
                 # A rejected request does not spend quota, so it does not count
                 # against the per-run caps.
