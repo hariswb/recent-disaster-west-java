@@ -1,0 +1,111 @@
+# Incident taxonomy. `group` drives the dashboard colour (alam / kebakaran / sosial;
+# sosial also covers infrastructure and accidents). Patterns are case-insensitive regex fragments, matched on
+# word boundaries against title + summary. First category in `order` that
+# matches the title wins; otherwise first that matches the summary.
+
+categories:
+  banjir:
+    label: Banjir
+    group: alam
+    patterns: [banjir, banjir bandang, banjir rob, rob, genangan, luapan sungai, meluap, terendam]
+  longsor:
+    label: Tanah longsor
+    group: alam
+    patterns: [longsor, tanah longsor, tanah bergerak, pergerakan tanah, tebing runtuh]
+  gempa:
+    label: Gempa bumi
+    group: alam
+    patterns: [gempa, gempa bumi, guncangan gempa]
+  angin:
+    label: Angin kencang / puting beliung
+    group: alam
+    patterns: [puting beliung, angin puting beliung, angin kencang, hujan angin, hujan disertai angin, cuaca ekstrem, hujan es]
+  kebakaran:
+    label: Kebakaran
+    group: kebakaran
+    patterns: [kebakaran, terbakar, hangus, 'dilalap (si jago merah|api)', karhutla, kebakaran hutan, kebakaran lahan]
+    subcategories:
+      karhutla: [karhutla, kebakaran hutan, kebakaran lahan, lahan terbakar, hutan terbakar]
+      permukiman: [rumah, permukiman, kontrakan, perumahan]
+      pasar: [pasar, kios, toko]
+      pabrik: [pabrik, gudang]
+  kekeringan:
+    label: Kekeringan / krisis air
+    group: alam
+    patterns: [kekeringan, 'krisis air (bersih)?', kesulitan air bersih, sumur mengering]
+  gunung:
+    label: Aktivitas gunung api
+    group: alam
+    patterns: [erupsi, 'status (gunung|waspada|siaga|awas)', gunung api, abu vulkanik]
+  keracunan:
+    label: Keracunan
+    group: sosial
+    patterns: [keracunan, keracunan massal, diduga keracunan, gejala keracunan, keracunan makanan]
+    subcategories:
+      mbg: [MBG, makan bergizi gratis]
+  wabah:
+    label: Wabah / KLB penyakit
+    group: sosial
+    patterns: [KLB, kejadian luar biasa, wabah, DBD, demam berdarah, campak, difteri, diare massal, leptospirosis, chikungunya]
+  infrastruktur:
+    label: Kegagalan infrastruktur
+    group: sosial
+    patterns:
+      - jembatan (putus|ambruk|ambrol|roboh|rusak|runtuh|hanyut)
+      - jalan (amblas|ambles|putus|ambrol|longsor|retak)
+      - tanggul (jebol|ambrol)
+      - (bangunan|gedung|atap|plafon|dinding|tembok|kelas|sekolah|rumah|masjid) (ambruk|roboh|runtuh|ambrol)
+      - ambruk
+      - roboh
+      - listrik padam
+      - pipa (bocor|pecah)
+      - bendungan jebol
+  kecelakaan:
+    label: Kecelakaan
+    group: sosial
+    enabled: true    # set false to ignore traffic accidents entirely
+    patterns: [kecelakaan, laka lantas, tabrakan, terguling, terjun ke jurang, tenggelam, terseret arus, kapal tenggelam, tersambar petir]
+
+# Evaluated in this order; more specific categories first.
+order: [keracunan, wabah, gunung, gempa, longsor, banjir, angin, kekeringan, infrastruktur, kebakaran, kecelakaan]
+
+# A title matching any of these is not treated as an incident report.
+exclude_title:
+  - simulasi
+  - sosialisasi
+  - mitigasi
+  - antisipasi
+  - pelatihan
+  - (?:peringatan|hari) (?:hut|nasional)
+  - diskon
+  - promo
+  - banjir (?:pesanan|order|penonton|pengunjung|hadiah|air mata|dukungan|pujian|ucapan|kritik|komentar|peminat)
+  - kebakaran jenggot
+  - (?:rawan|potensi|ancaman|waspada|siaga|prakiraan|prediksi) (?:bencana|banjir|longsor|kekeringan|cuaca)
+  - cegah
+  - soroti
+  - rangkuman
+  - mengapa
+  - apakah
+  - sepanjang (?:tahun )?20\d\d
+  - hadiri
+  - forum
+  - lowongan
+  - tips
+  - cara
+  - ramalan
+  - zodiak
+  - sinopsis
+  - film
+
+# Words describing who/what was affected.
+entities:
+  sekolah: [sekolah, 'SDN?', 'SMPN?', 'SMAN?', 'SMKN?', MI, 'MTsN?', 'MAN?', madrasah, pesantren, ponpes, pondok pesantren, siswa, murid, pelajar, santri, kampus, universitas, TK, PAUD]
+  desa: [desa, kampung, dusun, RT, RW, kelurahan, permukiman, perumahan, warga]
+  pasar: [pasar, kios, toko, pertokoan, ruko]
+  pabrik: [pabrik, gudang, perusahaan, industri]
+  fasilitas_kesehatan: [rumah sakit, RSUD, puskesmas, klinik]
+  rumah_ibadah: [masjid, mushola, musala, gereja, pura, vihara]
+  kantor: [kantor, balai desa, gedung pemerintah]
+  jalan_jembatan: [jembatan, jalan raya, jalan nasional, jalan provinsi, jalan desa, tol]
+  lahan: [sawah, lahan pertanian, kebun, hutan, hektare]

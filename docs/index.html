@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pantau Insiden Jabar</title>
+<meta name="description" content="Insiden bencana dan sosial di Jawa Barat dalam 24 jam terakhir, dihimpun otomatis dari berita.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Pantau Insiden Jabar</h1>
+      <p class="sub" id="updated">Memuat data…</p>
+    </div>
+    <a class="raw" href="data/incidents.json">Data JSON</a>
+  </header>
+
+  <section class="tiles" id="tiles" aria-label="Ringkasan 24 jam"></section>
+
+  <section class="filters" aria-label="Filter">
+    <div class="chips" id="groups" role="group" aria-label="Kelompok"></div>
+    <label class="field">
+      <span>Kategori</span>
+      <select id="f-category"><option value="">Semua kategori</option></select>
+    </label>
+    <label class="field">
+      <span>Kab/Kota</span>
+      <select id="f-kab"><option value="">Semua wilayah</option></select>
+    </label>
+    <label class="check">
+      <input type="checkbox" id="f-llm"> Hanya hasil terverifikasi LLM
+    </label>
+  </section>
+
+  <main class="main">
+    <div class="map-wrap">
+      <div id="map" role="region" aria-label="Peta insiden"></div>
+      <p class="map-note" id="map-note" hidden></p>
+    </div>
+    <section class="list" id="list" aria-live="polite"></section>
+  </main>
+
+  <footer class="foot">
+    <details>
+      <summary>Status sumber &amp; ekstraksi</summary>
+      <div id="health"></div>
+    </details>
+    <p class="fine">
+      Dihimpun otomatis dari berita daring; klasifikasi oleh aturan kata kunci dan LLM gratis, dapat keliru.
+      Selalu periksa sumber asli. Lokasi di peta adalah titik tengah kecamatan/kabupaten, bukan lokasi persis.
+      Batas wilayah: <a href="https://github.com/cahyadsn/wilayah_boundaries">cahyadsn/wilayah_boundaries</a>.
+    </p>
+  </footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

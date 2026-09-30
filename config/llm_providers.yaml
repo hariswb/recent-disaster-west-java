@@ -1,0 +1,95 @@
+# Free LLM providers, all OpenAI-compatible (/chat/completions).
+# A provider is used only when `enabled` is true AND its api_key_env is set.
+# `models` is tried in order; a "model not found" error moves to the next one.
+# Free tiers change often: run `uv run recentdisaster llm-check` to verify keys
+# and models (it prints each provider's available model ids on failure).
+#
+# rpm:               local throttle (requests per minute)
+# max_calls_per_run: hard cap per run for this provider
+# json_mode:         send response_format={"type": "json_object"}
+# model_params:      extra request fields per model (e.g. reasoning_effort)
+# model_allow:       regex cost guard; models not matching are never called
+# timeout:           per-request seconds (default 60)
+
+max_llm_calls_per_run: 100
+time_budget_seconds: 600   # LLM phase wall-clock cap; leftovers use rules and retry next run
+max_body_chars: 3000
+temperature: 0
+
+providers:
+  - name: github-models
+    base_url: https://models.github.ai/inference
+    api_key_env: GITHUB_TOKEN      # built-in in Actions with `permissions: models: read`
+    models: [openai/gpt-4.1-mini, openai/gpt-4o-mini, meta/Llama-3.3-70B-Instruct]
+    json_mode: true
+    rpm: 10
+    max_calls_per_run: 35   # ~150 req/day on low-tier models; 4 runs/day
+    enabled: true
+
+  - name: groq
+    base_url: https://api.groq.com/openai/v1
+    api_key_env: GROQ_API_KEY
+    # Limits are per model (8k tokens/min, 1k requests/day each), so the pool
+    # switches model on a per-minute 429 instead of waiting.
+    models: [openai/gpt-oss-120b, qwen/qwen3.8-27b, openai/gpt-oss-20b]   # verified 2026-09-30
+    model_params:
+      openai/gpt-oss-120b: {reasoning_effort: low}
+      openai/gpt-oss-20b: {reasoning_effort: low}
+      qwen/qwen3.8-27b: {reasoning_effort: none}
+    json_mode: true
+    rpm: 30
+    max_calls_per_run: 60
+    enabled: true
+
+  - name: cerebras
+    base_url: https://api.cerebras.ai/v1
+    api_key_env: CEREBRAS_API_KEY
+    models: [gpt-oss-120b, llama-3.3-70b, llama3.1-8b]
+    json_mode: true
+    rpm: 20
+    max_calls_per_run: 60
+    enabled: true
+
+  - name: openrouter
+    base_url: https://openrouter.ai/api/v1
+    api_key_env: OPENROUTER_API_KEY
+    model_allow: ":free$"   # cost guard: code refuses any model without the ":free" suffix
+    # verified 2026-09-30; Gemma is often rate-limited upstream, Nemotron is slow (~60s)
+    models: [qwen/qwen3.8-27b:free, google/gemma-4-31b-it:free, nvidia/nemotron-3-super-120b-a12b:free, google/gemma-4-26b-a4b-it:free]
+    json_mode: false
+    rpm: 15
+    max_calls_per_run: 40
+    enabled: true
+
+  - name: glm
+    base_url: https://api.z.ai/api/paas/v4
+    api_key_env: GLM_API_KEY
+    model_allow: "-flash$"   # Z.ai "-flash" models are free; "-flashx" and others are paid
+    models: [glm-4.7-flash, glm-4.5-flash]   # verified 2026-09-30
+    model_params:
+      glm-4.7-flash: {thinking: {type: disabled}}
+      glm-4.5-flash: {thinking: {type: disabled}}
+    json_mode: true
+    rpm: 20
+    max_calls_per_run: 50
+    enabled: true
+
+  - name: mistral
+    base_url: https://api.mistral.ai/v1
+    api_key_env: MISTRAL_API_KEY
+    models: [mistral-small-latest, open-mistral-nemo]
+    json_mode: true
+    rpm: 30
+    max_calls_per_run: 60
+    enabled: true
+
+  - name: gemini
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai/
+    api_key_env: GEMINI_API_KEY
+    # flash-latest often answers 503 "high demand"; the pool then rests it and
+    # uses flash-lite (verified working 2026-09-30).
+    models: [gemini-flash-latest, gemini-flash-lite-latest]
+    json_mode: true
+    rpm: 10
+    max_calls_per_run: 40
+    enabled: true

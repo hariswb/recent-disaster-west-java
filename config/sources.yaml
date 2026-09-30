@@ -1,0 +1,171 @@
+# News sources. Derived from docs/west-java-news-sources.csv + probe (2026-09-30).
+#
+# type:
+#   rss      - RSS/Atom feed
+#   wp_json  - WordPress REST API (/wp-json/wp/v2/posts)
+#   gnews    - Google News RSS search (url is built from `queries`)
+#   html     - listing page; article links matched by `link_pattern`, then each
+#              article's meta tags are read (og:title, og:description, published_time)
+# jabar_only: true when every item is from West Java, so no location match is
+#             needed to count as in-province.
+
+defaults:
+  timeout: 20
+  max_articles_per_html_source: 30
+
+sources:
+  # --- RSS -----------------------------------------------------------------
+  - id: antara-jabar-terkini
+    name: ANTARA Jawa Barat
+    type: rss
+    url: https://jabar.antaranews.com/rss/terkini.xml
+    jabar_only: true
+  - id: antara-jabar-jabarterkini
+    name: ANTARA Jawa Barat
+    type: rss
+    url: https://jabar.antaranews.com/rss/jabar-terkini.xml
+    jabar_only: true
+  - id: antara-jabar-top
+    name: ANTARA Jawa Barat
+    type: rss
+    url: https://jabar.antaranews.com/rss/top-news.xml
+    jabar_only: false   # mixes in national/world news
+  - id: antara-megapolitan
+    name: ANTARA Megapolitan
+    type: rss
+    url: https://megapolitan.antaranews.com/rss/terkini.xml
+    jabar_only: false   # includes Jakarta/Tangerang
+  - id: detik-jabar
+    name: detikJabar
+    type: rss
+    url: https://www.detik.com/jabar/rss
+    jabar_only: true
+    timeout: 45   # occasionally slow
+  - id: tribun-jabar
+    name: Tribun Jabar
+    type: rss
+    url: https://jabar.tribunnews.com/rss
+    jabar_only: true
+  - id: radar-sukabumi
+    name: Radar Sukabumi
+    type: rss
+    url: https://radarsukabumi.com/feed/
+    jabar_only: true
+  - id: radar-bandung
+    name: Radar Bandung
+    type: rss
+    url: https://www.radarbandung.id/feed/
+    jabar_only: true
+
+  # --- WordPress JSON ------------------------------------------------------
+  - id: lintas-priangan
+    name: Lintas Priangan
+    type: wp_json
+    url: https://lintaspriangan.com/wp-json/wp/v2/posts?per_page=50&_fields=date_gmt,link,title,excerpt
+    jabar_only: true
+
+  # --- Google News search (catch-all) ---------------------------------------
+  - id: gnews
+    name: Google News
+    type: gnews
+    jabar_only: false
+    queries:
+      - '(banjir OR longsor OR "pergerakan tanah" OR gempa OR "puting beliung" OR "angin kencang") ("jawa barat" OR jabar)'
+      - '(kebakaran OR terbakar OR karhutla OR kekeringan OR "krisis air" OR erupsi) ("jawa barat" OR jabar)'
+      - '(keracunan OR "keracunan massal" OR KLB OR wabah OR DBD) ("jawa barat" OR jabar)'
+      - '("jembatan putus" OR "jembatan ambruk" OR "jalan amblas" OR "tanggul jebol" OR roboh OR ambruk) ("jawa barat" OR jabar)'
+      - '(banjir OR longsor OR kebakaran OR keracunan OR ambruk) (Bogor OR Sukabumi OR Cianjur OR Garut OR Tasikmalaya OR Cirebon OR Bekasi OR Karawang OR Bandung)'
+
+  # --- HTML listing pages -------------------------------------------------
+  # Link text is screened with the taxonomy first; only incident-like headlines
+  # are fetched (for og:description + published time).
+  - id: radar-cirebon
+    name: Radar Cirebon
+    type: html
+    urls:
+      - https://radarcirebon.id/kota-cirebon/
+      - https://radarcirebon.id/kabupaten-cirebon/
+      - https://radarcirebon.id/indramayu/
+      - https://radarcirebon.id/majalengka/
+      - https://radarcirebon.id/kuningan/
+    link_pattern: ^https://radarcirebon\.id/20\d\d/\d\d/\d\d/[\w-]+/?$
+    jabar_only: true
+  - id: radar-cirebon-disway
+    name: Radar Cirebon (Disway)
+    type: html
+    urls: [https://radarcirebon.disway.id/kategori/kabupaten-cirebon/]
+    link_pattern: ^https://radarcirebon\.disway\.id/[\w-]+/read/\d+/
+    jabar_only: true
+  - id: radar-tasik
+    name: Radar Tasikmalaya
+    type: html
+    urls:
+      - https://radartasik.id/jawa-barat/kota-tasikmalaya/
+      - https://radartasik.disway.id/
+    link_pattern: ^https://radartasik\.(?:id/20\d\d/\d\d/\d\d/|disway\.id/+(?:[\w-]+/)?read/\d+/)
+    jabar_only: true
+  - id: inews-garut
+    name: iNews Garut
+    type: html
+    urls: [https://garut.inews.id/]
+    link_pattern: ^https://garut\.inews\.id/read/\d+/
+    jabar_only: false   # also carries Cirebon etc. but mostly Jabar; needs location match
+  - id: tribun-jabar-sections
+    name: Tribun Jabar
+    type: html
+    urls: [https://jabar.tribunnews.com/garut, https://jabar.tribunnews.com/purwakarta]
+    link_pattern: ^https://jabar\.tribunnews\.com/[\w-]+/\d+/
+    jabar_only: true
+  - id: kompas-jabar
+    name: Kompas.com Jawa Barat
+    type: html
+    urls: [https://www.kompas.com/jawa-barat]
+    link_pattern: ^https?://(?:bandung|regional)\.kompas\.com/read/20\d\d/
+    jabar_only: false
+  - id: kompas-tv-jabar
+    name: Kompas TV Jawa Barat
+    type: html
+    urls: [https://www.kompas.tv/regional/jawa-barat]
+    link_pattern: ^https://www\.kompas\.tv/regional/\d+/
+    jabar_only: false
+  - id: pikiran-rakyat
+    name: Pikiran Rakyat
+    type: html
+    urls: [https://www.pikiran-rakyat.com/, https://prfmnews.pikiran-rakyat.com]
+    link_pattern: ^https://[\w-]+\.pikiran-rakyat\.com/[\w-]+/pr-\d+/
+    jabar_only: false   # network includes non-Jabar regional sites
+  - id: jabarprov
+    name: Pemprov Jabar
+    type: html
+    urls: [https://jabarprov.go.id/berita]
+    link_pattern: ^https://jabarprov\.go\.id/berita/[\w-]+-\d+$
+    jabar_only: true
+  - id: pemkot-bandung
+    name: Pemkot Bandung
+    type: html
+    urls: [https://www.bandung.go.id/news/berita/]
+    link_pattern: ^https://www\.bandung\.go\.id/news/read/\d+/
+    jabar_only: true
+  - id: jabar-ekspres
+    name: Jabar Ekspres
+    type: html
+    urls:
+      - https://jabarekspres.com/jawa-barat/
+      - https://jabarekspres.com/bandungraya/
+      - https://jabarekspres.com/bogor-raya/
+    link_pattern: ^https://jabarekspres\.com/berita/20\d\d/\d\d/\d\d/
+    jabar_only: true
+  - id: radar-bogor
+    name: Radar Bogor
+    type: html
+    urls: [https://www.radarbogor.id]
+    link_pattern: null
+    jabar_only: true
+    enabled: false   # links are rendered by JavaScript (0 in HTML)
+  - id: pemkab-bogor
+    name: Pemkab Bogor
+    type: html
+    urls: [https://bogorkab.go.id/berita]
+    link_pattern: null
+    jabar_only: true
+    enabled: false   # links are rendered by JavaScript (0 in HTML)
