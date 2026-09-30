@@ -382,12 +382,17 @@ Tugas: baca satu artikel berita dan kembalikan HANYA satu objek JSON (tanpa teks
                             // false untuk: statistik/rekap periode ("catat 75 kejadian selama kemarau",
                             // "kasus melonjak 141 persen"), kondisi umum se-provinsi tanpa kejadian baru,
                             // simulasi, sosialisasi, imbauan/peringatan dini, prakiraan cuaca, analisis pakar,
-                            // anggaran/program, hoaks yang dibantah, opini, kejadian di luar negeri, dan
-                            // kriminalitas murni (pembunuhan, penganiayaan, pencurian, narkoba, uang palsu).
-                            // Kebakaran yang disengaja/pembakaran tetap dihitung sebagai kebakaran.
+                            // anggaran/program/evaluasi kebijakan (termasuk berita kebijakan MBG), hoaks yang
+                            // dibantah, opini, kejadian di luar negeri, kasus bunuh diri, dan kriminalitas umum
+                            // antar-orang dewasa (pencurian, perampokan, narkoba, penipuan, uang palsu,
+                            // pembunuhan/penganiayaan biasa).
+                            // TETAP dihitung sebagai insiden sosial: keracunan MBG, perundungan/bullying,
+                            // kekerasan/pelecehan seksual, kekerasan terhadap anak/siswa/santri dan KDRT,
+                            // tawuran/bentrok/kericuhan massa, intoleransi/persekusi/konflik sosial,
+                            // TPPO dan penculikan. Kebakaran yang disengaja tetap dihitung sebagai kebakaran.
   "in_jabar": boolean,      // true jika lokasi kejadian di Provinsi Jawa Barat
   "category": one of {list(CATEGORIES)},
-  "subcategory": string|null,       // mis. "karhutla", "keracunan MBG", "jembatan putus", "banjir bandang"
+  "subcategory": string|null,       // mis. "karhutla", "miras oplosan", "jembatan putus", "banjir bandang"
   "kab_kota": string|null,          // nama kabupaten/kota Jawa Barat persis dari daftar yang diberikan
   "kecamatan": string|null,
   "desa": string|null,              // desa/kelurahan/kampung
@@ -397,14 +402,23 @@ Tugas: baca satu artikel berita dan kembalikan HANYA satu objek JSON (tanpa teks
               // dead=meninggal, injured=luka/dirawat/sakit, missing=hilang, displaced=mengungsi,
               // affected=orang terdampak/keracunan (jika tidak termasuk kategori lain), houses=rumah/bangunan rusak/terendam
               // Gunakan null jika tidak disebutkan. Jangan menebak.
-  "affected_entities": [{{"type": "sekolah|desa|pasar|pabrik|fasilitas_kesehatan|rumah_ibadah|kantor|jalan_jembatan|lahan|permukiman|lainnya", "name": string|null}}],
+  "affected_entities": [{{"type": "sekolah|desa|pasar|pabrik|fasilitas_kesehatan|rumah_ibadah|kantor|jalan_jembatan|lahan|permukiman|dapur_mbg|lainnya", "name": string|null}}],
   "summary": string,                // 1-2 kalimat bahasa Indonesia: apa, di mana, kapan, dampak
   "confidence": number              // 0..1
 }}
 
 Kategori: banjir, longsor, gempa, angin (puting beliung/angin kencang), kebakaran (termasuk karhutla),
-kekeringan (krisis air), gunung (erupsi), keracunan (makanan, MBG), wabah (KLB/DBD/penyakit menular),
-infrastruktur (jembatan/jalan/tanggul/bangunan runtuh, gangguan listrik/air), kecelakaan, lainnya."""
+kekeringan (krisis air), gunung (erupsi), mbg (keracunan/makanan basi-berulat dari program Makan Bergizi
+Gratis atau dapur SPPG), keracunan (makanan non-MBG, miras oplosan, gas), wabah (KLB/DBD/penyakit menular),
+perundungan (bullying), kekerasan_seksual (pelecehan, pencabulan, pemerkosaan), kekerasan_anak (penganiayaan
+anak/siswa/santri, KDRT), tawuran (tawuran pelajar, geng motor, perang sarung, bentrok/ricuh massa),
+intoleransi (pembubaran ibadah, perusakan rumah ibadah, persekusi, konflik agraria/penggusuran),
+tppo (perdagangan orang, PMI ilegal, penculikan), infrastruktur (jembatan/jalan/tanggul/bangunan runtuh,
+gangguan listrik/air), kecelakaan, lainnya.
+
+Privasi: pada "summary" dan "affected_entities" JANGAN tulis nama korban maupun pelaku kekerasan seksual,
+perundungan, atau kekerasan anak/KDRT, dan jangan tulis nama anak di bawah umur. Nama lembaga (sekolah,
+pesantren, SPPG) boleh."""
 
 
 def build_messages(item: RawItem, body: str, hints: dict, kab_list: list[str], max_chars: int = 3000) -> list[dict]:

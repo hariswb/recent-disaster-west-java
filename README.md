@@ -3,7 +3,8 @@
 This is a zero-cost monitor of incidents in West Java (Jawa Barat) over the **last 24 hours**. It covers:
 - natural hazards: flood, landslide, earthquake, whirlwind, drought, volcano
 - fires, including forest and land fires (karhutla)
-- social and infrastructure incidents: food poisoning, outbreaks, collapsed bridges, roads or buildings, and accidents
+- social incidents: MBG (Makan Bergizi Gratis) school-meal poisoning, other food/miras/gas poisoning, outbreaks, bullying (perundungan), sexual violence, violence against children and KDRT, tawuran and clashes, intolerance and social conflict, human trafficking (TPPO) and abduction. Suicide cases and generic adult crime are deliberately excluded.
+- infrastructure failures and accidents: collapsed bridges, roads or buildings, outages, and accidents
 
 It runs on a GitHub Actions cron schedule, pulls in regional news feeds, and extracts structured facts. The results are published as a static dashboard on GitHub Pages.
 

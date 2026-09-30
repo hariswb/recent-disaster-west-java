@@ -4,11 +4,14 @@
   const GROUPS = {
     alam: { label: "Alam", var: "--g-alam" },
     kebakaran: { label: "Kebakaran", var: "--g-kebakaran" },
-    sosial: { label: "Sosial & infrastruktur", var: "--g-sosial" },
+    sosial: { label: "Sosial", var: "--g-sosial" },
+    infrastruktur: { label: "Infrastruktur & kecelakaan", var: "--g-infra" },
   };
   const GLYPH = {
     banjir: "BJ", longsor: "LS", gempa: "GM", angin: "AN", kebakaran: "KB", kekeringan: "KR",
-    gunung: "GA", keracunan: "RC", wabah: "WB", infrastruktur: "IF", kecelakaan: "KC", lainnya: "LN",
+    gunung: "GA", mbg: "MB", keracunan: "RC", wabah: "WB", perundungan: "PR", kekerasan_seksual: "KS",
+    kekerasan_anak: "KA", tawuran: "TW", intoleransi: "IT", tppo: "TP", infrastruktur: "IF", kecelakaan: "KC",
+    lainnya: "LN",
   };
   const VICTIMS = [
     ["dead", "meninggal"], ["injured", "luka/dirawat"], ["missing", "hilang"],
@@ -17,7 +20,7 @@
   const ENTITY_LABEL = {
     sekolah: "Sekolah", desa: "Desa/permukiman", permukiman: "Permukiman", pasar: "Pasar", pabrik: "Pabrik",
     fasilitas_kesehatan: "Faskes", rumah_ibadah: "Rumah ibadah", kantor: "Kantor", jalan_jembatan: "Jalan/jembatan",
-    lahan: "Lahan", lainnya: "Lainnya",
+    lahan: "Lahan", dapur_mbg: "Dapur MBG/SPPG", lainnya: "Lainnya",
   };
   const JABAR = [-6.92, 107.6];
   const TZ = "Asia/Jakarta";

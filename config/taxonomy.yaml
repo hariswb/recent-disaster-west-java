@@ -1,5 +1,5 @@
-# Incident taxonomy. `group` drives the dashboard colour (alam / kebakaran / sosial;
-# sosial also covers infrastructure and accidents). Patterns are case-insensitive regex fragments, matched on
+# Incident taxonomy. `group` drives the dashboard colour (alam / kebakaran / sosial /
+# infrastruktur; infrastruktur also covers accidents). Patterns are case-insensitive regex fragments, matched on
 # word boundaries against title + summary. First category in `order` that
 # matches the title wins; otherwise first that matches the summary.
 
@@ -37,19 +37,88 @@ categories:
     label: Aktivitas gunung api
     group: alam
     patterns: [erupsi, 'status (gunung|waspada|siaga|awas)', gunung api, abu vulkanik]
+  mbg:
+    label: Keracunan / insiden MBG
+    group: sosial
+    patterns:
+      - keracunan (?:makanan )?(?:MBG|makan(?:an)? bergizi gratis|SPPG)
+      - (?:keracunan|mual|muntah|pusing|demam|sesak napas|sakit perut|diare|dilarikan|dirawat|tumbang|basi|berulat|belatung)[^.]{0,60}\b(?:MBG|makan(?:an)? bergizi gratis|SPPG)
+      - (?:MBG|makan(?:an)? bergizi gratis|SPPG)[^.]{0,60}\b(?:keracunan|mual|muntah|pusing|demam|sesak napas|sakit perut|diare|dilarikan|dirawat|tumbang|basi|berulat|belatung)
+    subcategories:
+      makanan_tidak_layak: [basi, berulat, belatung, ulat]
+      keracunan: [keracunan, mual, muntah, pusing, demam, sesak napas, sakit perut, diare, dilarikan, dirawat, tumbang]
   keracunan:
     label: Keracunan
     group: sosial
-    patterns: [keracunan, keracunan massal, diduga keracunan, gejala keracunan, keracunan makanan]
+    patterns: [keracunan, keracunan massal, diduga keracunan, gejala keracunan, keracunan makanan, miras oplosan]
     subcategories:
-      mbg: [MBG, makan bergizi gratis]
+      miras: [miras oplosan, minuman keras oplosan, oplosan]
+      gas: ['keracunan gas', 'gas (?:beracun|CO|karbon monoksida)']
   wabah:
     label: Wabah / KLB penyakit
     group: sosial
     patterns: [KLB, kejadian luar biasa, wabah, DBD, demam berdarah, campak, difteri, diare massal, leptospirosis, chikungunya]
+  perundungan:
+    label: Perundungan / bullying
+    group: sosial
+    patterns: [perundungan, dirundung, merundung, bullying, dibully, di-bully, korban bully]
+  kekerasan_seksual:
+    label: Kekerasan / pelecehan seksual
+    group: sosial
+    patterns:
+      - pelecehan seksual
+      - dilecehkan
+      - melecehkan
+      - kekerasan seksual
+      - pencabulan
+      - dicabuli
+      - mencabuli
+      - cabul
+      - cabuli
+      - pemerkosaan
+      - diperkosa
+      - memperkosa
+      - rudapaksa
+      - dirudapaksa
+      - persetubuhan (?:anak|di bawah umur)
+      - asusila
+  kekerasan_anak:
+    label: Kekerasan anak & KDRT
+    group: sosial
+    patterns:
+      - KDRT
+      - kekerasan dalam rumah tangga
+      - kekerasan (?:terhadap )?anak
+      - (?:penganiayaan|dianiaya|dipukuli?|disiksa|penyiksaan) (?:anak|siswa|siswi|murid|santri|balita|bayi|bocah)
+      - (?:anak|siswa|siswi|murid|santri|balita|bayi|bocah) (?:dianiaya|dipukuli?|disiksa)
+      - (?:dianiaya|dipukuli?|disiksa) (?:oleh )?(?:guru|ustaz|ustadz|pengasuh|ayah|ibu|orang tua|ayah tiri|ibu tiri|ayah kandung|ibu kandung)
+      - (?:guru|ustaz|ustadz|kepala sekolah|pengasuh|ayah tiri|ibu tiri) (?:aniaya|pukul|tampar|menganiaya|memukul|menampar|siksa|menyiksa)
+  tppo:
+    label: TPPO / penculikan
+    group: sosial
+    patterns: [TPPO, perdagangan orang, PMI ilegal, pekerja migran ilegal, penculikan, diculik, menculik]
+  intoleransi:
+    label: Intoleransi / konflik sosial
+    group: sosial
+    patterns:
+      - intoleransi
+      - intoleran
+      - persekusi
+      - pembubaran (?:ibadah|kebaktian|pengajian|retret)
+      - dibubarkan paksa
+      - perusakan (?:masjid|musala|mushola|gereja|rumah ibadah|pura|vihara|rumah singgah|vila)
+      - penolakan (?:pendirian )?(?:gereja|rumah ibadah)
+      - penggusuran
+      - pembongkaran (?:paksa|bangunan|lapak|kios|rumah)
+      - bangunan liar
+      - konflik agraria
+  tawuran:
+    label: Tawuran / bentrok
+    group: sosial
+    patterns: [tawuran, perang sarung, geng motor, bentrok, bentrokan, ricuh, kericuhan]
   infrastruktur:
     label: Kegagalan infrastruktur
-    group: sosial
+    group: infrastruktur
     patterns:
       - jembatan (putus|ambruk|ambrol|roboh|rusak|runtuh|hanyut)
       - jalan (amblas|ambles|putus|ambrol|longsor|retak)
@@ -62,12 +131,13 @@ categories:
       - bendungan jebol
   kecelakaan:
     label: Kecelakaan
-    group: sosial
+    group: infrastruktur
     enabled: true    # set false to ignore traffic accidents entirely
     patterns: [kecelakaan, laka lantas, tabrakan, terguling, terjun ke jurang, tenggelam, terseret arus, kapal tenggelam, tersambar petir]
 
 # Evaluated in this order; more specific categories first.
-order: [keracunan, wabah, gunung, gempa, longsor, banjir, angin, kekeringan, infrastruktur, kebakaran, kecelakaan]
+order: [mbg, keracunan, wabah, kekerasan_seksual, perundungan, kekerasan_anak, tppo, intoleransi, tawuran,
+        gunung, gempa, longsor, banjir, angin, kekeringan, infrastruktur, kebakaran, kecelakaan]
 
 # A title matching any of these is not treated as an incident report.
 exclude_title:
@@ -97,6 +167,21 @@ exclude_title:
   - zodiak
   - sinopsis
   - film
+  - bunuh diri
+  - gantung diri
+  - kampanye
+  - deklarasi
+  - seminar
+  - webinar
+  - (?:stop|anti)[- ]?(?:bullying|perundungan|kekerasan)
+  - evaluasi
+  # court proceedings of older cases, not new events
+  - sidang
+  - terdakwa
+  - didakwa
+  - dakwaan
+  - (?:di)?vonis
+  - dituntut
 
 # Words describing who/what was affected.
 entities:
@@ -108,4 +193,5 @@ entities:
   rumah_ibadah: [masjid, mushola, musala, gereja, pura, vihara]
   kantor: [kantor, balai desa, gedung pemerintah]
   jalan_jembatan: [jembatan, jalan raya, jalan nasional, jalan provinsi, jalan desa, tol]
+  dapur_mbg: [SPPG, dapur MBG, 'dapur (?:umum )?makan bergizi']
   lahan: [sawah, lahan pertanian, kebun, hutan, hektare]

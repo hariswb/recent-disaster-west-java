@@ -8,7 +8,16 @@ HEADLINES = [
      "Seorang perempuan diamankan terkait kebakaran dua rumah di Kecamatan Cugenang, Kabupaten Cianjur.",
      True, True, "kebakaran", "Kabupaten Cianjur"),
     ("45 siswa SDN 2 Sukamaju diduga keracunan MBG di Garut", "12 siswa dirawat di puskesmas.",
-     True, True, "keracunan", "Kabupaten Garut"),
+     True, True, "mbg", "Kabupaten Garut"),
+    ("Puluhan siswa SDN 1 Cibadak mual dan muntah usai santap MBG", "Kecamatan Cibadak, Kabupaten Sukabumi.",
+     True, True, "mbg", "Kabupaten Sukabumi"),
+    ("Siswi SMP di Cianjur jadi korban perundungan teman sekelas", "", True, True, "perundungan", "Kabupaten Cianjur"),
+    ("Oknum guru ngaji di Tasikmalaya cabuli 5 santri", "", False, True, "kekerasan_seksual", "Kabupaten Tasikmalaya"),
+    ("Balita di Karawang dianiaya ayah tiri hingga kritis", "", True, True, "kekerasan_anak", "Kabupaten Karawang"),
+    ("Tawuran pelajar di Bekasi, satu siswa luka bacok", "", True, True, "tawuran", "Kabupaten Bekasi"),
+    ("Pembubaran retret pelajar di Cidahu Sukabumi", "", True, True, "intoleransi", "Kabupaten Sukabumi"),
+    ("Polisi ungkap kasus TPPO, 12 warga Cianjur dikirim ke Timur Tengah", "", True, True, "tppo", "Kabupaten Cianjur"),
+    ("Warga hilang terseret arus sungai di Cianjur", "", True, True, "kecelakaan", "Kabupaten Cianjur"),
     ("Banjir bandang terjang Desa Cibenda, tiga orang tewas", "Banjir melanda Kecamatan Parigi, Pangandaran.",
      True, True, "banjir", "Kabupaten Pangandaran"),
     ("Jembatan penghubung dua desa di Bandung Barat ambruk", "Jembatan di Kecamatan Cipongkor KBB ambruk.",
@@ -27,6 +36,9 @@ HEADLINES = [
     ("Banjir Ucapan Selamat! Bupati Cianjur Raih Gelar Doktor", "", True, False, "banjir", None),
     ("Kebakaran kembali melanda kawasan hutan Malaumkarta Sorong", "", False, False, "kebakaran", None),
     ("DLH Cianjur menormalisasi saluran air cegah banjir", "", True, False, "banjir", None),
+    ("Kampanye stop bullying digelar di SMAN 3 Bandung", "", True, False, "perundungan", None),
+    ("Siswa di Garut diduga bunuh diri setelah dirundung", "", True, False, "perundungan", None),
+    ("Pemprov Jabar evaluasi program MBG usai kasus keracunan", "", True, False, "mbg", None),
 ]
 
 
