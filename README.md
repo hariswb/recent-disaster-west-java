@@ -92,6 +92,34 @@ uv run pytest
 python -m http.server -d docs                  # preview the dashboard
 ```
 
+## Dashboard
+
+`docs/` is a static site with no build step: plain ES modules under `docs/js/` and self-hosted fonts in `docs/fonts/` (Plus Jakarta Sans + Atkinson Hyperlegible Next, SIL OFL). It is written for the West Java clinical psychologists' association and is mobile-first.
+
+Hash routes give three levels:
+
+| Route | Level |
+|---|---|
+| `#/` | Ringkasan: totals, psychosocial topics, priority cases, regions |
+| `#/topik/<lens>` | One topic: numbers, kinds of events, case list (`?kat=`, `?wil=`, `?urut=terbaru`) |
+| `#/kasus` | All cases with filters (`?lensa=`, `?kat=`, `?wil=`) |
+| `#/kasus/<id>` | One case: date and sources, a key-value table (location, impact, affected groups), description |
+
+The five psychosocial lenses are defined in `docs/js/model.js` (`LENSES`):
+- Bencana & pengungsian
+- Sudden Loss
+- Kesehatan publik
+- Kekerasan & perlindungan
+- Konflik sosial
+
+The lenses map taxonomy categories to groups. A new category must be added there, or it falls into "Lainnya".
+
+**Bagikan gambar** renders each level as a 1080×1440 (3:4) PNG in the browser with `html-to-image`, then shares it through the Web Share API or offers it as a download. The images are privacy-safe:
+- They never include news headlines.
+- Cases in the violence lens show only kab/kota, omit the summary, and carry the support line (`SUPPORT_LINE` in `model.js`).
+
+For design QA, `?data=sample` loads `docs/data/sample-incidents.json`, which adds fictional `[CONTOH]` cases across every lens.
+
 ## Configuration
 
 | File | Purpose |
@@ -119,7 +147,7 @@ Free-tier model names change often. If `llm-check` fails, it prints the provider
 
 ## Known limitations
 
-- Map points are kecamatan or kab/kota centroids, not exact locations. Incidents described only as "di Jabar" appear in the list, not on the map.
+- Locations are resolved to kecamatan or kab/kota only. Incidents described only as "di Jabar" have no region.
 - Rules-only extraction (when no LLM is available) is noisy: recaps and opinion pieces can slip through, and victim counts are approximate ("puluhan" is counted as 20).
 - Radar Bogor and Pemkab Bogor render their article links with JavaScript and are disabled. Google News covers Bogor partially.
 - Google News items have no article body (redirect links), so they are classified from the headline only.
