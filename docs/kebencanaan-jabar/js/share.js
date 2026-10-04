@@ -141,15 +141,13 @@ function caseCard(data, i) {
       ${l.sensitive
         ? `<p class="st-summary muted">Rincian kasus tidak ditampilkan untuk melindungi penyintas.</p>`
         : (i.summary ? `<p class="st-summary">${esc(i.summary)}</p>` : "")}
-      <div class="st-sources"><span>Sumber</span>${sourceLines(i, l.sensitive)}</div>`,
+      <div class="st-sources"><span>Sumber</span>${sourceLines(i)}</div>`,
   });
 }
 
-// Full article URLs, except for violence cases, whose URL slugs usually repeat the headline: those show the site only.
-function sourceLines(i, sensitive) {
-  const urls = sensitive
-    ? [...new Set(i.sources.map((s) => { try { return new URL(s.url).host; } catch { return s.name; } }))]
-    : i.sources.map((s) => s.url);
+// Site domains only: full article URLs are too long for the card, and for violence cases the slug repeats the headline.
+function sourceLines(i) {
+  const urls = [...new Set(i.sources.map((s) => { try { return new URL(s.url).host.replace(/^www\./, ""); } catch { return s.name; } }))];
   const shown = urls.slice(0, 2);
   return shown.map((u) => `<p>${esc(u)}</p>`).join("") + (urls.length > 2 ? `<p>+${urls.length - 2} sumber lain</p>` : "");
 }
