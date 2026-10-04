@@ -145,11 +145,12 @@ function caseCard(data, i) {
   });
 }
 
-// Site domains only: full article URLs are too long for the card, and for violence cases the slug repeats the headline.
+// Outlet names, as on the case page: full URLs are too long for the card, Google News URLs hide the real outlet,
+// and for violence cases the URL slug repeats the headline.
 function sourceLines(i) {
-  const urls = [...new Set(i.sources.map((s) => { try { return new URL(s.url).host.replace(/^www\./, ""); } catch { return s.name; } }))];
-  const shown = urls.slice(0, 2);
-  return shown.map((u) => `<p>${esc(u)}</p>`).join("") + (urls.length > 2 ? `<p>+${urls.length - 2} sumber lain</p>` : "");
+  const names = [...new Set(i.sources.map((s) => s.name))];
+  const shown = names.slice(0, 2);
+  return shown.map((u) => `<p>${esc(u)}</p>`).join("") + (names.length > 2 ? `<p>+${names.length - 2} sumber lain</p>` : "");
 }
 
 function cardFor(data, spec) {
