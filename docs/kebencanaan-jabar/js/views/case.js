@@ -15,8 +15,8 @@ export function caseView({ data, params }) {
     .map((e) => e.name || ENTITY_LABEL[e.type] || e.type);
   const event = fmtEventDate(i.event_time);
   const EXT = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
-  const sources = i.sources.map((s) => `<a class="btn src" href="${esc(s.url)}" target="_blank" rel="noopener">
-    Baca berita di ${esc(s.name)}${EXT}<span class="sr-only"> (tab baru)</span></a>`).join("");
+  const sources = i.sources.map((s) => `<li><a class="btn src" href="${esc(s.url)}" target="_blank" rel="noopener">
+    ${esc(s.name)}${EXT}<span class="sr-only"> (tab baru)</span></a></li>`).join("");
 
   const rows = [
     ["Topik", `<a href="${href(`/topik/${l.key}`)}">${esc(l.label)}</a>`],
@@ -34,7 +34,8 @@ export function caseView({ data, params }) {
     <p class="eyebrow">${lensIcon(l, 18)} ${esc(catLabel(data, i.category))}</p>
     <h1 tabindex="-1">${esc(i.title)}</h1>
     <p class="meta">Dilaporkan ${esc(fmtDateTime(i.first_reported))} WIB · ${i.sources.length} sumber berita</p>
-    <div class="src-btns">${sources}</div>
+    <p class="src-head" id="h-src">Baca berita selengkapnya:</p>
+    <ul class="src-btns" aria-labelledby="h-src">${sources}</ul>
   </header>
   ${l.sensitive ? contentNote() : ""}
 

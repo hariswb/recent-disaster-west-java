@@ -152,13 +152,18 @@ export const fmtDateTime = (iso) => new Intl.DateTimeFormat("id-ID",
 export const fmtUpdated = (iso) => new Intl.DateTimeFormat("id-ID",
   { timeZone: TZ, dateStyle: "medium", timeStyle: "short" }).format(new Date(iso)) + " WIB";
 
+// "Senin, 29 September 2026", plus ", pukul 13.00 WIB" when the report gives a time (midnight = no time given).
+const DAY_FMT = { weekday: "long", day: "numeric", month: "long", year: "numeric" };
 export function fmtEventDate(s) {
   if (!s) return null;
   if (/^\d{4}-\d{2}-\d{2}$/.test(s)) {
-    return new Intl.DateTimeFormat("id-ID", { timeZone: "UTC", day: "numeric", month: "long", year: "numeric" })
-      .format(new Date(`${s}T00:00:00Z`));
+    return new Intl.DateTimeFormat("id-ID", { timeZone: "UTC", ...DAY_FMT }).format(new Date(`${s}T00:00:00Z`));
   }
-  return s;
+  const d = new Date(s);
+  if (!/^\d{4}-\d{2}-\d{2}T/.test(s) || isNaN(d)) return s;
+  const day = new Intl.DateTimeFormat("id-ID", { timeZone: TZ, ...DAY_FMT }).format(d);
+  const time = new Intl.DateTimeFormat("id-ID", { timeZone: TZ, hour: "2-digit", minute: "2-digit" }).format(d);
+  return time === "00.00" ? day : `${day}, pukul ${time} WIB`;
 }
 
 export function ago(iso, now = new Date()) {

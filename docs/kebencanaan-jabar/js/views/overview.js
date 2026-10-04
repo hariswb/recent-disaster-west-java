@@ -13,13 +13,13 @@ export function overview({ data, list }) {
     <h1 id="h-total" tabindex="-1">${nf.format(list.length)} insiden tercatat</h1>
     <p class="lede">${esc(headlineParts(list).join(" · "))}</p>
     ${figures(totals(list))}
-    <h2 class="sub">Menurut topik</h2>
+    <h2 class="sub">Jumlah Insiden Berdasarkan Topik</h2>
     ${barChart(groups.map((g) => ({ label: g.lens.label, value: g.count, lens: g.lens.key, icon: lensIcon(g.lens, 18) })), { label: "Jumlah insiden menurut topik" })}
   </section>
 
   <section class="sec" aria-labelledby="h-topik">
     ${sectionHead("h-topik", "Topik")}
-    <ul class="topics">${groups.map((g) => lensCard(g.lens, g.count)).join("")}</ul>
+    <ul class="topics">${groups.map((g) => lensCard(g.lens, g.count, g.totals)).join("")}</ul>
   </section>
 
   <section class="sec" aria-labelledby="h-prio">

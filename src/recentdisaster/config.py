@@ -25,7 +25,7 @@ ROOT = project_root()
 CONFIG_DIR = ROOT / "config"
 GAZETTEER_PATH = ROOT / "data" / "gazetteer" / "jabar.json"
 CACHE_PATH = ROOT / "data" / "cache" / "processed.json"
-OUTPUT_PATH = ROOT / "docs" / "data" / "incidents.json"
+OUTPUT_PATH = ROOT / "docs" / "kebencanaan-jabar" / "data" / "incidents.json"
 
 
 def load_dotenv(path: Path | None = None) -> None:

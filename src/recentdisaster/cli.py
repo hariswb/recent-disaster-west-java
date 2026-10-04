@@ -9,7 +9,7 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("-v", "--verbose", action="store_true")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    r = sub.add_parser("run", help="fetch, classify, extract and write docs/data/incidents.json")
+    r = sub.add_parser("run", help="fetch, classify, extract and write docs/kebencanaan-jabar/data/incidents.json")
     r.add_argument("--no-llm", action="store_true", help="rules only")
     r.add_argument("--dry-run", action="store_true", help="do not write output or cache")
     r.add_argument("--sources", help="comma-separated source ids (also runs disabled ones)")

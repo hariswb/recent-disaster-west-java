@@ -41,12 +41,15 @@ export function barChart(rows, { label, unit = "insiden" } = {}) {
   }).join("")}</ul>`;
 }
 
-// Solid topic card: icon, name, count. Nothing else.
-export function lensCard(l, count) {
+// Solid topic card: icon, name, and its two largest victim figures. Nothing else.
+const CARD_LABEL = { dead: "meninggal", injured: "luka", missing: "hilang", displaced: "mengungsi" };
+export function lensCard(l, count, t) {
+  const top = Object.keys(CARD_LABEL).filter((k) => t[k]).sort((a, b) => t[b] - t[a]).slice(0, 2)
+    .map((k) => `${nf.format(t[k])} ${CARD_LABEL[k]}`).join(" · ");
   return `<li><a class="topic${count ? "" : " quiet"}" href="#/topik/${l.key}" style="--ld:var(--d-${l.key})">
     <span class="topic-icon">${lensIcon(l, 22)}</span>
     <span class="topic-name">${esc(l.label)}</span>
-    <span class="topic-count">${count ? `${nf.format(count)} insiden` : "Tidak ada laporan"}</span>
+    <span class="topic-count">${!count ? "Tidak ada laporan" : top || "Belum ada laporan korban"}</span>
     ${CHEVRON}
   </a></li>`;
 }
@@ -70,9 +73,11 @@ export function caseList(data, list, { detail = false, empty = "Tidak ada kasus 
     : `<p class="empty">${esc(empty)}</p>`;
 }
 
+// Styled to match the chips; the chevron is our own so it follows the theme colours.
+const CARET = '<svg class="caret" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
 export function select(id, label, options, value) {
-  return `<label class="field" for="${id}"><span>${esc(label)}</span><select id="${id}">${options.map(([v, l]) =>
-    `<option value="${esc(v)}"${v === value ? " selected" : ""}>${esc(l)}</option>`).join("")}</select></label>`;
+  return `<label class="field" for="${id}"><span>${esc(label)}</span><span class="select"><select id="${id}">${options.map(([v, l]) =>
+    `<option value="${esc(v)}"${v === value ? " selected" : ""}>${esc(l)}</option>`).join("")}</select>${CARET}</span></label>`;
 }
 
 export function sortToggle(value) {

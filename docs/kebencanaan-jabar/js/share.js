@@ -23,10 +23,10 @@ function loadLib() {
 // Our own @font-face rules with the woff2 files inlined, so html-to-image never has to
 // scan stylesheets (Leaflet's cross-origin CSS would throw SecurityErrors).
 const FONTS = [
-  ["Atkinson Hyperlegible Next", "fonts/atkinson-next-latin.woff2"],
-  ["Atkinson Hyperlegible Next", "fonts/atkinson-next-latin-ext.woff2"],
-  ["Plus Jakarta Sans", "fonts/jakarta-latin.woff2"],
-  ["Plus Jakarta Sans", "fonts/jakarta-latin-ext.woff2"],
+  ["Atkinson Hyperlegible Next", "../fonts/atkinson-next-latin.woff2"],
+  ["Atkinson Hyperlegible Next", "../fonts/atkinson-next-latin-ext.woff2"],
+  ["Plus Jakarta Sans", "../fonts/jakarta-latin.woff2"],
+  ["Plus Jakarta Sans", "../fonts/jakarta-latin-ext.woff2"],
 ];
 let fontCss = null;
 function fontEmbedCSS() {
@@ -42,7 +42,7 @@ function fontEmbedCSS() {
   return fontCss;
 }
 
-const siteUrl = () => (location.host + location.pathname).replace(/\/(index\.html)?$/, "");
+const SITE = "kondisi.id/kebencanaan-jabar";
 
 function stamp(data) {
   const g = new Date(data.generated_at);
@@ -56,14 +56,13 @@ function frame(data, { band, body, lens = null, sensitive = false }) {
   const style = lens ? ` style="--lc:var(--l-${lens.key});--ld:var(--d-${lens.key})"` : "";
   return `<div class="story"${style}>
     <div class="st-band">
-      <div class="st-head"><span class="st-brand"><span class="st-dot"></span>Pantau Insiden Jabar</span><span>${esc(stamp(data))}</span></div>
+      <div class="st-head"><span class="st-brand"><span class="st-dot"></span>Kebencanaan Jawa Barat</span><span>${esc(stamp(data))}</span></div>
       ${band}
     </div>
     <div class="st-body">${body}</div>
     <div class="st-foot">
       ${sensitive ? `<p class="st-support">${esc(SUPPORT_LINE)}</p>` : ""}
-      <p>Dihimpun otomatis dari berita daring; dapat keliru. Periksa sumber asli.</p>
-      <p class="st-url">${esc(siteUrl())}</p>
+      <p class="st-url">${SITE}</p>
     </div>
   </div>`;
 }
@@ -99,7 +98,7 @@ function overviewCard(data, list) {
     band: `<p class="st-eyebrow">Situasi Jawa Barat</p>
       <p class="st-hero"><b>${nf.format(list.length)}</b> insiden</p>`,
     body: `${figures(totals(list))}
-      <h2 class="st-h">Menurut topik</h2>
+      <h2 class="st-h">Jumlah Insiden Berdasarkan Topik</h2>
       ${bars(groups.map((g) => ({ label: g.lens.label, value: g.count, lens: g.lens.key, icon: lensIcon(g.lens, 28) })))}
       ${kabs.length ? `<p class="st-kabs"><span>Wilayah terbanyak</span> ${kabs.map(([k, n]) => `${esc(shortKab(k))} <b>${n}</b>`).join('<span class="st-sep">·</span>')}</p>` : ""}`,
   });
@@ -164,7 +163,7 @@ function cardFor(data, spec) {
 function fileName(spec, data) {
   const d = data.generated_at.slice(0, 10);
   const part = spec.kind === "case" ? `kasus-${spec.incident.id}` : spec.kind === "topic" ? `topik-${spec.lens.key}` : spec.kind === "list" ? "kasus" : "ringkasan";
-  return `pantau-jabar-${part}-${d}.png`;
+  return `kebencanaan-jabar-${part}-${d}.png`;
 }
 
 // ---------------------------------------------------------------- captions
@@ -201,7 +200,7 @@ export async function openShare(data, spec, title) {
   const img = dlg.querySelector("img");
   const status = dlg.querySelector(".share-status");
   const hint = dlg.querySelector(".share-hint");
-  const text = `${captionFor(data, spec)} Pantau Insiden Jabar`;
+  const text = `${captionFor(data, spec)} Kebencanaan Jawa Barat`;
   for (const [k, u] of Object.entries(intents(text, location.href))) $a(k).href = u;
   const ig = $a("ig"), more = $a("more"), save = $a("save");
   ig.disabled = true; more.disabled = true; more.hidden = true;

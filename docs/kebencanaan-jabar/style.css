@@ -1,17 +1,17 @@
-/* Pantau Insiden Jabar — calm, legible, mobile-first.
+/* Kebencanaan Jawa Barat — calm, legible, mobile-first.
    Fonts: Plus Jakarta Sans (headings, figures) + Atkinson Hyperlegible Next (body), self-hosted, SIL OFL. */
 
 @font-face { font-family: "Atkinson Hyperlegible Next"; font-style: normal; font-weight: 200 800; font-display: swap;
-  src: url(fonts/atkinson-next-latin.woff2) format("woff2");
+  src: url(../fonts/atkinson-next-latin.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: "Atkinson Hyperlegible Next"; font-style: normal; font-weight: 200 800; font-display: swap;
-  src: url(fonts/atkinson-next-latin-ext.woff2) format("woff2");
+  src: url(../fonts/atkinson-next-latin-ext.woff2) format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 200 800; font-display: swap;
-  src: url(fonts/jakarta-latin.woff2) format("woff2");
+  src: url(../fonts/jakarta-latin.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 200 800; font-display: swap;
-  src: url(fonts/jakarta-latin-ext.woff2) format("woff2");
+  src: url(../fonts/jakarta-latin-ext.woff2) format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 
 /* ------------------------------------------------------------------ tokens */
@@ -129,7 +129,8 @@ h2[tabindex]:focus { outline: none; }
 .band a { color: #fff; }
 .band :focus-visible { outline-color: #fff; }
 .meta { font-size: .95rem; }
-.src-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.src-head { margin-top: 8px; font-weight: 700; color: rgba(255, 255, 255, .9); }
+.src-btns { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .band .btn.src { background: #fff; color: #1F2A37; border-color: #fff; min-height: 48px; }
 .band .btn.src:hover { background: #F1F4F3; }
 .btn.src svg { flex: none; }
@@ -197,7 +198,26 @@ a.chart-row[aria-current="true"] { background: var(--accent-soft); font-weight: 
 /* ------------------------------------------------------------------ filters */
 .filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
 .field { display: grid; gap: 4px; font-size: .875rem; color: var(--ink-2); flex: 1 1 160px; min-width: 0; }
-.field select { min-height: 44px; padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); color: var(--ink); width: 100%; }
+.select { position: relative; display: block; }
+.select select { appearance: none; -webkit-appearance: none; display: block; width: 100%; min-height: 44px; padding: 6px 42px 6px 16px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink); font-size: .95rem; cursor: pointer;
+  text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+.select select:hover { background: var(--surface-2); }
+.select .caret { position: absolute; right: 14px; top: 50%; translate: 0 -50%; color: var(--ink-2); pointer-events: none; }
+.select select option { background: var(--surface); color: var(--ink); }
+/* Customizable select (Chromium 135+): the open list matches too. Other browsers keep their native list. */
+@supports (appearance: base-select) {
+  .select select, .select select::picker(select) { appearance: base-select; }
+  .select select { display: flex; align-items: center; }
+  .select select::picker-icon { display: none; }
+  .select select:open { border-color: var(--accent); }
+  .select select::picker(select) { margin-block: 6px; padding: 6px; border: 1px solid var(--line); border-radius: var(--r-sm);
+    background: var(--surface); color: var(--ink); box-shadow: 0 8px 28px rgba(10, 14, 20, .18); max-height: min(60dvh, 420px); }
+  .select select option { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border-radius: 10px; font-size: .95rem; cursor: pointer; }
+  .select select option::checkmark { display: none; }
+  .select select option:hover, .select select option:focus-visible { background: var(--surface-2); outline: none; }
+  .select select option:checked { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+}
 .chips { display: flex; flex-wrap: wrap; gap: 6px; flex-basis: 100%; }
 .chip { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line);
   background: var(--surface); cursor: pointer; font-size: .95rem; }

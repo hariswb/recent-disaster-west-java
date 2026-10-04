@@ -41,7 +41,7 @@ function render({ routeChange = true } = {}) {
   const focusKey = routeChange ? null : active?.id;
   const main = $("#view");
   main.innerHTML = view.html;
-  document.title = `${view.title} · Pantau Insiden Jabar`;
+  document.title = `${view.title} · Kebencanaan Jawa Barat`;
   $("#live").textContent = `Halaman: ${view.title}`;
   $("#btn-back").hidden = !route.parts.length;
   $("#btn-share").hidden = !view.share;

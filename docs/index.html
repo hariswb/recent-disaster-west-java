@@ -3,69 +3,79 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pantau Insiden Jabar</title>
-<meta name="description" content="Insiden bencana dan sosial di Jawa Barat dalam 24 jam terakhir, dikelompokkan menurut dampak psikososial.">
+<title>kondisi.id</title>
+<meta name="description" content="Pantauan kondisi terkini dari berita daring, dikelompokkan per kanal.">
 <meta name="theme-color" content="#0E4F4A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%230F6B63%22/%3E%3Cpath d=%22M6 15l4-4 3 3 5-5%22 stroke=%22white%22 stroke-width=%222.2%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
-<link rel="preload" href="fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css">
+<script>
+  // Links shared before the move to /kebencanaan-jabar/ used hash routes on the root page.
+  if (location.hash.startsWith("#/")) location.replace("kebencanaan-jabar/" + location.search + location.hash);
+</script>
+<style>
+@font-face { font-family: "Atkinson Hyperlegible Next"; font-weight: 200 800; font-display: swap; src: url(fonts/atkinson-next-latin.woff2) format("woff2"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-weight: 200 800; font-display: swap; src: url(fonts/jakarta-latin.woff2) format("woff2"); }
+:root {
+  color-scheme: light;
+  --page: #FAFAF8; --surface-2: #F1F4F3; --ink: #1F2A37; --ink-2: #445061; --line: #E3E7E6;
+  --band: #0E4F4A; --band-2: #146E66; --focus: #0F6B63; --shadow: 0 1px 2px rgba(31, 42, 55, .05), 0 6px 20px rgba(31, 42, 55, .06);
+  --font-body: "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-head: "Plus Jakarta Sans", "Atkinson Hyperlegible Next", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #121619; --surface-2: #232A30; --ink: #F1F0EC; --ink-2: #C9CDD3; --line: #2C343B;
+    --band: #0B3B37; --band-2: #0F524C; --focus: #6FDCCD; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #121619; --surface-2: #232A30; --ink: #F1F0EC; --ink-2: #C9CDD3; --line: #2C343B;
+  --band: #0B3B37; --band-2: #0F524C; --focus: #6FDCCD; --shadow: none;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 400 1.0625rem/1.55 var(--font-body); }
+h1, h2 { font-family: var(--font-head); line-height: 1.2; margin: 0; }
+p { margin: 0; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-inline: 16px; }
+.top { background: linear-gradient(120deg, var(--band), var(--band-2)); color: #fff; padding-block: 40px 36px; }
+.top h1 { font-size: clamp(1.75rem, 1.25rem + 2.2vw, 2.5rem); font-weight: 800; }
+.top p { margin-top: 8px; font-size: 1.125rem; color: rgba(255, 255, 255, .9); max-width: 62ch; }
+main { padding-block: 28px 40px; display: grid; gap: 14px; }
+h2 { font-size: 1.25rem; }
+.channels { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+.channel { display: grid; gap: 4px; padding: 18px 20px; border-radius: 18px; background: linear-gradient(120deg, var(--band), var(--band-2));
+  color: #fff; text-decoration: none; box-shadow: var(--shadow); transition: transform .15s; }
+.channel:hover { transform: translateY(-2px); }
+.channel b { font-family: var(--font-head); font-size: 1.15rem; }
+.channel span { font-size: .95rem; opacity: .92; }
+.foot { padding-block: 0 28px; }
+.foot p { font-size: .925rem; color: var(--ink-2); border-top: 1px solid var(--line); padding-top: 18px; max-width: 70ch; }
+@media (prefers-reduced-motion: reduce) { .channel { transition: none; } }
+</style>
+<script>
+  try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch { /* storage unavailable */ }
+</script>
 </head>
 <body>
-<a class="skip" href="#view">Langsung ke isi</a>
 <header class="top">
-  <div class="top-inner">
-    <a class="brand" href="#/"><span class="brand-mark" aria-hidden="true"></span>Pantau Insiden Jabar</a>
-    <button type="button" class="theme" id="theme" aria-label="Ganti tema"></button>
+  <div class="wrap">
+    <h1>kondisi.id</h1>
+    <p>Pantauan kondisi terkini dari berita daring, dihimpun otomatis dan dikelompokkan per kanal.</p>
   </div>
 </header>
-<p class="sample-banner" id="sample-banner" hidden>Data contoh untuk uji tampilan, bukan kejadian nyata.</p>
-
-<main id="view" class="wrap" tabindex="-1">
-  <section class="sec"><p class="lede">Memuat data…</p></section>
-</main>
-<p id="live" class="sr-only" aria-live="polite"></p>
-
-<nav class="actionbar" aria-label="Aksi halaman">
-  <button type="button" id="btn-back" class="btn ghost" hidden>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>Kembali</button>
-  <button type="button" id="btn-share" class="btn primary" hidden>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 15l3-3 2 2 3-3"/><circle cx="9" cy="8" r="1.2"/></svg>Bagikan gambar</button>
-</nav>
-
-<footer class="foot wrap">
-  <p><strong>Metode.</strong> Berita daring dari media di Jawa Barat dihimpun otomatis empat kali sehari, lalu dipilah dan diringkas dengan
-    aturan kata kunci serta model bahasa (AI). Hasilnya dapat keliru; selalu periksa sumber asli sebelum menindaklanjuti.</p>
-</footer>
-
-<dialog id="share" class="sheet" aria-labelledby="share-title">
-  <div class="sheet-head">
-    <h2 id="share-title">Bagikan gambar</h2>
-    <button type="button" class="btn ghost icon-only" data-act="close" aria-label="Tutup">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-  </div>
-  <p class="share-status" role="status"></p>
-  <img class="share-preview" alt="" hidden width="1080" height="1440">
-  <ul class="platforms" aria-label="Bagikan ke">
-    <li><button type="button" class="plat" data-act="ig" disabled>
-      <span class="plat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg></span>Instagram</button></li>
-    <li><a class="plat" data-act="x" target="_blank" rel="noopener">
-      <span class="plat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.2 2.3h3.3l-7.2 8.3 8.5 11.2h-6.7l-5.2-6.8-6 6.8H1.7l7.7-8.8L1.3 2.3h6.8l4.7 6.2 5.4-6.2Zm-1.1 17.5h1.8L7.1 4.1h-2l12 15.7Z"/></svg></span>X</a></li>
-    <li><a class="plat" data-act="threads" target="_blank" rel="noopener">
-      <span class="plat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M16.8 11.3c-.4-2.8-2.2-4.3-4.8-4.3-2.9 0-4.6 2-4.6 5s1.8 5 4.7 5c2.5 0 4-1.4 4-3.3 0-2-1.6-2.9-3.8-2.9-2 0-3.2 1-3.2 2.3 0 1.2 1 2 2.4 2 2.4 0 3.5-2 3.5-4.8 0-4.4-2.8-7.3-7.2-7.3C4.7 3 3 6.9 3 12s2 9 7.8 9c3.3 0 5.8-1.3 7.2-3.5"/></svg></span>Threads</a></li>
-    <li><a class="plat" data-act="wa" target="_blank" rel="noopener">
-      <span class="plat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.2-4.2A8.5 8.5 0 1 1 20.5 12Z"/><path d="M9 8.5c0 3.6 2.9 6.5 6.5 6.5l1-1.6-2-1-1 .8a4.6 4.6 0 0 1-2.2-2.2l.8-1-1-2-1.6 1Z" fill="currentColor" stroke="none"/></svg></span>WhatsApp</a></li>
-    <li><a class="plat" data-act="fb" target="_blank" rel="noopener">
-      <span class="plat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.2c0-.9.3-1.4 1.5-1.4h1.4V5.1c-.3 0-1.1-.1-2.1-.1-2.1 0-3.6 1.3-3.6 3.7V11H8.3v3h2.4v7h2.8Z"/></svg></span>Facebook</a></li>
-    <li><button type="button" class="plat" data-act="more" hidden disabled>
-      <span class="plat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></span>Lainnya</button></li>
-    <li><a class="plat" data-act="save" aria-disabled="true">
-      <span class="plat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span>Unduh</a></li>
+<main class="wrap">
+  <h2>Kanal</h2>
+  <ul class="channels">
+    <li><a class="channel" href="kebencanaan-jabar/">
+      <b>Kebencanaan Jawa Barat</b>
+      <span>Insiden bencana dan sosial di Jawa Barat dalam 24 jam terakhir, dikelompokkan menurut dampak psikososial.</span>
+    </a></li>
   </ul>
-  <p class="share-hint">Di ponsel, Instagram membuka pilihan Story atau Feed.</p>
-</dialog>
-<div id="story-stage" aria-hidden="true"></div>
-
-<script type="module" src="js/app.js"></script>
+</main>
+<footer class="foot wrap">
+  <p>Hasil dihimpun otomatis dan dapat keliru; selalu periksa sumber asli sebelum menindaklanjuti.</p>
+</footer>
 </body>
 </html>

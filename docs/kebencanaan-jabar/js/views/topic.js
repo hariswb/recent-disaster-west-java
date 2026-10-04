@@ -31,7 +31,7 @@ export function topic({ data, list, params, query }) {
   ${lens.sensitive ? contentNote() : ""}
 
   <section class="sec stats" aria-labelledby="h-total">
-    <h2 id="h-total" class="count-head"><b>${nf.format(inLens.length)}</b> insiden dalam ${data.window_hours} jam terakhir</h2>
+    <h2 id="h-total" class="count-head"><b>${nf.format(inLens.length)}</b> insiden</h2>
     ${figures(totals(inLens))}
     <h2 class="sub">Jenis kejadian</h2>
     ${barChart(catRows, { label: "Jumlah insiden menurut jenis kejadian" })}

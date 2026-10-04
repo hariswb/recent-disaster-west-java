@@ -1,4 +1,4 @@
-# recentdisaster: Pantau Insiden Jabar
+# recentdisaster: kondisi.id
 
 This is a zero-cost monitor of incidents in West Java (Jawa Barat) over the **last 24 hours**. It covers:
 - natural hazards: flood, landslide, earthquake, whirlwind, drought, volcano
@@ -12,7 +12,7 @@ It runs on a GitHub Actions cron schedule, pulls in regional news feeds, and ext
 fetch (RSS | WP JSON | Google News | HTML) → normalize → 24h window → dedupe
  → rule prefilter (taxonomy + Jabar gazetteer) → fetch article body (candidates only)
  → LLM extraction via rotating free providers (cached by URL) ─fallback→ rules
- → cluster reports of the same event → docs/data/incidents.json → dashboard
+ → cluster reports of the same event → docs/kebencanaan-jabar/data/incidents.json → dashboard
 ```
 
 For each incident the tool extracts:
@@ -89,12 +89,12 @@ uv run recentdisaster run                      # full run (uses the keys in .env
 uv run recentdisaster llm-check                # test each provider; lists models on failure
 uv run recentdisaster sources                  # fetch every source (incl. disabled) and report
 uv run pytest
-python -m http.server -d docs                  # preview the dashboard
+python -m http.server -d docs                  # preview at localhost:8000/kebencanaan-jabar/
 ```
 
 ## Dashboard
 
-`docs/` is a static site with no build step: plain ES modules under `docs/js/` and self-hosted fonts in `docs/fonts/` (Plus Jakarta Sans + Atkinson Hyperlegible Next, SIL OFL). It is written for the West Java clinical psychologists' association and is mobile-first.
+`docs/` is a static site with no build step, served at [kondisi.id](https://kondisi.id). The root `docs/index.html` lists the channels; each channel lives in its own folder. This one is `docs/kebencanaan-jabar/` (kondisi.id/kebencanaan-jabar): plain ES modules under `docs/kebencanaan-jabar/js/`, with self-hosted fonts shared by all channels in `docs/fonts/` (Plus Jakarta Sans + Atkinson Hyperlegible Next, SIL OFL). It is written for the West Java clinical psychologists' association and is mobile-first.
 
 Hash routes give three levels:
 
@@ -105,7 +105,7 @@ Hash routes give three levels:
 | `#/kasus` | All cases with filters (`?lensa=`, `?kat=`, `?wil=`) |
 | `#/kasus/<id>` | One case: date and sources, a key-value table (location, impact, affected groups), description |
 
-The five psychosocial lenses are defined in `docs/js/model.js` (`LENSES`):
+The five psychosocial lenses are defined in `docs/kebencanaan-jabar/js/model.js` (`LENSES`):
 - Bencana & pengungsian
 - Sudden Loss
 - Kesehatan publik
@@ -118,7 +118,7 @@ The lenses map taxonomy categories to groups. A new category must be added there
 - They never include news headlines.
 - Cases in the violence lens show only kab/kota, omit the summary, and carry the support line (`SUPPORT_LINE` in `model.js`).
 
-For design QA, `?data=sample` loads `docs/data/sample-incidents.json`, which adds fictional `[CONTOH]` cases across every lens.
+For design QA, `?data=sample` loads `docs/kebencanaan-jabar/data/sample-incidents.json`, which adds fictional `[CONTOH]` cases across every lens.
 
 ## Configuration
 
@@ -143,7 +143,7 @@ Free-tier model names change often. If `llm-check` fails, it prints the provider
 
 ### State
 
-`data/cache/processed.json` holds per-URL results for 48 hours. An article is only sent to an LLM once, and incidents stay on the dashboard for 24 hours even after the article drops out of its feed. The workflow commits this file together with `docs/data/incidents.json`.
+`data/cache/processed.json` holds per-URL results for 48 hours. An article is only sent to an LLM once, and incidents stay on the dashboard for 24 hours even after the article drops out of its feed. The workflow commits this file together with `docs/kebencanaan-jabar/data/incidents.json`.
 
 ## Known limitations
 
