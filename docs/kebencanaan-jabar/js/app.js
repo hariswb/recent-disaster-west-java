@@ -127,6 +127,41 @@ function bind() {
     if (e.target.closest("[data-act=close]") || e.target === e.currentTarget) e.currentTarget.close();
   });
   $("#theme").addEventListener("click", cycleTheme);
+  $("#install").addEventListener("click", install);
+  $("#install-ios").addEventListener("click", (e) => {
+    if (e.target.closest("[data-act=close]") || e.target === e.currentTarget) e.currentTarget.close();
+  });
+}
+
+// ---------------------------------------------------------------- install as app
+// Chrome/Edge/Samsung offer a native prompt (beforeinstallprompt); iOS has none, so we show the steps.
+let installPrompt = null;
+const standalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+function showInstall(on) { $("#install").hidden = !on || standalone(); }
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  installPrompt = e;
+  showInstall(true);
+});
+window.addEventListener("appinstalled", () => {
+  installPrompt = null;
+  showInstall(false);
+  trackEvent("app_install");
+});
+
+async function install() {
+  if (installPrompt) {
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    trackEvent("app_install_prompt", { outcome });
+    if (outcome === "accepted") { installPrompt = null; showInstall(false); }
+  } else if (isIOS) {
+    trackEvent("app_install_prompt", { outcome: "ios_instructions" });
+    $("#install-ios").showModal();
+  }
 }
 
 // ---------------------------------------------------------------- theme
@@ -159,6 +194,8 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
 // ---------------------------------------------------------------- load
 async function load() {
   initAnalytics();
+  showInstall(isIOS);
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => { /* offline support is optional */ });
   let saved = "";
   try { saved = localStorage.getItem("theme") || ""; } catch { /* storage unavailable */ }
   applyTheme(saved);

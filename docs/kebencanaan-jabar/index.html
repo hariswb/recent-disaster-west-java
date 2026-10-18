@@ -6,6 +6,10 @@
 <title>Kebencanaan Jawa Barat</title>
 <meta name="description" content="Insiden bencana dan sosial di Jawa Barat dalam 24 jam terakhir, dikelompokkan menurut dampak psikososial.">
 <meta name="theme-color" content="#0E4F4A">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Bencana Jabar">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Crect width=%2224%22 height=%2224%22 rx=%226%22 fill=%22%230F6B63%22/%3E%3Cpath d=%22M6 15l4-4 3 3 5-5%22 stroke=%22white%22 stroke-width=%222.2%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
 <link rel="preload" href="../fonts/atkinson-next-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../fonts/jakarta-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -16,7 +20,11 @@
 <header class="top">
   <div class="top-inner">
     <a class="brand" href="#/"><span class="brand-mark" aria-hidden="true"></span>Kebencanaan Jawa Barat</a>
-    <button type="button" class="theme" id="theme" aria-label="Ganti tema"></button>
+    <div class="top-actions">
+      <button type="button" class="install" id="install" hidden aria-label="Pasang aplikasi di ponsel">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 7.5v7M9 11.5l3 3 3-3"/></svg><span>Pasang</span></button>
+      <button type="button" class="theme" id="theme" aria-label="Ganti tema"></button>
+    </div>
   </div>
 </header>
 <p class="sample-banner" id="sample-banner" hidden>Data contoh untuk uji tampilan, bukan kejadian nyata.</p>
@@ -62,6 +70,21 @@
       <span class="plat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span>Unduh</a></li>
   </ul>
   <p class="share-hint">Di ponsel, Instagram membuka pilihan Story atau Feed.</p>
+</dialog>
+<dialog id="install-ios" class="sheet" aria-labelledby="install-title">
+  <div class="sheet-head">
+    <h2 id="install-title">Pasang di layar utama</h2>
+    <button type="button" class="btn ghost icon-only" data-act="close" aria-label="Tutup">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <p class="install-lede">Buka dasbor ini langsung dari ikon di ponsel, seperti aplikasi.</p>
+  <ol class="install-steps">
+    <li>Ketuk tombol <b>Bagikan</b>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="(ikon kotak dengan panah ke atas)"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>
+      di bilah Safari.</li>
+    <li>Gulir lalu pilih <b>Tambah ke Layar Utama</b>.</li>
+    <li>Ketuk <b>Tambah</b>. Ikon <b>Bencana Jabar</b> muncul di layar utama.</li>
+  </ol>
 </dialog>
 <div id="story-stage" aria-hidden="true"></div>
 

@@ -154,6 +154,10 @@ Free-tier model names change often. If `llm-check` fails, it prints the provider
 
 `data/cache/processed.json` holds per-URL results for 48 hours. An article is only sent to an LLM once, and incidents stay on the dashboard for 24 hours even after the article drops out of its feed. The workflow commits this file together with `docs/kebencanaan-jabar/data/incidents.json`.
 
+### Install as an app
+
+The dashboard is a Progressive Web App (`manifest.webmanifest`, `icons/`, `sw.js` in `docs/kebencanaan-jabar/`). The **Pasang** button in the header opens the browser's install prompt on Android and desktop Chrome/Edge. On iPhone/iPad, where browsers have no prompt, it shows the steps (Bagikan → Tambah ke Layar Utama). It is hidden once the app runs installed. The service worker is network-first, so data is never stale. Without signal, the installed app opens with the last loaded data and its "Diperbarui" timestamp. After changing the files listed in `SHELL` in `sw.js`, bump `CACHE` there.
+
 ## Expert analysis
 
 The Analisis column shows recent studies, research findings and expert analysis about the kinds of events the monitor tracks, as long as Jawa Barat is a subject of the analysis. Volume is not the goal; every entry must pass all of these:
