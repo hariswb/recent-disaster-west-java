@@ -75,7 +75,7 @@ def isolated(tmp_path, monkeypatch, now):
         monkeypatch.setattr(pipeline, "fetch_all", lambda sources, known: (items, [{"id": "t", "ok": True, "items": len(items)}]))
         monkeypatch.setattr(pipeline, "_fetch_bodies", lambda its: {})
         return pipeline.run(use_llm=False, now=kw.get("now", now), output_path=tmp_path / "out.json",
-                            cache_path=tmp_path / "cache.json")
+                            cache_path=tmp_path / "cache.json", analysis_cache_path=None)
     return run
 
 

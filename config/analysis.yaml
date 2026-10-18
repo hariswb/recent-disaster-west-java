@@ -1,0 +1,135 @@
+# Expert analysis and research about the kinds of events the monitor tracks, focused on Jawa Barat.
+#
+# Every incident run screens its feed items (plus the `daily` sources below) and queues candidates in
+# data/cache/analysis.json. The weekly `recentdisaster analysis` run fetches the `weekly` sources,
+# reads each queued article and keeps only those that pass every check:
+#   1. full article text is readable (Google News links are decoded to the publisher URL)
+#   2. the text names a Jabar place, a category keyword and an expert/research marker
+#   3. LLM extraction: is_analysis, jabar_relevant, category, experts, finding, verbatim evidence
+#   4. grounding: the evidence quote and at least one expert name occur in the article text
+#   5. a second LLM from a different provider confirms the finding is supported by the article
+# Accepted entries are published for `retention_days` (by publication date). There is no
+# rules fallback: without two independent LLM answers an article stays queued.
+
+retention_days: 30
+max_articles_per_run: 40      # LLM budget: two calls per article
+max_attempts: 3               # body fetch / LLM failures before an article is dropped
+min_body_chars: 600
+max_body_chars: 6000
+min_confidence: 0.75
+evidence_similarity: 90       # rapidfuzz partial_ratio, quote vs. article text
+
+# Words that mark expert or research content. Case-insensitive except acronyms.
+expert_markers:
+  - pakar
+  - peneliti
+  - penelitian
+  - riset
+  - periset
+  - ahli
+  - guru besar
+  - profesor
+  - 'prof\.?'
+  - dosen
+  - akademisi
+  - ilmuwan
+  - pengamat
+  - studi
+  - kajian
+  - analisis
+  - BRIN
+  - tim (?:peneliti|ahli|riset)
+  - (?:epidemiolog|psikolog|sosiolog|geolog|hidrolog|klimatolog|kriminolog|vulkanolog|seismolog|toksikolog|ahli gizi)\w*
+
+# Topic words that analysis uses but incident reports rarely do; added to the taxonomy patterns
+# for screening only.
+extra_patterns:
+  gempa: [sesar, megathrust, likuefaksi, seismik]
+  longsor: [gerakan tanah, rawan longsor]
+  kekeringan: [kemarau panjang, 'el ?nino', defisit air]
+  banjir: [daerah aliran sungai]
+  angin: [siklon]
+  wabah: [demam berdarah, leptospirosis, tuberkulosis]
+
+# Titles that are never analysis even when an expert is mentioned.
+exclude_title:
+  - lowongan
+  - promo
+  - diskon
+  - beasiswa
+  - wisuda
+  - penerimaan mahasiswa
+  - pendaftaran
+  - lomba
+  - juara
+  - penghargaan
+  - ramalan
+  - zodiak
+  - film
+  - sinopsis
+  - bunuh diri
+  - gantung diri
+
+# Research and expert sources. `daily` sources are fetched on every incident run because their
+# feeds only hold a few days of items; `weekly` ones only by the weekly analysis run.
+# Bing links point straight at the publisher; Google News links must be decoded first, which
+# Google rate limits, so Google items that cannot be decoded stay queued for the next run.
+sources:
+  - id: theconversation-id
+    name: The Conversation Indonesia
+    type: rss
+    url: https://theconversation.com/id/articles.atom
+    schedule: daily
+  - id: ugm
+    name: UGM
+    type: rss
+    url: https://ugm.ac.id/id/feed/
+    schedule: daily
+  - id: ipb
+    name: IPB University
+    type: rss
+    url: https://www.ipb.ac.id/feed/
+    schedule: daily
+  - id: unpad
+    name: Universitas Padjadjaran
+    type: rss
+    url: https://www.unpad.ac.id/feed/
+    schedule: daily
+  - id: mongabay-id
+    name: Mongabay Indonesia
+    type: rss
+    url: https://www.mongabay.co.id/feed/
+    schedule: daily
+  - id: bing-analisis
+    name: Bing News
+    type: bing
+    window: 7d
+    schedule: weekly
+    terms: [pakar, peneliti, ahli]
+    topics:
+      - banjir Jawa Barat
+      - longsor Jawa Barat
+      - gempa sesar Jawa Barat
+      - kekeringan Jawa Barat
+      - puting beliung Jawa Barat
+      - kebakaran Jawa Barat
+      - keracunan MBG Jawa Barat
+      - wabah DBD Jawa Barat
+      - perundungan Jawa Barat
+      - kekerasan seksual anak Jawa Barat
+      - tawuran Jawa Barat
+      - intoleransi Jawa Barat
+      - TPPO Jawa Barat
+  - id: gnews-analisis
+    name: Google News
+    type: gnews
+    window: 8d
+    schedule: weekly
+    queries:
+      - '(pakar OR peneliti OR ahli OR "guru besar" OR akademisi OR pengamat) (banjir OR longsor OR "pergerakan tanah" OR gempa OR sesar OR "puting beliung") ("jawa barat" OR jabar)'
+      - '(pakar OR peneliti OR ahli OR "guru besar" OR akademisi OR pengamat) (kekeringan OR "krisis air" OR kebakaran OR karhutla OR erupsi) ("jawa barat" OR jabar)'
+      - '(pakar OR peneliti OR ahli OR "guru besar" OR akademisi) ("jembatan ambruk" OR "jalan amblas" OR "tanggul jebol" OR kecelakaan) ("jawa barat" OR jabar)'
+      - '(pakar OR peneliti OR ahli OR epidemiolog OR "ahli gizi" OR "guru besar") (keracunan OR MBG OR KLB OR wabah OR DBD) ("jawa barat" OR jabar)'
+      - '(pakar OR peneliti OR psikolog OR kriminolog OR sosiolog OR akademisi OR pengamat) (perundungan OR bullying OR "kekerasan seksual" OR KDRT OR "kekerasan anak" OR tawuran OR intoleransi OR TPPO) ("jawa barat" OR jabar)'
+      - '(riset OR penelitian OR studi OR kajian) (banjir OR longsor OR gempa OR kekeringan OR keracunan OR perundungan OR tawuran) ("jawa barat" OR jabar)'
+      - 'BRIN (banjir OR longsor OR gempa OR kekeringan OR "sesar lembang" OR "sesar cimandiri" OR "sesar baribis") ("jawa barat" OR jabar)'

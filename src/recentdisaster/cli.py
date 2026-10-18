@@ -14,6 +14,11 @@ def main(argv: list[str] | None = None) -> None:
     r.add_argument("--dry-run", action="store_true", help="do not write output or cache")
     r.add_argument("--sources", help="comma-separated source ids (also runs disabled ones)")
 
+    a = sub.add_parser("analysis", help="verify queued expert analysis and write docs/kebencanaan-jabar/data/analysis.json (weekly)")
+    a.add_argument("--no-llm", action="store_true", help="fetch and queue only; nothing is verified without an LLM")
+    a.add_argument("--dry-run", action="store_true", help="do not write output or cache")
+    a.add_argument("--no-fetch", action="store_true", help="only verify what is already queued")
+
     sub.add_parser("llm-check", help="test each configured LLM provider")
     sub.add_parser("sources", help="fetch each source and report item counts")
 
@@ -51,6 +56,22 @@ def main(argv: list[str] | None = None) -> None:
             v = ", ".join(f"{k}={n}" for k, n in i["victims"].items())
             print(f"  - [{i['category']}] {i['kab_kota'] or '?'} / {i['kecamatan'] or '-'} :: {i['title']} "
                   f"({i['report_count']} src, {i['extraction']}) {v}")
+
+    elif args.cmd == "analysis":
+        from recentdisaster.analysis import run as run_analysis
+
+        out = run_analysis(use_llm=not args.no_llm, dry_run=args.dry_run, fetch=not args.no_fetch)
+        for s in out["source_status"]:
+            print(f"  [{'ok ' if s['ok'] else 'ERR'}] {s['id']:<28} {s['items']:>4} items  {s['error'] or ''}")
+        print("stats:", json.dumps(out["stats"]))
+        for p in out["llm_providers"]:
+            print(f"  llm {p['name']}: calls={p['calls']} exhausted={p['exhausted']}")
+        print("\nrejected:")
+        for title, reason in out["_rejected"]:
+            print(f"  - {reason} :: {title[:90]}")
+        print("\npublished:")
+        for e in out["entries"]:
+            print(f"  - [{e['category']}/{e['kind']}] {e['published'][:10]} {e['title'][:80]}\n      {e['finding']}")
 
     elif args.cmd == "llm-check":
         from recentdisaster.llm import check

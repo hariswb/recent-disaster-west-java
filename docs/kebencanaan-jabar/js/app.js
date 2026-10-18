@@ -1,10 +1,12 @@
-// Entry: load data, route between Ringkasan › Topik › Kasus, wire filters, share and theme.
-import { esc } from "./model.js";
+// Entry: load data, route between Ringkasan › Topik › Kasus (and Peta), wire filters, share and theme.
+import { initAnalytics, trackEvent, trackPage } from "../../analytics.js";
+import { esc, lensOf } from "./model.js";
 import { openShare } from "./share.js";
 import { overview } from "./views/overview.js";
 import { topic } from "./views/topic.js";
 import { cases } from "./views/cases.js";
 import { caseView } from "./views/case.js";
+import { mapView } from "./views/map.js";
 
 const $ = (s) => document.querySelector(s);
 const state = { data: null, view: null, navigated: false };
@@ -20,6 +22,7 @@ function resolve({ parts, query }) {
   if (parts[0] === "topik" && parts[1]) return topic({ ...ctx, params: { lens: parts[1] } });
   if (parts[0] === "kasus" && parts[1]) return caseView({ ...ctx, params: { id: parts[1] } });
   if (parts[0] === "kasus") return cases(ctx);
+  if (parts[0] === "peta") return mapView(ctx);
   if (!parts.length) return overview(ctx);
   return null;
 }
@@ -36,6 +39,7 @@ function notFound() {
 function render({ routeChange = true } = {}) {
   const route = parseHash();
   const view = resolve(route) || notFound();
+  state.view?.unmount?.();
   state.view = view;
   const active = document.activeElement;
   const focusKey = routeChange ? null : active?.id;
@@ -45,12 +49,23 @@ function render({ routeChange = true } = {}) {
   $("#live").textContent = `Halaman: ${view.title}`;
   $("#btn-back").hidden = !route.parts.length;
   $("#btn-share").hidden = !view.share;
+  view.mount?.();
   if (routeChange) {
+    trackView(route, view);
     window.scrollTo({ top: 0 });
     main.querySelector("h1")?.focus({ preventScroll: true });
   } else if (focusKey) {
     document.getElementById(focusKey)?.focus({ preventScroll: true });
   }
+}
+
+// Analytics get the route as a path (no filters) and, on case pages, the topic instead of the
+// headline, so survivors' cases never show up by title in reports.
+function trackView({ parts }, view) {
+  const isCase = parts[0] === "kasus" && parts[1];
+  const inc = isCase && state.data.incidents.find((i) => i.id === parts[1]);
+  const title = isCase ? (inc ? `Kasus · ${lensOf(inc.category).label}` : "Kasus") : view.title;
+  trackPage(`/${parts.map(encodeURIComponent).join("/")}`, title);
 }
 
 // Filters rewrite the query without adding history entries.
@@ -88,6 +103,8 @@ function bind() {
     }
     const sort = e.target.closest("button[data-sort]");
     if (sort) { setQuery({ urut: sort.dataset.sort }); return; }
+    const opt = e.target.closest("button[data-q]");
+    if (opt) { setQuery({ [opt.dataset.q]: opt.dataset.v }); return; }
     const chip = e.target.closest("button[data-lens]");
     if (chip && state.view?.filters?.lensParam) {
       setQuery({ [state.view.filters.lensParam]: chip.dataset.lens, kat: "" });
@@ -100,9 +117,13 @@ function bind() {
     location.hash = parts[0] === "kasus" && parts[1] ? "#/kasus" : "#/";
   });
   $("#btn-share").addEventListener("click", () => {
-    if (state.view?.share) openShare(state.data, state.view.share, state.view.title);
+    if (!state.view?.share) return;
+    trackEvent("share_open", { level: state.view.share.kind });
+    openShare(state.data, state.view.share, state.view.title);
   });
   $("#share").addEventListener("click", (e) => {
+    const act = e.target.closest("[data-act]")?.dataset.act;
+    if (act && act !== "close") trackEvent("share", { method: act, content_type: state.view?.share?.kind });
     if (e.target.closest("[data-act=close]") || e.target === e.currentTarget) e.currentTarget.close();
   });
   $("#theme").addEventListener("click", cycleTheme);
@@ -123,25 +144,36 @@ function paintThemeButton() {
 function applyTheme(t) {
   if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
   paintThemeButton();
+  if (state.view?.themed) render({ routeChange: false }); // map tiles and contour colours follow the theme
 }
 function cycleTheme() {
   const next = isDark() ? "light" : "dark";
   try { localStorage.setItem("theme", next); } catch { /* storage unavailable */ }
   applyTheme(next);
 }
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", paintThemeButton);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+  paintThemeButton();
+  if (state.view?.themed && !document.documentElement.dataset.theme) render({ routeChange: false });
+});
 
 // ---------------------------------------------------------------- load
 async function load() {
+  initAnalytics();
   let saved = "";
   try { saved = localStorage.getItem("theme") || ""; } catch { /* storage unavailable */ }
   applyTheme(saved);
   const sample = new URLSearchParams(location.search).get("data") === "sample";
   const url = sample ? "data/sample-incidents.json" : "data/incidents.json";
+  // Expert analysis is optional: the dashboard works without it.
+  const analysis = fetch(`data/${sample ? "sample-analysis" : "analysis"}.json?t=${Date.now()}`, { cache: "no-store" })
+    .then((r) => (r.ok ? r.json() : null)).catch(() => null);
   try {
     const r = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     state.data = await r.json();
+    const a = await analysis;
+    state.data.analysis = a?.entries || [];
+    state.data.analysisDays = a?.retention_days || 30;
   } catch (err) {
     $("#view").innerHTML = `<section class="hero slim"><h1>Data gagal dimuat</h1><p class="lede">${esc(err.message)}. Coba muat ulang halaman.</p></section>`;
     return;

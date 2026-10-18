@@ -1,5 +1,5 @@
 // Small HTML building blocks shared by the views.
-import { LENSES, ago, catLabel, esc, impactText, lensIcon, lensOf, nf, shortKab } from "./model.js";
+import { LENSES, TZ, ago, catLabel, esc, impactText, lensIcon, lensOf, nf, shortKab } from "./model.js";
 
 const CHEVRON = '<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
 
@@ -91,6 +91,38 @@ export function lensChips(counts, value) {
     ${LENSES.filter((l) => counts[l.key] || l.key === value).map((l) =>
       `<button type="button" class="chip" id="lens-${l.key}" data-lens="${l.key}" aria-pressed="${value === l.key}" style="--lc:var(--l-${l.key})">${lensIcon(l, 16)}${esc(l.short)} <span class="n">${counts[l.key] || 0}</span></button>`).join("")}
   </div>`;
+}
+
+// "Analisis" column on a topic page: verified expert analysis and research for its kinds of events.
+const KIND_LABEL = { riset: "Riset", pendapat_pakar: "Pendapat pakar", kajian_lembaga: "Kajian lembaga" };
+const ANA_SHOWN = 4;
+const fmtDay = (iso) => new Intl.DateTimeFormat("id-ID", { timeZone: TZ, day: "numeric", month: "short" }).format(new Date(iso));
+
+function analysisItem(data, a) {
+  const who = (a.experts || []).map((e) => e.affiliation ? `${e.name} (${e.affiliation})` : e.name).join("; ");
+  return `<li class="ana">
+    <p class="ana-meta"><span class="ana-kind">${esc(KIND_LABEL[a.kind] || "Analisis")}</span>${esc(catLabel(data, a.category))} · ${esc(fmtDay(a.published))}</p>
+    <a class="ana-title" href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.title)}<span class="sr-only"> (tab baru)</span></a>
+    <p class="ana-finding">${esc(a.finding)}</p>
+    <p class="ana-who">${who ? `${esc(who)} · ` : ""}${esc(a.source)}</p>
+    ${a.evidence ? `<details class="ana-quote"><summary>Kutipan dari artikel</summary><blockquote>${esc(a.evidence)}</blockquote></details>` : ""}
+  </li>`;
+}
+
+export function analysisColumn(data, lens, kat) {
+  const all = (data.analysis || []).filter((a) => lensOf(a.category).key === lens.key);
+  const list = kat ? all.filter((a) => a.category === kat) : all;
+  const scope = kat ? catLabel(data, kat).toLowerCase() : "topik ini";
+  const body = !list.length
+    ? `<p class="empty">Belum ada analisis pakar atau riset tentang ${esc(scope)} di Jawa Barat dalam ${data.analysisDays || 30} hari terakhir.</p>`
+    : `<ul class="ana-list">${list.slice(0, ANA_SHOWN).map((a) => analysisItem(data, a)).join("")}</ul>
+      ${list.length > ANA_SHOWN ? `<details class="ana-more"><summary>Tampilkan ${nf.format(list.length - ANA_SHOWN)} lainnya</summary>
+        <ul class="ana-list">${list.slice(ANA_SHOWN).map((a) => analysisItem(data, a)).join("")}</ul></details>` : ""}`;
+  return `<section class="ana-col" aria-labelledby="h-ana">
+    <h2 class="sub" id="h-ana">Analisis${kat ? ` <span class="ana-scope">· ${esc(catLabel(data, kat))}</span>` : ""}</h2>
+    <p class="ana-note">Kajian dan pendapat pakar tentang kejadian di Jawa Barat, ${data.analysisDays || 30} hari terakhir. Diseleksi dan diverifikasi otomatis; baca sumber aslinya.</p>
+    ${body}
+  </section>`;
 }
 
 export function contentNote() {
