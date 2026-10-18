@@ -5,11 +5,11 @@ from concurrent.futures import ThreadPoolExecutor
 from recentdisaster.config import load_yaml
 from recentdisaster.models import RawItem
 from recentdisaster.net import client
-from recentdisaster.sources import gnews, html, rss, wp_json
+from recentdisaster.sources import bing, gnews, html, rss, wp_json
 
 log = logging.getLogger(__name__)
 
-FETCHERS = {"rss": rss.fetch, "gnews": gnews.fetch, "wp_json": wp_json.fetch, "html": html.fetch}
+FETCHERS = {"rss": rss.fetch, "gnews": gnews.fetch, "bing": bing.fetch, "wp_json": wp_json.fetch, "html": html.fetch}
 
 
 def load_sources(only: list[str] | None = None, include_disabled: bool = False) -> list[dict]:

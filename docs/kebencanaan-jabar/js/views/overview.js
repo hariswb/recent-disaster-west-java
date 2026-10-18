@@ -28,7 +28,7 @@ export function overview({ data, list }) {
   </section>
 
   <section class="sec" aria-labelledby="h-wil">
-    ${sectionHead("h-wil", "Wilayah terbanyak")}
+    ${sectionHead("h-wil", "Wilayah terbanyak", [href("/peta"), "Lihat peta"])}
     ${kabs.length ? barChart(kabs.map(([k, n]) => ({ label: shortKab(k), value: n, link: href("/kasus", { wil: k }) })), { label: "Lima kabupaten/kota dengan insiden terbanyak" })
       : `<p class="empty">Belum ada lokasi.</p>`}
   </section>`;

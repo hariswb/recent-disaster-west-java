@@ -86,6 +86,7 @@ uv sync
 cp .env.example .env                           # then fill in your keys
 uv run recentdisaster run --no-llm --dry-run   # rules only, writes nothing, prints candidates
 uv run recentdisaster run                      # full run (uses the keys in .env / env)
+uv run recentdisaster analysis --dry-run       # weekly expert-analysis review, prints accepted/rejected
 uv run recentdisaster llm-check                # test each provider; lists models on failure
 uv run recentdisaster sources                  # fetch every source (incl. disabled) and report
 uv run pytest
@@ -104,6 +105,11 @@ Hash routes give three levels:
 | `#/topik/<lens>` | One topic: numbers, kinds of events, case list (`?kat=`, `?wil=`, `?urut=terbaru`) |
 | `#/kasus` | All cases with filters (`?lensa=`, `?kat=`, `?wil=`) |
 | `#/kasus/<id>` | One case: date and sources, a key-value table (location, impact, affected groups), description |
+| `#/peta` | Map: incident points (sized by count, popups link to cases) on a street basemap or a terrain basemap with elevation contours (`?mode=kontur`), lens chips (`?lensa=`) |
+
+Each topic page has an **Analisis** column beside the "Jenis kejadian" chart (see [Expert analysis](#expert-analysis)). Selecting a jenis narrows it to that jenis.
+
+The map uses Leaflet (from a CDN, loaded only on `#/peta`) with OpenStreetMap tiles, or OpenTopoMap tiles (SRTM elevation contours and hillshade) in Kontur mode. Locations are kecamatan or kab/kota centroids. Cases in the violence lens are always drawn at their kab/kota centroid.
 
 The five psychosocial lenses are defined in `docs/kebencanaan-jabar/js/model.js` (`LENSES`):
 - Bencana & pengungsian
@@ -127,6 +133,7 @@ For design QA, `?data=sample` loads `docs/kebencanaan-jabar/data/sample-incident
 | `config/sources.yaml` | News sources. `type: rss / wp_json / gnews / html`. HTML sources use a `link_pattern`; only link text that looks like an incident gets fetched. |
 | `config/taxonomy.yaml` | Categories and Indonesian keyword regexes, title exclusions (simulasi, sosialisasi, …), and entity words. |
 | `config/llm_providers.yaml` | The free LLM pool: OpenAI-compatible `base_url`, ordered `models`, `rpm`, per-run caps. |
+| `config/analysis.yaml` | Expert-analysis sources, expert/research marker words, retention and verification thresholds. |
 | `data/gazetteer/jabar.json` | 27 kab/kota and 627 kecamatan with centroids. Rebuild it with `uv run python scripts/build_gazetteer.py`. |
 
 ### LLM rotation
@@ -143,7 +150,34 @@ Free-tier model names change often. If `llm-check` fails, it prints the provider
 
 ### State
 
+`data/cache/analysis.json` holds expert-analysis candidates and decisions for 30 days.
+
 `data/cache/processed.json` holds per-URL results for 48 hours. An article is only sent to an LLM once, and incidents stay on the dashboard for 24 hours even after the article drops out of its feed. The workflow commits this file together with `docs/kebencanaan-jabar/data/incidents.json`.
+
+## Expert analysis
+
+The Analisis column shows recent studies, research findings and expert analysis about the kinds of events the monitor tracks, as long as Jawa Barat is a subject of the analysis. Volume is not the goal; every entry must pass all of these:
+
+1. **Capture (every incident run).** Feed items, plus the `daily` research feeds (The Conversation Indonesia, UGM, IPB, Unpad, Mongabay), are screened by rules: a category keyword, an expert/research marker (pakar, peneliti, riset, guru besar, BRIN, …) and, for general news, a Jabar place. Candidates are queued in `data/cache/analysis.json`.
+2. **Weekly review (Monday 09:00 WIB, `recentdisaster analysis`).** Adds the `weekly` searches (Bing News and Google News, last 7–8 days), then for each queued article:
+   - reads the full text. Google News links are decoded to the publisher URL. Google rate limits this, so undecodable items stay queued and are retried in later runs, up to 3 attempts.
+   - requires Jabar to be a subject: a Jabar place in the title, or at least 3 mentions in the text.
+   - asks an LLM for `is_analysis`, `jabar_relevant`, category, kind (riset / pendapat pakar / kajian lembaga), experts, a 1–2 sentence finding and a **verbatim evidence quote**.
+   - checks the answer against the text: the quote must appear in the article (fuzzy ≥ 90), at least one expert name must appear (unless it is an institutional study), the category keyword must occur, and confidence must be ≥ 0.75.
+   - asks a **second LLM from a different provider** whether the finding is fully supported, is analysis, is about Jabar and has the right category. Any "no" rejects the article.
+   - drops other outlets' write-ups of an analysis already published.
+3. **Publish.** Accepted entries go to `docs/kebencanaan-jabar/data/analysis.json` and stay for **30 days** from publication, then leave both the page and the cache.
+
+There is no rules fallback. Without two independent LLM answers, an article stays queued. The run prints every rejection with its reason (`uv run recentdisaster analysis --dry-run`). To run it on demand, use **Actions → monitor → Run workflow → task: analysis**.
+
+## Analytics and Search Console
+
+Both are wired up but switched off until you add your IDs:
+
+- **Google Analytics 4.** Set `GA_ID` in `docs/analytics.js` to the web stream's Measurement ID (`G-…`, from GA4 Admin › Data streams). Both pages report page views per hash route, such as `/kebencanaan-jabar/topik/bencana`; filters are left out. Case pages are reported as "Kasus · <topik>", never by headline. The `share_open` and `share` (platform) events are sent too, and GA's enhanced measurement records outbound clicks to news sources.
+- **Search Console.** Add a URL-prefix property for `https://kondisi.id/`. Then either paste the HTML-tag code into the commented `google-site-verification` meta tag in `docs/index.html`, or verify the whole domain with a DNS TXT record. Submit `https://kondisi.id/sitemap.xml` (`docs/robots.txt` points to it).
+
+Indonesia's PDP law (UU 27/2022) applies to analytics data. Consider adding a short privacy note before enabling GA.
 
 ## Known limitations
 

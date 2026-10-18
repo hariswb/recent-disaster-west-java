@@ -1,6 +1,6 @@
 // L1 Topik: one psychosocial lens — its numbers, kinds of events, and cases.
 import { LENS, catLabel, countBy, esc, lensIcon, lensOf, nf, shortKab, sortCases, totals } from "../model.js";
-import { barChart, caseList, contentNote, crumbs, figures, href, sectionHead, select, sortToggle } from "../ui.js";
+import { analysisColumn, barChart, caseList, contentNote, crumbs, figures, href, sectionHead, select, sortToggle } from "../ui.js";
 
 export function topic({ data, list, params, query }) {
   const lens = LENS[params.lens];
@@ -33,12 +33,17 @@ export function topic({ data, list, params, query }) {
   <section class="sec stats" aria-labelledby="h-total">
     <h2 id="h-total" class="count-head"><b>${nf.format(inLens.length)}</b> insiden</h2>
     ${figures(totals(inLens))}
-    <h2 class="sub">Jenis kejadian</h2>
-    ${barChart(catRows, { label: "Jumlah insiden menurut jenis kejadian" })}
+    <div class="split">
+      <div>
+        <h2 class="sub">Jenis kejadian</h2>
+        ${barChart(catRows, { label: "Jumlah insiden menurut jenis kejadian" })}
+      </div>
+      ${analysisColumn(data, lens, kat)}
+    </div>
   </section>
 
   <section class="sec" aria-labelledby="h-kasus">
-    ${sectionHead("h-kasus", `Kasus <span class="count">${nf.format(shown.length)}</span>`)}
+    ${sectionHead("h-kasus", `Kasus <span class="count">${nf.format(shown.length)}</span>`, [href("/peta", { lensa: lens.key }), "Lihat di peta"])}
     <div class="filters">
       ${select("f-kat", "Jenis", [["", "Semua jenis"], ...[...catCounts.keys()].map((c) => [c, catLabel(data, c)])], kat)}
       ${select("f-wil", "Wilayah", [["", "Semua wilayah"], ...kabs.map(([k]) => [k, shortKab(k)])], wil)}

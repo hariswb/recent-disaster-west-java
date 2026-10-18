@@ -4,7 +4,15 @@ on:
   schedule:
     # 06:00, 10:00, 14:00, 18:00 WIB (UTC+7)
     - cron: "0 23,3,7,11 * * *"
+    # Weekly expert-analysis review: Monday 09:00 WIB
+    - cron: "0 2 * * 1"
   workflow_dispatch:
+    inputs:
+      task:
+        description: What to run
+        type: choice
+        options: [incidents, analysis]
+        default: incidents
   push:
     branches: [main]
     paths: ["docs/**", "!docs/*/data/**"]   # redeploy when the dashboard code changes
@@ -40,7 +48,7 @@ jobs:
         run: uv run pytest -q
 
       - name: Collect and extract incidents
-        if: github.event_name != 'push'
+        if: github.event_name == 'schedule' && github.event.schedule != '0 2 * * 1' || inputs.task == 'incidents'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -51,6 +59,18 @@ jobs:
           GLM_API_KEY: ${{ secrets.GLM_API_KEY }}
         run: uv run recentdisaster run
 
+      - name: Verify expert analysis (weekly)
+        if: github.event.schedule == '0 2 * * 1' || inputs.task == 'analysis'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GLM_API_KEY: ${{ secrets.GLM_API_KEY }}
+        run: uv run recentdisaster analysis
+
       - name: Commit data
         if: github.event_name != 'push'
         run: |
@@ -60,7 +80,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "no changes"
           else
-            git commit -m "data: update $(date -u +%Y-%m-%dT%H:%MZ)"
+            git commit -m "data: ${{ github.event.schedule == '0 2 * * 1' && 'analysis' || inputs.task || 'update' }} $(date -u +%Y-%m-%dT%H:%MZ)"
             git pull --rebase --autostash
             git push
           fi

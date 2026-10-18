@@ -4,10 +4,10 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from recentdisaster import llm, rules
+from recentdisaster import analysis, llm, rules
 from recentdisaster.article import fetch_article
 from recentdisaster.cluster import cluster, to_incident
-from recentdisaster.config import CACHE_PATH, OUTPUT_PATH, WIB, load_yaml
+from recentdisaster.config import ANALYSIS_CACHE_PATH, CACHE_PATH, OUTPUT_PATH, WIB, load_yaml
 from recentdisaster.dedupe import dedupe
 from recentdisaster.models import Extraction, RawItem, Report
 from recentdisaster.net import client
@@ -54,6 +54,7 @@ def run(
     now: datetime | None = None,
     output_path: Path = OUTPUT_PATH,
     cache_path: Path = CACHE_PATH,
+    analysis_cache_path: Path | None = ANALYSIS_CACHE_PATH,
 ) -> dict:
     now = now or datetime.now(WIB)
     cutoff = now - WINDOW
@@ -144,6 +145,12 @@ def run(
     }
 
     cache.prune(now - CACHE_WINDOW)
+    if not dry_run and analysis_cache_path:
+        # Expert-analysis candidates: queued now, verified by the weekly `analysis` run.
+        try:
+            output["stats"]["analysis_queued"] = analysis.capture_into(analysis_cache_path, items, now)
+        except Exception:  # never let the side queue break the incident run
+            log.exception("analysis capture failed")
     if not dry_run:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text(json.dumps(output, ensure_ascii=False, indent=1))

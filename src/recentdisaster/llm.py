@@ -6,7 +6,7 @@ import os
 import re
 import threading
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Collection
 from dataclasses import dataclass, field
 from typing import TypeVar
 
@@ -329,13 +329,15 @@ class ProviderPool:
             p.exhausted = f"repeated failures: {reason}"
         raise LLMUnavailable(reason)
 
-    def complete_json(self, messages: list[dict], validate: Callable[[dict], T]) -> tuple[T, str]:
+    def complete_json(self, messages: list[dict], validate: Callable[[dict], T],
+                      exclude: Collection[str] = ()) -> tuple[T, str]:
         """Return (validated result, 'provider/model'). Invalid output is retried once on
-        the next provider; rate limits/errors move on until every provider is exhausted."""
+        the next provider; rate limits/errors move on until every provider is exhausted.
+        `exclude` skips providers by name (independent second opinions)."""
         invalid = 0
         last_err: Exception | None = None
         for p in self._rotation():
-            if not p.available:
+            if not p.available or p.name in exclude:
                 continue
             try:
                 text = self._call(p, messages)

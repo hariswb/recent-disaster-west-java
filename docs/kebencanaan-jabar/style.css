@@ -170,6 +170,45 @@ a.chart-row[aria-current="true"] { background: var(--accent-soft); font-weight: 
   .chart-label span { white-space: normal; }
 }
 
+/* ------------------------------------------------------------------ topic page: chart + analysis column */
+.split { display: grid; gap: 24px; align-items: start; }
+@media (min-width: 900px) { .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; } }
+.ana-col { display: grid; gap: 10px; }
+.ana-scope { font-weight: 600; color: var(--ink-2); }
+.ana-note { font-size: .9rem; color: var(--ink-2); }
+.ana-list { list-style: none; margin: 0; padding: 0; }
+.ana { display: grid; gap: 4px; padding: 14px 0; border-top: 1px solid var(--line); }
+.ana-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: .875rem; color: var(--ink-2); }
+.ana-kind { padding: 1px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+.ana-title { font-weight: 700; line-height: 1.35; color: var(--ink); }
+.ana-title:hover { color: var(--accent); }
+.ana-finding { font-size: .975rem; }
+.ana-who { font-size: .875rem; color: var(--muted); }
+.ana-quote summary, .ana-more summary { cursor: pointer; font-size: .875rem; font-weight: 700; color: var(--accent); min-height: 32px; display: flex; align-items: center; }
+.ana-quote blockquote { margin: 6px 0 0; padding: 8px 12px; border-left: 3px solid var(--line); font-size: .925rem; color: var(--ink-2); }
+.ana-more > summary { margin-top: 4px; }
+
+/* ------------------------------------------------------------------ map */
+.map { height: min(68dvh, 560px); min-height: 340px; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface-2); z-index: 0; }
+.map .empty { margin: 16px; }
+.map .leaflet-tile-pane { filter: saturate(.55) brightness(1.02); }  /* calmer basemap so the data reads first */
+.map.dark-tiles .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) saturate(.4) brightness(.85) contrast(.9); }
+.map.topo .leaflet-tile-pane { filter: none; }
+.map.topo.dark-tiles .leaflet-tile-pane { filter: brightness(.78) contrast(1.05); }
+.map-note { font-size: .9rem; color: var(--ink-2); max-width: 70ch; }
+.map .leaflet-popup-content-wrapper, .map .leaflet-popup-tip { background: var(--surface); color: var(--ink); box-shadow: 0 8px 28px rgba(10, 14, 20, .18); }
+.map .leaflet-popup-content { margin: 12px 14px; font: inherit; font-size: .95rem; }
+.map .leaflet-container a.leaflet-popup-close-button { color: var(--ink-2); }
+.pop b { font-family: var(--font-head); }
+.pop ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 2px; }
+.pop li a { display: grid; padding: 6px 0; color: var(--ink); text-decoration: none; line-height: 1.3; border-top: 1px solid var(--line); }
+.pop li a span { font-size: .8rem; color: var(--ink-2); }
+.pop li a:hover { color: var(--accent); }
+.pop-more { display: inline-block; margin-top: 6px; font-weight: 700; }
+.map .leaflet-control-attribution { background: color-mix(in srgb, var(--surface) 85%, transparent); color: var(--ink-2); }
+.map .leaflet-control-attribution a { color: var(--accent); }
+.map .leaflet-bar a { background: var(--surface); color: var(--ink); border-color: var(--line); }
+
 /* ------------------------------------------------------------------ topic cards (solid, one line each) */
 .topics { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
 .topic { display: grid; grid-template-columns: auto 1fr auto; grid-template-rows: auto auto; column-gap: 14px; align-items: center;
