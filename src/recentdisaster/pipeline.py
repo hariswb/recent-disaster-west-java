@@ -6,7 +6,7 @@ from pathlib import Path
 
 from recentdisaster import analysis, llm, rules
 from recentdisaster.article import fetch_article
-from recentdisaster.cluster import cluster, to_incident
+from recentdisaster.cluster import cluster, to_incident, unique_ids
 from recentdisaster.config import ANALYSIS_CACHE_PATH, CACHE_PATH, OUTPUT_PATH, WIB, load_yaml
 from recentdisaster.dedupe import dedupe
 from recentdisaster.models import Extraction, RawItem, Report
@@ -41,7 +41,15 @@ def _finalize_llm(ext: Extraction, fallback: Extraction, gaz: rules.Gazetteer) -
     if ext.kab_kota and kab is None:
         log.debug("LLM kab_kota %r not in gazetteer", ext.kab_kota)
     kab = kab or fallback.kab_kota
-    kec = gaz.normalize_kec(kab, ext.kecamatan) or ext.kecamatan or (fallback.kecamatan if kab == fallback.kab_kota else None)
+    kec = gaz.normalize_kec(kab, ext.kecamatan)
+    if kec is None and ext.kecamatan:
+        # "Salopa, Kota Tasikmalaya": Salopa is in the Kabupaten, so trust the kecamatan.
+        same_base = [k for k in gaz.regencies_of_kec(ext.kecamatan) if gaz.base(k) == gaz.base(kab)]
+        if len(same_base) == 1:
+            kab, kec = same_base[0], gaz.normalize_kec(same_base[0], ext.kecamatan)
+        elif "," not in ext.kecamatan:  # not a list of kecamatan
+            kec = ext.kecamatan
+    kec = kec or (fallback.kecamatan if kab == fallback.kab_kota else None)
     victims = ext.victims if ext.victims.any() else fallback.victims
     return ext.model_copy(update={"kab_kota": kab, "kecamatan": kec, "desa": ext.desa or fallback.desa, "victims": victims})
 
@@ -123,7 +131,10 @@ def run(
         r for r in cache.reports.values()
         if r.time >= cutoff and r.extraction.is_incident and r.extraction.in_jabar and r.extraction.category
     ]
-    incidents = [to_incident(group, gaz) for group in cluster(in_window)]
+    # One article cached under two urls (direct feed and Google News) in different runs.
+    kept = {id(it) for it in dedupe([r.item for r in in_window])}
+    in_window = [r for r in in_window if id(r.item) in kept]
+    incidents = unique_ids([to_incident(group, gaz) for group in cluster(in_window)])
     incidents.sort(key=lambda i: i["last_reported"], reverse=True)
 
     tax = load_yaml("taxonomy.yaml")

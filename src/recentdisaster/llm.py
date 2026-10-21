@@ -16,6 +16,7 @@ from pydantic import ValidationError
 
 from recentdisaster.config import load_yaml
 from recentdisaster.models import CATEGORIES, Extraction, RawItem
+from recentdisaster.normalize import strip_site_suffix
 
 log = logging.getLogger(__name__)
 T = TypeVar("T")
@@ -395,8 +396,11 @@ Tugas: baca satu artikel berita dan kembalikan HANYA satu objek JSON (tanpa teks
   "in_jabar": boolean,      // true jika lokasi kejadian di Provinsi Jawa Barat
   "category": one of {list(CATEGORIES)},
   "subcategory": string|null,       // mis. "karhutla", "miras oplosan", "jembatan putus", "banjir bandang"
-  "kab_kota": string|null,          // nama kabupaten/kota Jawa Barat persis dari daftar yang diberikan
-  "kecamatan": string|null,
+  "kab_kota": string|null,          // nama kabupaten/kota Jawa Barat persis dari daftar yang diberikan;
+                                    // bedakan Kota dan Kabupaten. Ambil dari isi berita, BUKAN dari nama
+                                    // media/situs (mis. "karawangbekasi.disway.id" bukan berarti Karawang).
+                                    // Jika lokasi tidak disebut, isi null.
+  "kecamatan": string|null,         // satu nama kecamatan saja (bukan daftar, bukan kelurahan)
   "desa": string|null,              // desa/kelurahan/kampung
   "event_time": string|null,        // waktu kejadian ISO 8601 bila disebut (zona WIB), jika tidak null
   "victims": {{"dead": int|null, "injured": int|null, "missing": int|null,
@@ -430,7 +434,7 @@ def build_messages(item: RawItem, body: str, hints: dict, kab_list: list[str], m
         f"Petunjuk dari aturan otomatis (boleh salah): {json.dumps(hints, ensure_ascii=False)}\n\n"
         f"Sumber: {item.source_name}\n"
         f"Diterbitkan: {item.published.isoformat() if item.published else 'tidak diketahui'}\n"
-        f"Judul: {item.title}\n"
+        f"Judul: {strip_site_suffix(item.title)}\n"
         f"Isi:\n{text}"
     )
     return [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": user}]

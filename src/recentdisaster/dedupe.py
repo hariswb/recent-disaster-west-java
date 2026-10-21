@@ -1,7 +1,7 @@
 from rapidfuzz import fuzz
 
 from recentdisaster.models import RawItem
-from recentdisaster.normalize import canonical_url
+from recentdisaster.normalize import canonical_url, strip_site_suffix
 
 TITLE_SIMILARITY = 90
 
@@ -19,8 +19,8 @@ def dedupe(items: list[RawItem]) -> list[RawItem]:
         url = canonical_url(item.url)
         if url in seen_urls:
             continue
-        title = item.title.lower()
-        if any(fuzz.ratio(title, k.title.lower()) >= TITLE_SIMILARITY for k in kept):
+        title = strip_site_suffix(item.title).lower()
+        if any(fuzz.ratio(title, strip_site_suffix(k.title).lower()) >= TITLE_SIMILARITY for k in kept):
             continue
         seen_urls.add(url)
         kept.append(item)

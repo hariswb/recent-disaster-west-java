@@ -6,6 +6,7 @@ import pytest
 from recentdisaster import pipeline
 from recentdisaster.cluster import cluster, to_incident
 from recentdisaster.models import Extraction, Report, Victims
+from recentdisaster.normalize import strip_site_suffix
 from recentdisaster.rules import gazetteer
 from recentdisaster.sources.rss import parse_feed
 
@@ -122,3 +123,23 @@ def test_html_listing_links_and_headline_screen():
     assert _headline_worth_fetching("Banjir rendam 3 desa di Indramayu")
     assert not _headline_worth_fetching("Harga cabai naik")
     assert not _headline_worth_fetching("Simulasi gempa di sekolah")
+
+
+@pytest.mark.parametrize("title, expected", [
+    ("Sejumlah Siswa SD Sakit Perut Usai Konsumsi MBG - karawangbekasi.disway.id", "Sejumlah Siswa SD Sakit Perut Usai Konsumsi MBG"),
+    ("Puluhan Siswa Cirebon Keracunan - https://rakyatc", "Puluhan Siswa Cirebon Keracunan"),
+    ("Banjir Bandang - Tiga Tewas", "Banjir Bandang - Tiga Tewas"),
+])
+def test_strip_site_suffix(title, expected):
+    assert strip_site_suffix(title) == expected
+
+
+@pytest.mark.parametrize("kab, kec, expected", [
+    ("Kota Tasikmalaya", "Salopa", ("Kabupaten Tasikmalaya", "Salopa")),  # Salopa is in the Kabupaten
+    ("Kabupaten Cianjur", "Cianjur, Haurwangi, Mande", ("Kabupaten Cianjur", None)),  # a list, not one kecamatan
+    ("Kota Cirebon", "Harjamukti", ("Kota Cirebon", "Harjamukti")),
+])
+def test_finalize_llm_location(kab, kec, expected):
+    ext = Extraction(is_incident=True, in_jabar=True, category="mbg", kab_kota=kab, kecamatan=kec)
+    out = pipeline._finalize_llm(ext, Extraction(is_incident=True, in_jabar=True), gazetteer())
+    assert (out.kab_kota, out.kecamatan) == expected

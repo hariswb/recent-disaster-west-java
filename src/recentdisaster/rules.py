@@ -105,6 +105,17 @@ class Gazetteer:
                 return d["name"]
         return None
 
+    def base(self, kab_kota: str | None) -> str | None:
+        """'Kota Cirebon' and 'Kabupaten Cirebon' share the base 'cirebon'."""
+        r = self.by_name.get(kab_kota or "")
+        return r["base"].lower() if r else (kab_kota.lower() if kab_kota else None)
+
+    def regencies_of_kec(self, name: str | None) -> list[str]:
+        if not name:
+            return []
+        key = re.sub(r"^(kecamatan|kec\.?)\s+", "", name.strip(), flags=re.I).lower()
+        return [r["name"] for _, r in self._districts.get(key, [])]
+
     def locate(self, text: str, title: str = "") -> Location:
         loc = Location(jabar_mentioned=bool(_JABAR.search(text) or _JABAR.search(title)))
         scores: dict[str, float] = {}

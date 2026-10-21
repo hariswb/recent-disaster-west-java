@@ -4,12 +4,14 @@ import hashlib
 import re
 from collections import Counter
 from dataclasses import dataclass, field
+from datetime import timedelta
 from functools import cache
 
 from rapidfuzz import fuzz
 
 from recentdisaster.config import WIB
 from recentdisaster.models import Report, Victims
+from recentdisaster.normalize import strip_site_suffix
 from recentdisaster.rules import Gazetteer, gazetteer, taxonomy
 
 _STOP = set("""
@@ -18,6 +20,8 @@ ini itu tak tidak belum sudah masih jadi jadi bisa akan ada para warga sejumlah 
 satu dua tiga empat lima enam tujuh delapan sembilan sepuluh orang hari jam kali kembali terjadi
 api petugas damkar bpbd polisi polres pemkab pemkot pemprov berita terkini update news
 kabupaten kab kota jawa barat jabar kecamatan kec desa kampung kelurahan
+breaking breakingnews viral heboh tragis kronologi fakta begini
+kerugian ditaksir capai juta miliar tewas tewaskan meninggal hebat merembet
 """.split())
 _WORD = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 
@@ -36,16 +40,34 @@ def _noise_words() -> frozenset[str]:
     return frozenset(words)
 
 
+def _stem(w: str) -> str:
+    """Light Indonesian folding: 'muntah-muntah' -> 'muntah', 'anaknya' -> 'anak',
+    'rongsokan' -> 'rongsok'."""
+    w = re.sub(r"^(\w+)-\1$", r"\1", w)
+    if w.endswith("nya") and len(w) > 6:
+        w = w[:-3]
+    return w[:-2] if w.endswith("an") and len(w) >= 8 else w
+
+
 def title_tokens(title: str) -> frozenset[str]:
-    title = re.sub(r"\s[-–|]\s[^-–|]{2,30}$", "", title)  # trailing " - Publisher"
+    title = re.sub(r"\s[-–|]\s[^-–|]{2,30}$", "", strip_site_suffix(title))  # trailing " - Publisher"
     noise = _noise_words()
-    return frozenset(w for w in _WORD.findall(title.lower()) if len(w) > 2 and w not in noise and not w.isdigit())
+    words = (w for w in _WORD.findall(title.lower()) if w not in noise)
+    return frozenset(s for s in map(_stem, words) if len(s) > 2 and s not in noise and not s.isdigit())
+
+
+def _title(r: Report) -> str:
+    return strip_site_suffix(r.item.title).lower()
+
+
+def _near_copy(a: Report, b: Report) -> bool:
+    return fuzz.ratio(_title(a), _title(b)) >= 85
 
 
 def _related(a: Report, b: Report) -> bool:
     ta, tb = title_tokens(a.item.title), title_tokens(b.item.title)
     shared = len(ta & tb)
-    if fuzz.ratio(a.item.title.lower(), b.item.title.lower()) >= 85:
+    if _near_copy(a, b):
         return True
     return shared >= 3 or (shared >= 2 and shared / max(1, min(len(ta), len(tb))) >= 0.3)
 
@@ -55,7 +77,8 @@ def _same_place(a: Report, b: Report) -> bool:
     coarse for fires: a market fire and a pesantren fire in Surade are different events.)"""
     ea, eb = a.extraction, b.extraction
     norm = lambda d: re.sub(r"^(desa|kelurahan|kampung|dusun)\s+", "", (d or "").lower()).strip()  # noqa: E731
-    if not (ea.kab_kota and ea.kab_kota == eb.kab_kota):
+    gaz = gazetteer()
+    if not (ea.kab_kota and gaz.base(ea.kab_kota) == gaz.base(eb.kab_kota)):
         return False
     if norm(ea.desa) and norm(ea.desa) == norm(eb.desa):
         return True
@@ -86,31 +109,115 @@ class _Cluster:
     def kab_kota(self):
         return self._common("kab_kota")
 
+    @property
+    def base(self) -> str | None:
+        """Regency base name ('cirebon'): the LLM often mixes up Kota and Kabupaten."""
+        gaz = gazetteer()
+        vals = [gaz.base(r.extraction.kab_kota) for r in self.reports if r.extraction.kab_kota]
+        return Counter(vals).most_common(1)[0][0] if vals else None
 
-def _same_event(c: _Cluster, r: Report) -> bool:
-    e = r.extraction
-    kab = c.kab_kota
-    if e.kab_kota and kab and e.kab_kota != kab:
+    @property
+    def kecamatans(self) -> set[str]:
+        """Kecamatan known to the gazetteer (drops kelurahan and lists the LLM put there)."""
+        gaz = gazetteer()
+        return {k.lower() for r in self.reports if (k := gaz.normalize_kec(None, r.extraction.kecamatan))}
+
+    @property
+    def counts(self) -> set[int]:
+        """Victim counts large enough to fingerprint an event ("100 anak")."""
+        return {v for r in self.reports for v in r.extraction.victims.model_dump().values() if v and v >= 10}
+
+    @property
+    def tokens(self) -> frozenset[str]:
+        """Words in at least a third of the headlines: what the cluster is about,
+        not a word one follow-up happened to use ("membubung", "armada")."""
+        counts = Counter(w for r in self.reports for w in title_tokens(r.item.title))
+        return frozenset(w for w, n in counts.items() if 3 * n >= len(self.reports))
+
+
+# Slow-onset events cover a whole regency; one per regency and category at a time.
+_REGENCY_WIDE = {"kekeringan"}
+_MAX_GAP = timedelta(hours=36)
+
+
+class _Spread:
+    """Which (category, regency) groups use a title word. A word seen in only one
+    group ("bpn", "pasirbajing", "pecel") points at one event there; one seen
+    across regencies ("rumah", "sampah", "desak") does not. Kecamatan names only
+    say where, and two fires in Surade are still two fires."""
+
+    def __init__(self, reports: list[Report]):
+        gaz = gazetteer()
+        self._groups: dict[str, set] = {}
+        for r in reports:
+            if r.extraction.kab_kota:
+                key = (r.extraction.category, gaz.base(r.extraction.kab_kota))
+                for w in title_tokens(r.item.title):
+                    if not gaz.regencies_of_kec(w):
+                        self._groups.setdefault(w, set()).add(key)
+
+    def distinctive(self, words: frozenset[str], category, base) -> bool:
+        return any(w in self._groups and self._groups[w] <= {(category, base)} for w in words)
+
+
+def _guessed_place(r: Report) -> bool:
+    """The headline names no regency, so its location came from elsewhere (body, outlet)."""
+    return gazetteer().locate(_title(r)).kab_kota is None
+
+
+def _gap(a: _Cluster, b: _Cluster) -> timedelta:
+    a0, a1 = min(r.time for r in a.reports), max(r.time for r in a.reports)
+    b0, b1 = min(r.time for r in b.reports), max(r.time for r in b.reports)
+    return max(b0 - a1, a0 - b1, timedelta(0))
+
+
+def _same_event(a: _Cluster, b: _Cluster, spread: _Spread) -> bool:
+    pairs = [(x, y) for x in a.reports for y in b.reports]
+    if a.base and b.base and a.base != b.base:
+        # Only a near-copy headline that never named a place may cross regencies.
+        return any(_near_copy(x, y) and (_guessed_place(x) or _guessed_place(y)) for x, y in pairs)
+    if any(_near_copy(x, y) for x, y in pairs):
+        return True
+    if a.category != b.category:
         return False
-    same_cat = e.category == c.category
-    for x in c.reports:
-        if fuzz.ratio(x.item.title.lower(), r.item.title.lower()) >= 85:
-            return True
-        if same_cat and (_same_place(x, r) or _related(x, r)):
-            return True
-    return False
+    # Two known, different kecamatan: two fires in one regency, not one.
+    if a.kecamatans and b.kecamatans and not a.kecamatans & b.kecamatans:
+        return False
+    if any(_same_place(x, y) or _related(x, y) for x, y in pairs):
+        return True
+    # Most follow-ups only name the regency: fall back to regency + time + a telling word.
+    if _gap(a, b) > _MAX_GAP:
+        return False
+    if a.category in _REGENCY_WIDE:
+        return True
+    if not (a.base and b.base):
+        return False
+    if any(abs(x - y) <= 0.1 * max(x, y) for x in a.counts for y in b.counts):
+        return True
+    return spread.distinctive(a.tokens & b.tokens, a.category, a.base)
 
 
 def cluster(reports: list[Report]) -> list[list[Report]]:
+    spread = _Spread(reports)
     clusters: list[_Cluster] = []
     for r in sorted(reports, key=lambda r: r.time):
-        for c in clusters:
-            if _same_event(c, r):
-                c.reports.append(r)
-                break
+        one = _Cluster([r])
+        target = next((c for c in clusters if _same_event(c, one, spread)), None)
+        if target:
+            target.reports.append(r)
         else:
-            clusters.append(_Cluster([r]))
-    return [c.reports for c in clusters]
+            clusters.append(one)
+    # A report can bridge two clusters that formed before it arrived.
+    merged = True
+    while merged:
+        merged = False
+        for i, a in enumerate(clusters):
+            j = next((j for j in range(i + 1, len(clusters)) if _same_event(a, clusters[j], spread)), None)
+            if j is not None:
+                a.reports.extend(clusters.pop(j).reports)
+                merged = True
+                break
+    return [sorted(c.reports, key=lambda r: r.time) for c in clusters]
 
 
 def _best(reports: list[Report]) -> Report:
@@ -121,6 +228,10 @@ def to_incident(reports: list[Report], gaz: Gazetteer) -> dict:
     c = _Cluster(reports)
     best = _best(reports)
     kab = c.kab_kota
+    # A named kecamatan settles Kota vs Kabupaten better than a vote (Harjamukti is in Kota Cirebon).
+    by_kec = Counter(k for r in reports for k in gaz.regencies_of_kec(r.extraction.kecamatan) if gaz.base(k) == c.base)
+    if len(by_kec) == 1:
+        kab = next(iter(by_kec))
     kec = next((r.extraction.kecamatan for r in reports if r.extraction.kab_kota == kab and r.extraction.kecamatan), None)
     desa = next((r.extraction.desa for r in reports if r.extraction.kab_kota == kab and r.extraction.desa), None)
     coords = gaz.centroid(kab, kec)
@@ -167,3 +278,14 @@ def to_incident(reports: list[Report], gaz: Gazetteer) -> dict:
         "extraction": "llm" if any(r.method == "llm" for r in reports) else "rules",
         "confidence": max((r.extraction.confidence or 0 for r in reports), default=None),
     }
+
+
+def unique_ids(incidents: list[dict]) -> list[dict]:
+    """Ids hash category|kab|kec|date, so two incidents can share one. The earliest
+    keeps it (shared links stay valid); later ones also hash their first source url."""
+    taken: set[str] = set()
+    for inc in sorted(incidents, key=lambda i: (i["first_reported"], i["sources"][0]["url"])):
+        if inc["id"] in taken:
+            inc["id"] = hashlib.sha1(f"{inc['id']}|{inc['sources'][0]['url']}".encode()).hexdigest()[:10]
+        taken.add(inc["id"])
+    return incidents

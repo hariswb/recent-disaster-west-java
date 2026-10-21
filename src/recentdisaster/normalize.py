@@ -10,6 +10,8 @@ from recentdisaster.config import WIB
 _TRACKING = re.compile(r"^(utm_|fbclid|gclid|ref$|source$|amp$|page$|single$)")
 _TAG = re.compile(r"<[^>]+>")
 _WS = re.compile(r"\s+")
+# Trailing " - radarcirebon.disway.id" / " - https://rakyatc…" that some outlets put in <title>.
+_SITE_SUFFIX = re.compile(r"\s[-–|]\s+(?:https?://\S*|[\w-]+(?:\.[\w-]+)*\.(?:id|com|net|org|co|news|tv)\b\S*)$", re.I)
 
 
 def canonical_url(url: str) -> str:
@@ -47,8 +49,12 @@ def parse_date(value) -> datetime | None:
     return dt.astimezone(WIB)
 
 
+def strip_site_suffix(title: str) -> str:
+    return _SITE_SUFFIX.sub("", title).strip()
+
+
 def clean_title(title: str, publisher: str | None = None) -> str:
     title = strip_html(title)
     while publisher and title.endswith(f" - {publisher}"):
         title = title[: -len(publisher) - 3]
-    return title.strip()
+    return strip_site_suffix(title)
