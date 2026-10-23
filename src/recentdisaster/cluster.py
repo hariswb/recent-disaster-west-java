@@ -134,10 +134,36 @@ class _Cluster:
         counts = Counter(w for r in self.reports for w in title_tokens(r.item.title))
         return frozenset(w for w, n in counts.items() if 3 * n >= len(self.reports))
 
+    @property
+    def core_tokens(self) -> frozenset[str]:
+        """Words in at least half the headlines: what the cluster is *named* after."""
+        counts = Counter(w for r in self.reports for w in title_tokens(r.item.title))
+        return frozenset(w for w, n in counts.items() if 2 * n >= len(self.reports))
+
 
 # Slow-onset events cover a whole regency; one per regency and category at a time.
 _REGENCY_WIDE = {"kekeringan"}
 _MAX_GAP = timedelta(hours=36)
+
+# The LLM files one event under either of these depending on the article
+# (a doctor abusing his child is "kekerasan_anak" or "kekerasan_seksual").
+_FAMILIES = ({"kekerasan_seksual", "kekerasan_anak"}, {"mbg", "keracunan"})
+
+
+def family(category: str | None) -> str | None:
+    return next((min(f) for f in _FAMILIES if category in f), category)
+
+
+_ADVISORY = re.compile(
+    r"\b(waspada|ingatkan|imbau|himbau|ajak|prospek cuaca|prakiraan|berpotensi|mengancam|pencegahan|antisipasi|sosialisasi|simulasi)\b",
+    re.I,
+)
+
+
+def is_advisory(r: Report) -> bool:
+    """A warning or campaign, not an event. Only rule-extracted reports are judged
+    here: the LLM already decided `is_incident` for the others."""
+    return r.method == "rules" and not r.extraction.victims.any() and bool(_ADVISORY.search(_title(r)))
 
 
 class _Spread:
@@ -149,12 +175,19 @@ class _Spread:
     def __init__(self, reports: list[Report]):
         gaz = gazetteer()
         self._groups: dict[str, set] = {}
+        self._bases: dict[str, set] = {}
         for r in reports:
             if r.extraction.kab_kota:
-                key = (r.extraction.category, gaz.base(r.extraction.kab_kota))
+                base = gaz.base(r.extraction.kab_kota)
+                key = (family(r.extraction.category), base)
                 for w in title_tokens(r.item.title):
                     if not gaz.regencies_of_kec(w):
                         self._groups.setdefault(w, set()).add(key)
+                        self._bases.setdefault(w, set()).add(base)
+
+    def named_in(self, words: frozenset[str], *bases: str | None) -> bool:
+        """Some word is used in these regencies and nowhere else."""
+        return any(self._bases.get(w, {None}) <= set(bases) for w in words)
 
     def distinctive(self, words: frozenset[str], category, base) -> bool:
         return any(w in self._groups and self._groups[w] <= {(category, base)} for w in words)
@@ -171,14 +204,25 @@ def _gap(a: _Cluster, b: _Cluster) -> timedelta:
     return max(b0 - a1, a0 - b1, timedelta(0))
 
 
+def _shared_name(a: _Cluster, b: _Cluster, spread: _Spread) -> bool:
+    """Two established clusters named after the same word ("ciremai", "dokter") are
+    one event the outlets located differently (a mountain on a regency border, a crime
+    in Bandung with the arrest in Bekasi). The word must be used in these two regencies
+    only ("mbg" is used everywhere), and singletons are too thin to trust."""
+    return min(len(a.reports), len(b.reports)) >= 3 and _gap(a, b) <= _MAX_GAP \
+        and spread.named_in(a.core_tokens & b.core_tokens, a.base, b.base)
+
+
 def _same_event(a: _Cluster, b: _Cluster, spread: _Spread) -> bool:
     pairs = [(x, y) for x in a.reports for y in b.reports]
     if a.base and b.base and a.base != b.base:
         # Only a near-copy headline that never named a place may cross regencies.
-        return any(_near_copy(x, y) and (_guessed_place(x) or _guessed_place(y)) for x, y in pairs)
+        return any(_near_copy(x, y) and (_guessed_place(x) or _guessed_place(y)) for x, y in pairs) or (
+            family(a.category) == family(b.category) and _shared_name(a, b, spread)
+        )
     if any(_near_copy(x, y) for x, y in pairs):
         return True
-    if a.category != b.category:
+    if family(a.category) != family(b.category):
         return False
     # Two known, different kecamatan: two fires in one regency, not one.
     if a.kecamatans and b.kecamatans and not a.kecamatans & b.kecamatans:
@@ -194,7 +238,7 @@ def _same_event(a: _Cluster, b: _Cluster, spread: _Spread) -> bool:
         return False
     if any(abs(x - y) <= 0.1 * max(x, y) for x in a.counts for y in b.counts):
         return True
-    return spread.distinctive(a.tokens & b.tokens, a.category, a.base)
+    return spread.distinctive(a.tokens & b.tokens, family(a.category), a.base)
 
 
 def cluster(reports: list[Report]) -> list[list[Report]]:

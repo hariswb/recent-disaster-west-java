@@ -14,10 +14,12 @@ class Cache:
 
     seen:    canonical url -> first time any source listed it
     reports: canonical url -> extraction of a candidate article
+    merges:  cluster-pair key -> whether the LLM judged the two clusters one event
     """
 
     seen: dict[str, datetime] = field(default_factory=dict)
     reports: dict[str, Report] = field(default_factory=dict)
+    merges: dict[str, bool] = field(default_factory=dict)
 
     @classmethod
     def load(cls, path: Path = CACHE_PATH) -> "Cache":
@@ -27,6 +29,7 @@ class Cache:
         return cls(
             seen={u: parse_date(t) for u, t in raw.get("seen", {}).items()},
             reports={u: Report.model_validate(r) for u, r in raw.get("reports", {}).items()},
+            merges=raw.get("merges", {}),
         )
 
     def prune(self, cutoff: datetime) -> None:
@@ -38,5 +41,6 @@ class Cache:
         data = {
             "seen": {u: t.isoformat() for u, t in sorted(self.seen.items())},
             "reports": {u: r.model_dump(mode="json", exclude_none=True) for u, r in sorted(self.reports.items())},
+            "merges": dict(sorted(self.merges.items())),
         }
         path.write_text(json.dumps(data, ensure_ascii=False, indent=1))

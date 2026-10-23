@@ -12,7 +12,8 @@ It runs on a GitHub Actions cron schedule, pulls in regional news feeds, and ext
 fetch (RSS | WP JSON | Google News | HTML) → normalize → 24h window → dedupe
  → rule prefilter (taxonomy + Jabar gazetteer) → fetch article body (candidates only)
  → LLM extraction via rotating free providers (cached by URL) ─fallback→ rules
- → cluster reports of the same event → docs/kebencanaan-jabar/data/incidents.json → dashboard
+ → cluster reports of the same event (rules) → LLM judges borderline cluster pairs (merge only)
+ → docs/kebencanaan-jabar/data/incidents.json → dashboard
 ```
 
 For each incident the tool extracts:
@@ -152,7 +153,9 @@ Free-tier model names change often. If `llm-check` fails, it prints the provider
 
 `data/cache/analysis.json` holds expert-analysis candidates and decisions for 30 days.
 
-`data/cache/processed.json` holds per-URL results for 48 hours. An article is only sent to an LLM once, and incidents stay on the dashboard for 24 hours even after the article drops out of its feed. The workflow commits this file together with `docs/kebencanaan-jabar/data/incidents.json`.
+`data/cache/processed.json` holds per-URL results for 48 hours. An article is only sent to an LLM once, and incidents stay on the dashboard for 24 hours even after the article drops out of its feed. The workflow commits this file together with `docs/kebencanaan-jabar/data/incidents.json`. The same file keeps the LLM's same-event verdicts per cluster pair (`merges`), so a pair is asked once.
+
+Clustering is rule-based (`cluster.py`). A second pass (`merge.py`) shortlists cluster pairs the rules kept apart (same category family, within 48h, sharing a word used in at most two regencies) and asks the LLM, in batches of 10, whether they are one event. It can only merge, never split, and falls back to the rule clusters when no provider is available.
 
 ### Install as an app
 

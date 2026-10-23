@@ -4,9 +4,9 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from recentdisaster import analysis, llm, rules
+from recentdisaster import analysis, llm, merge, rules
 from recentdisaster.article import fetch_article
-from recentdisaster.cluster import cluster, to_incident, unique_ids
+from recentdisaster.cluster import cluster, is_advisory, to_incident, unique_ids
 from recentdisaster.config import ANALYSIS_CACHE_PATH, CACHE_PATH, OUTPUT_PATH, WIB, load_yaml
 from recentdisaster.dedupe import dedupe
 from recentdisaster.models import Extraction, RawItem, Report
@@ -130,11 +130,22 @@ def run(
     in_window = [
         r for r in cache.reports.values()
         if r.time >= cutoff and r.extraction.is_incident and r.extraction.in_jabar and r.extraction.category
+        and not is_advisory(r)
     ]
     # One article cached under two urls (direct feed and Google News) in different runs.
     kept = {id(it) for it in dedupe([r.item for r in in_window])}
     in_window = [r for r in in_window if id(r.item) in kept]
-    incidents = unique_ids([to_incident(group, gaz) for group in cluster(in_window)])
+    groups = cluster(in_window)
+    merge_stats = {}
+    if llm_ok:
+        pool.max_total += merge.CALL_RESERVE  # extraction may have used the whole cap
+        pool.deadline += merge.TIME_RESERVE
+    if llm_ok and pool.available:
+        try:
+            groups, merge_stats = merge.refine(groups, pool, cache.merges)
+        except Exception:  # refinement is a bonus; the rule clusters stand on their own
+            log.exception("LLM cluster refinement failed; using rule clusters")
+    incidents = unique_ids([to_incident(group, gaz) for group in groups])
     incidents.sort(key=lambda i: i["last_reported"], reverse=True)
 
     tax = load_yaml("taxonomy.yaml")
@@ -149,6 +160,7 @@ def run(
             "extracted_this_run": counts,
             "reports_in_window": len(in_window),
             "incidents": len(incidents),
+            "llm_merge": merge_stats,
         },
         "llm_providers": pool.summary() if pool else [],
         "source_status": statuses,
