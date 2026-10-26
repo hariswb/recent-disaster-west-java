@@ -1,13 +1,13 @@
 {
- "generated_at": "2026-10-19T14:16:26+07:00",
+ "generated_at": "2026-10-26T14:23:03+07:00",
  "retention_days": 30,
  "stats": {
-  "queued_this_run": 105,
-  "accepted": 2,
-  "rejected": 25,
-  "deferred": 13,
-  "pending": 28,
-  "published": 2
+  "queued_this_run": 86,
+  "accepted": 1,
+  "rejected": 24,
+  "deferred": 15,
+  "pending": 55,
+  "published": 3
  },
  "llm_providers": [
   {
@@ -25,7 +25,7 @@
   {
    "name": "groq",
    "model": "openai/gpt-oss-120b",
-   "calls": 8,
+   "calls": 6,
    "exhausted": null,
    "dead_models": [],
    "errors": []
@@ -33,39 +33,40 @@
   {
    "name": "openrouter",
    "model": "google/gemma-4-26b-a4b-it:free",
-   "calls": 4,
-   "exhausted": null,
+   "calls": 2,
+   "exhausted": "all models unavailable (rate limited: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'google/gemma-4-26b-a4b-it:free is temporarily rate-limited upstream. Please retry shortly, or add y)",
    "dead_models": [
     "qwen/qwen3.8-27b:free",
-    "google/gemma-4-31b-it:free"
+    "google/gemma-4-31b-it:free",
+    "nvidia/nemotron-3-super-120b-a12b:free",
+    "google/gemma-4-26b-a4b-it:free"
    ],
    "errors": [
-    "qwen/qwen3.8-27b:free: Error code: 404 - {'error': {'message': 'This model is unavailable for free. The paid version is available now - use this slug instead: qwen/qwen3.8-27b', 'code': 404}, 'user_id': 'user_3DQencxveqTxXk",
     "google/gemma-4-31b-it:free: rate limited: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your ",
-    "nvidia/nemotron-3-super-120b-a12b:free: no response within 60s"
+    "nvidia/nemotron-3-super-120b-a12b:free: Error code: 404 - {'error': {'message': 'Provider returned error', 'code': 404, 'metadata': {'raw': '{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function \\'ac74040f-9fc9-4c5e-ac74-279ba5161d69\\': Not ",
+    "google/gemma-4-26b-a4b-it:free: rate limited: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'google/gemma-4-26b-a4b-it:free is temporarily rate-limited upstream. Please retry shortly, or add y"
    ]
   },
   {
    "name": "glm",
    "model": "glm-4.5-flash",
-   "calls": 4,
+   "calls": 5,
    "exhausted": null,
    "dead_models": [
     "glm-4.7-flash"
    ],
    "errors": [
-    "glm-4.7-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}"
+    "glm-4.7-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}",
+    "glm-4.5-flash: no response within 60s"
    ]
   },
   {
    "name": "gemini",
    "model": "gemini-flash-lite-latest",
-   "calls": 3,
+   "calls": 5,
    "exhausted": null,
    "dead_models": [],
-   "errors": [
-    "gemini-flash-latest: no response within 60s"
-   ]
+   "errors": []
   }
  ],
  "source_status": [
@@ -75,7 +76,7 @@
    "ok": true,
    "items": 50,
    "error": null,
-   "seconds": 0.6
+   "seconds": 0.4
   },
   {
    "id": "ugm",
@@ -83,7 +84,7 @@
    "ok": true,
    "items": 10,
    "error": null,
-   "seconds": 2.7
+   "seconds": 2.1
   },
   {
    "id": "ipb",
@@ -91,7 +92,7 @@
    "ok": true,
    "items": 10,
    "error": null,
-   "seconds": 6.5
+   "seconds": 4.9
   },
   {
    "id": "unpad",
@@ -99,7 +100,7 @@
    "ok": false,
    "items": 0,
    "error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.unpad.ac.id/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
-   "seconds": 0.3
+   "seconds": 0.5
   },
   {
    "id": "mongabay-id",
@@ -107,26 +108,50 @@
    "ok": true,
    "items": 20,
    "error": null,
-   "seconds": 0.6
+   "seconds": 0.4
   },
   {
    "id": "bing-analisis",
    "name": "Bing News",
    "ok": true,
-   "items": 335,
+   "items": 331,
    "error": null,
-   "seconds": 8.7
+   "seconds": 7.4
   },
   {
    "id": "gnews-analisis",
    "name": "Google News",
    "ok": true,
-   "items": 247,
+   "items": 224,
    "error": null,
-   "seconds": 3.0
+   "seconds": 2.5
   }
  ],
  "entries": [
+  {
+   "id": "3fef93cb46",
+   "category": "mbg",
+   "kind": "kajian_lembaga",
+   "title": "Keracunan MBG SMKN 1 Gunungguruh Sukabumi, Terkontaminasi Bakteri E coli",
+   "url": "https://radarsukabumi.com/kabupaten-sukabumi/keracunan-mbg-smkn-1-gunungguruh-sukabumi-terkontaminasi-bakteri-e-coli/",
+   "source": "Radar Sukabumi",
+   "published": "2026-10-19T15:11:58+07:00",
+   "experts": [
+    {
+     "name": "Masykur Alawi",
+     "affiliation": "Dinas Kesehatan Kabupaten Sukabumi"
+    }
+   ],
+   "kab_kota": [
+    "Kabupaten Sukabumi"
+   ],
+   "finding": "Hasil penyelidikan epidemiologi dan uji laboratorium Dinas Kesehatan Kabupaten Sukabumi mengungkapkan bahwa keracunan massal pada program MBG di SMKN 1 Gunungguruh dipicu oleh kontaminasi bakteri E. coli pada air sumur dan peralatan makan akibat pelanggaran SOP sanitasi.",
+   "evidence": "Hasil penyelidikan epidemiologi dan uji laboratorium Dinas Kesehatan (Dinkes) Kabupaten Sukabumi mengungkapkan fakta mengejutkan terkait dugaan keracunan massal yang menimpa ratusan siswa dan guru di SMKN 1 Gunungguruh, Kecamatan Gunungguruh, Kabupaten Sukabumi. Air sumur serta peralatan makan yang digunakan penyedia jasa boga terbukti positif terkontaminasi bakteri Escherichia coli (E. coli).",
+   "verified_by": [
+    "gemini/gemini-flash-lite-latest",
+    "groq/openai/gpt-oss-120b"
+   ]
+  },
   {
    "id": "b74dd2df11",
    "category": "gempa",
