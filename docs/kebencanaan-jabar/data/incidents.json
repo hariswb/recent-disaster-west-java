@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-26T08:04:01+07:00",
+ "generated_at": "2026-10-26T15:42:07+07:00",
  "window_hours": 24,
  "categories": {
   "banjir": {
@@ -76,20 +76,20 @@
   }
  },
  "stats": {
-  "items_fetched": 487,
-  "items_in_window": 432,
-  "candidates": 144,
+  "items_fetched": 521,
+  "items_in_window": 477,
+  "candidates": 147,
   "extracted_this_run": {
-   "llm": 40,
+   "llm": 68,
    "rules": 0,
    "llm_failed": 0
   },
-  "reports_in_window": 124,
-  "incidents": 42,
+  "reports_in_window": 99,
+  "incidents": 32,
   "llm_merge": {
-   "pairs": 16,
-   "asked": 12,
-   "merged": 1,
+   "pairs": 22,
+   "asked": 21,
+   "merged": 5,
    "failed": 0
   },
   "analysis_queued": 1
@@ -109,8 +109,8 @@
   },
   {
    "name": "groq",
-   "model": "openai/gpt-oss-20b",
-   "calls": 19,
+   "model": "openai/gpt-oss-120b",
+   "calls": 29,
    "exhausted": null,
    "dead_models": [],
    "errors": []
@@ -135,24 +135,24 @@
   {
    "name": "glm",
    "model": "glm-4.5-flash",
-   "calls": 16,
-   "exhausted": null,
+   "calls": 4,
+   "exhausted": "all models unavailable (rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}})",
    "dead_models": [
-    "glm-4.7-flash"
+    "glm-4.7-flash",
+    "glm-4.5-flash"
    ],
    "errors": [
-    "glm-4.7-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}"
+    "glm-4.7-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}",
+    "glm-4.5-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}"
    ]
   },
   {
    "name": "gemini",
    "model": "gemini-flash-lite-latest",
-   "calls": 9,
+   "calls": 39,
    "exhausted": null,
    "dead_models": [],
-   "errors": [
-    "invalid output: 1 validation error for Extraction\nin_jabar\n  Field required [type=missing, input_value={'is_incident': False, 'i...ut.',"
-   ]
+   "errors": []
   }
  ],
  "source_status": [
@@ -162,7 +162,7 @@
    "ok": true,
    "items": 20,
    "error": null,
-   "seconds": 0.8
+   "seconds": 0.9
   },
   {
    "id": "antara-jabar-jabarterkini",
@@ -178,7 +178,7 @@
    "ok": true,
    "items": 20,
    "error": null,
-   "seconds": 0.8
+   "seconds": 0.9
   },
   {
    "id": "antara-megapolitan",
@@ -186,7 +186,7 @@
    "ok": true,
    "items": 20,
    "error": null,
-   "seconds": 0.8
+   "seconds": 0.9
   },
   {
    "id": "detik-jabar",
@@ -194,7 +194,7 @@
    "ok": true,
    "items": 100,
    "error": null,
-   "seconds": 47.2
+   "seconds": 46.7
   },
   {
    "id": "tribun-jabar",
@@ -202,7 +202,7 @@
    "ok": true,
    "items": 0,
    "error": null,
-   "seconds": 0.2
+   "seconds": 0.1
   },
   {
    "id": "radar-sukabumi",
@@ -210,7 +210,7 @@
    "ok": true,
    "items": 30,
    "error": null,
-   "seconds": 2.7
+   "seconds": 2.4
   },
   {
    "id": "radar-bandung",
@@ -218,7 +218,7 @@
    "ok": true,
    "items": 10,
    "error": null,
-   "seconds": 1.6
+   "seconds": 0.4
   },
   {
    "id": "lintas-priangan",
@@ -226,39 +226,39 @@
    "ok": true,
    "items": 50,
    "error": null,
-   "seconds": 1.3
+   "seconds": 1.2
   },
   {
    "id": "gnews",
    "name": "Google News",
    "ok": true,
-   "items": 317,
+   "items": 340,
    "error": null,
-   "seconds": 3.0
+   "seconds": 3.1
   },
   {
    "id": "radar-cirebon",
    "name": "Radar Cirebon",
    "ok": true,
-   "items": 0,
+   "items": 1,
    "error": null,
-   "seconds": 11.7
+   "seconds": 11.5
   },
   {
    "id": "radar-cirebon-disway",
    "name": "Radar Cirebon (Disway)",
    "ok": true,
-   "items": 0,
+   "items": 1,
    "error": null,
-   "seconds": 1.2
+   "seconds": 5.2
   },
   {
    "id": "radar-tasik",
    "name": "Radar Tasikmalaya",
    "ok": true,
-   "items": 0,
+   "items": 1,
    "error": null,
-   "seconds": 4.0
+   "seconds": 5.9
   },
   {
    "id": "inews-garut",
@@ -266,7 +266,7 @@
    "ok": true,
    "items": 0,
    "error": null,
-   "seconds": 0.9
+   "seconds": 1.2
   },
   {
    "id": "tribun-jabar-sections",
@@ -274,7 +274,7 @@
    "ok": true,
    "items": 0,
    "error": null,
-   "seconds": 0.1
+   "seconds": 0.0
   },
   {
    "id": "kompas-jabar",
@@ -282,15 +282,15 @@
    "ok": true,
    "items": 1,
    "error": null,
-   "seconds": 2.2
+   "seconds": 1.8
   },
   {
    "id": "kompas-tv-jabar",
    "name": "Kompas TV Jawa Barat",
    "ok": true,
-   "items": 2,
+   "items": 1,
    "error": null,
-   "seconds": 1.5
+   "seconds": 1.1
   },
   {
    "id": "pikiran-rakyat",
@@ -298,7 +298,7 @@
    "ok": false,
    "items": 0,
    "error": "RuntimeError: https://www.pikiran-rakyat.com/: Client error '403 Forbidden' for url 'https://www.pikiran-rakyat.com/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403; https://prfmnews.pikiran-rakyat.com: Client error '403 Forbidden' for url 'https://prfmnews.",
-   "seconds": 0.3
+   "seconds": 0.1
   },
   {
    "id": "jabarprov",
@@ -306,7 +306,7 @@
    "ok": false,
    "items": 0,
    "error": "RuntimeError: https://jabarprov.go.id/berita: Client error '403 Forbidden' for url 'https://jabarprov.go.id/berita'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
-   "seconds": 0.3
+   "seconds": 0.0
   },
   {
    "id": "pemkot-bandung",
@@ -314,39 +314,150 @@
    "ok": false,
    "items": 0,
    "error": "RuntimeError: https://www.bandung.go.id/news/berita/: timed out",
-   "seconds": 41.5
+   "seconds": 41.2
   },
   {
    "id": "jabar-ekspres",
    "name": "Jabar Ekspres",
    "ok": true,
-   "items": 0,
+   "items": 1,
    "error": null,
-   "seconds": 26.1
+   "seconds": 9.2
   }
  ],
  "incidents": [
   {
-   "id": "0326455e05",
-   "category": "kebakaran",
-   "subcategory": "karhutla",
-   "title": "Polres Majalengka dan Polres Kuningan Kerahkan Personel Gabungan Atasi Karhutla TNGC",
-   "summary": "Polres Majalengka dan Polres Kuningan mengerahkan personel gabungan untuk mengatasi kebakaran hutan dan lahan (karhutla) di TNGC.",
-   "kab_kota": "Kabupaten Kuningan",
-   "kecamatan": null,
+   "id": "7c3fa518b7",
+   "category": "tawuran",
+   "subcategory": null,
+   "title": "Janjian Tawuran Bawa Sajam di Medsos, 9 Remaja di Indramayu Ditangkap Polisi",
+   "summary": "Polisi menangkap 9 remaja yang terlibat tawuran di Indramayu setelah insiden tersebut dipublikasikan di media sosial.",
+   "kab_kota": "Kabupaten Indramayu",
+   "kecamatan": "Widasari",
    "desa": null,
-   "lat": -7.00338,
-   "lon": 108.55981,
-   "location_precision": "kab_kota",
-   "event_time": "2026-10-22T00:00:00+07:00",
-   "first_reported": "2026-10-25T08:53:00+07:00",
-   "last_reported": "2026-10-26T07:21:42+07:00",
+   "lat": -6.46681,
+   "lon": 108.27366,
+   "location_precision": "kecamatan",
+   "event_time": null,
+   "first_reported": "2026-10-25T17:26:00+07:00",
+   "last_reported": "2026-10-26T15:20:07+07:00",
    "victims": {},
    "affected_entities": [
     {
-     "type": "lahan",
-     "name": "TNGC"
+     "type": "lainnya",
+     "name": null
+    }
+   ],
+   "sources": [
+    {
+     "name": "Fajar Cirebon",
+     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOMzNrejFMQVAwdlFOT1NUaXgyTEQ4bGxVQWQxMFluUzlYbDVRR2piMjQ0U3FrSldIaDdCUUdsc3lMclNYbW5pdTYxd1U0eFF6Zm5reWlHU3ZZb25QZU9NN05lRzVrVEFnT0ZwNldlQkJsY3FOVU5tYTZ4ajNIa1k5SjNfRGVvQl82Z3dkbkhQZExSRmFPZzFLS0ktVk51ZWQ0NVdj?oc=5",
+     "title": "Janjian Tawuran Bawa Sajam di Medsos, 9 Remaja di Indramayu Ditangkap Polisi",
+     "published": "2026-10-25T17:26:00+07:00"
     },
+    {
+     "name": "Radar Indramayu",
+     "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxQTkRpcjNsQTZ5a29iVkV0WmY1QjI1WVBkaEJMWjNSbTFIQkNuazFwNkJQZjc1NmdHa1BpQVpSZFcxekllU3dXQnlDeW9rUjZSX2NXUVJPYjJhZnM4THV0Q2hudGNFUzZ4N2ZmT28xaVk2UHkzOHFrN0hDVDZkZlQ5VUREVzZwMjExbU91bVltMDdSSktFeTB1bkdKM1VMRlFQdW1SdmZaSDBYVHB2VDZJQkVKUVlHZHAyN1BJcUtBeEVsYnlCenRlTjZ1R0xrQmxwSC0zQVFkeG1OcjNpdzZnUjdfaVhPX3Ex0gHoAUFVX3lxTFBORGlyM2xBNnlrb2JWRXRaZjVCMjVZUGRoQkxaM1JtMUhCQ25rMXA2QlBmNzU2Z0drUGlBWlJkVzF6SWVTd1dCeUN5b2tSNlJfY1dRUk9iMmFmczhMdXRDaG50Y0VTNng3ZmZPbzFpWTZQeTM4cWs3SENUNmRmVDlVRERXNnAyMTFtT3VtWW0wN1JKS0V5MHVuR0ozVUxGUVB1bVJ2ZlpIMFhUcHZUNklCRUpRWUdkcDI3UElxS0F4RWxieUJ6dGVONnVHTGtCbHBILTNBUWR4bU5yM2l3NmdSN19pWE9fcTE?oc=5",
+     "title": "Polisi Amankan 9 Remaja Terkait Video Viral Geng Motor Bawa Senjata Tajam di Jalur Pantura Widasari Indramayu",
+     "published": "2026-10-26T10:13:00+07:00"
+    },
+    {
+     "name": "Tribratanews Polda Jabar",
+     "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPd0IzU0ZwUkhBbERuOS1PN1JMZVhxTENWNWdZano3eFg1X0hudE1uUXZFbjFQVFBDUnptZ0xkUjFMNHNzekpGZVFsV0ZkaS0wVXhHMXBOMEcyZXd4Z1BQMU4xVDZ0MmFOQk1mQ1pfcGRXSWdZREJVdFJNTzZNQ0ZPdTVlcUFxY3RNYWdveEVfZlpaTkNyQlJOVm9qcmpTeWRCdXRmcUZFcGtpdnBWOW0zSlR6VE93RTRPTGt3TVlmcHVZZ3ZBSTZqS01aX2pKQW1tZklKN0xKSQ?oc=5",
+     "title": "Polres Indramayu Amankan 9 Remaja Terkait Video Viral Geng Motor Bawa Senjata Tajam di Jalur Pantura",
+     "published": "2026-10-26T14:16:00+07:00"
+    },
+    {
+     "name": "Tribuncirebon.com",
+     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPcTI1Rk52YnZyQ214UXpOR3M0VzV6SVh2QU1YWEJsOXBHQWdTRkdvNHFyT0dTdXZzU2RWTi1iTEszQnJqSDFuOG1mVkNrcEVBYVVUdjUtMy1mc1NUU05xR00tb1ptN3hBVnJHVUZYRmZaV1dsRVljN2lLMkRiY25rOHRCSlNPbWFUcm1vQlFUeFpKZnVzU0hMa0pJSmJNaG9RMWJFR0MtWTZLZ24xczN0Y2tEdklwSmNWZjlqTFVjdmJ2XzRwZE1icFIwTXV5UHplb1NHWkJR?oc=5",
+     "title": "Sekelompok Remaja yang Konvoi Bawa Sajam Ternyata Hendak Tawuran di Jalur Pantura Indramayu",
+     "published": "2026-10-26T15:20:07+07:00"
+    }
+   ],
+   "report_count": 4,
+   "extraction": "llm",
+   "confidence": 0.97
+  },
+  {
+   "id": "dbe4b7df3f",
+   "category": "mbg",
+   "subcategory": "keracunan makanan",
+   "title": "432 Orang Terdampak Dugaan Keracunan MBG Cirebon, Kepala SPPG Dicopot",
+   "summary": "Sebanyak 432 orang terdampak dugaan keracunan program Makan Bergizi Gratis di Kabupaten Cirebon, yang berujung pada pencopotan kepala SPPG.",
+   "kab_kota": "Kota Cirebon",
+   "kecamatan": null,
+   "desa": null,
+   "lat": -6.74172,
+   "lon": 108.55331,
+   "location_precision": "kab_kota",
+   "event_time": null,
+   "first_reported": "2026-10-26T11:06:00+07:00",
+   "last_reported": "2026-10-26T15:12:26+07:00",
+   "victims": {
+    "injured": 98,
+    "affected": 432
+   },
+   "affected_entities": [
+    {
+     "type": "sekolah",
+     "name": "SDN Taman Kalijaga Permai Cirebon"
+    },
+    {
+     "type": "sekolah",
+     "name": "SDN Taman Kalijaga"
+    },
+    {
+     "type": "dapur_mbg",
+     "name": null
+    }
+   ],
+   "sources": [
+    {
+     "name": "Tribuncirebon.com",
+     "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQWTJ2NDhxWmFZSUdUWktFb2VDemh5UkY0NjFjbk56bzFiZGFrOXVmaWVUN2hvbmExeDM2emZ6Z2lpMDBqM1NUWlBVN2UyYlVjcHFuaGtubkdDcGJDQm5Jd0d0SS0yUVhwODZKbm1GWjZ2eExHb1hvcWV4bmJCN3hpekhsRHkxWWdQcDl6OWMtTURIUWVvNHBZZ0dRaklhbDJaS0pqNXRHUmlxU1g2cDQ3RHEtNjdWaHIwNjV0YzFDVUdpZS1BbWlxUGoxdTkxaDRYVEpCLTJiUGJjc3FmcjdZazlLMA?oc=5",
+     "title": "Kondisi Siswa SDN Taman Kalijaga Permai Cirebon Usai Diduga Keracunan MBG, Guru Sudah Masuk Semua",
+     "published": "2026-10-26T11:06:00+07:00"
+    },
+    {
+     "name": "Tribunjabar.id",
+     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPc2FWNTk2cGVhUzEzcjd5d1J6WXd5Sm5NdUdVNVBaMjFvLWVWYnFscFJickJkU19lbnd6RlI5X2M3Ykl6V1d0blZwTFYtTFUtX01OWk1oaDdUd2h6SlVjaEg1WndCYkU4aWprcGJ5RjVDOTcwMVF6OER1MGRuMTY5cVZ1ZFFXNjd3RnVqZERObDNQSy1tU3h0S1pWXzVTN0g0bWNKT2lVOTBQWUlVSDF5dXdNNXdlcEZLczduSjFLRHh5YVBsSE1vQXd5d3JkUQ?oc=5",
+     "title": "Update Keracunan MBG Cirebon: 98 Korban SDN Taman Kalijaga Pulih, Guru Mulai Mengajar",
+     "published": "2026-10-26T11:13:50+07:00"
+    },
+    {
+     "name": "Inilahkoran.id",
+     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNNks1eDlnWGc0Nm5TaFZXMGNvLVVxSTdxWEJvblpkeVRoQWFucnZmR2JLSFBXQ2lwVXJ5Njh6TDVlMFJ0T0c5ejJtaUlZYUNYQjFQWEtfMjlGYlZFSTZtYjAxeHMxWDAxSldpdkFuNHUtOHF3bTg2d0YyRWVXWFFiSEZsRWxVazlDd2Z1TTdOYnlGUG14ZXUyRlNTZw?oc=5",
+     "title": "432 Orang Terdampak Dugaan Keracunan MBG Cirebon, Kepala SPPG Dicopot",
+     "published": "2026-10-26T12:11:34+07:00"
+    },
+    {
+     "name": "Tribuncirebon.com",
+     "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOTTliMWt5a01fSVVHZldoNWZMRUNMSWtIaGE1b2oxQzU5b2wtOGVRWVlHT0VkNkVEUl9VbGo1azBITWxUanN4dHB4UVpRR2drLXhJX3ZiNFFGODBSMmt3ZlFYQ18taDljNlB2M0gyMXQycm1DcnJDUjNHYVFKZUloU09Ub3NnNTI1TnJxeHBlWEtFZlZpc1RYRUlZLUNZZUxqN0FvSGtKRUgtaHMwandZVGxfOVVSc2kxQTVkNnYzWFo3RG9sdFJRVjJxd0lnSURYMC1oemJvOGx4SzNTT2c?oc=5",
+     "title": "PGRI Buka Suara Usai 35 Guru Jadi Korban Keracunan MBG di Cirebon, Singgung UU Guru dan Dosen",
+     "published": "2026-10-26T15:12:26+07:00"
+    }
+   ],
+   "report_count": 4,
+   "extraction": "llm",
+   "confidence": 1.0
+  },
+  {
+   "id": "f951451c3a",
+   "category": "kebakaran",
+   "subcategory": null,
+   "title": "Dedi Mulyadi Pastikan Nol Titik Api di Gunung Ciremai",
+   "summary": "Kebakaran hutan di Taman Nasional Gunung Ciremai melanda Desa Pasayangan (Kec. Lebakwangi) dan Desa Cibuntu (Kec. Pasawahan) sejak 21 Oktober 2026, membakar sekitar 2 hektare lahan bambu; hingga 25 Oktober dinyatakan padam.",
+   "kab_kota": "Kabupaten Kuningan",
+   "kecamatan": "Pasawahan",
+   "desa": "Cibuntu",
+   "lat": -6.82341,
+   "lon": 108.4245,
+   "location_precision": "kecamatan",
+   "event_time": "2026-10-22T00:00:00+07:00",
+   "first_reported": "2026-10-25T16:00:00+07:00",
+   "last_reported": "2026-10-26T14:21:20+07:00",
+   "victims": {},
+   "affected_entities": [
     {
      "type": "lainnya",
      "name": "dapur air"
@@ -354,6 +465,10 @@
     {
      "type": "lahan",
      "name": "kawasan hutan Gunung Ciremai"
+    },
+    {
+     "type": "lainnya",
+     "name": "Taman Nasional Gunung Ciremai"
     },
     {
      "type": "lainnya",
@@ -366,20 +481,24 @@
     {
      "type": "lahan",
      "name": "Taman Nasional Gunung Ciremai"
+    },
+    {
+     "type": "lainnya",
+     "name": "lahan bambu seluas 2 hektare"
     }
    ],
    "sources": [
-    {
-     "name": "Tribratanews Polda Jabar",
-     "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQN3BMbk1Sc0g2MzRuS19abTB5aTItZGZWSDNNY0hHYVIzVWpFdXVta1Y5LUlGLWE1akZZZ2hyS1llbU5sNnN2VjFqamtIT0RNTTdPQ2xEc1Nwd3VIczl4bC1xX3hCaGVCdHVfNExaX01KRlpfRHJIYkFDMWZhNWZJcGxJbkt3RzlxUTY0dlYyMkZEV1pYTWt3ZTFkcWRTd1VTbTFWbmE1QWFyMXhxb0dzWTlhNkNjUUNZSkMwOVRweW4wUQ?oc=5",
-     "title": "Polres Majalengka dan Polres Kuningan Kerahkan Personel Gabungan Atasi Karhutla TNGC",
-     "published": "2026-10-25T08:53:00+07:00"
-    },
     {
      "name": "Radio PRFM",
      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPd2NocWl6VEEzQldWWllDMVB3bjlpajFUNTFYTWNXbEVRWVhlS2ZkZ1ZBc0E1cExwWjJQZUdqSWplRXRIeTB0M2JOM0dkR0Q2UFZsWERsNFU2cnpYUnZtVi1LOWVlU1YxYlhfZ1g4R3A0ZVBEdkZ1TGxWWHNacFNiM2JPVHZ4R1JGOUJCdE9aZDhHSkEwNkdKSVRLeWJZQ25TZlVvWG9TLThRd1BVM3VVRTBwX1Q3UU9SLUR2ZVVIUEJuRU9wUmNKVUpPLXdCZzNpMHZTTm1TUU7SAd4BQVVfeXFMTXlkYnYtbm9GMmdlSDN6eTdVb0c3ZHNaektlenhrUTFZZkYxc0M1bWtUOHNTSDYxSFQ2ZHdlYS1yYWR5Y2xoT0dSQVU5bzUyWGppaGxHSzVEcWZuQWNpS29WUnNsbU1OQXZtckJmcGYzcE82LUlObWRvaDRKX1ZINlVmNEpTN1U3TnFHUEgzZ3kyOV9OOWltWTMzRjFKbmJsV1NNeG5pd3ZSRElFNnFYRlV3cG1GTVpkdUtrcmFFeUNPOS1BMXRuVnE4MWtJbFRTajU3bHRuX3hyQzlTZjFR?oc=5",
      "title": "Bantu Relawan Padamkan Karhutla Gunung Ciremai, Baznas Kuningan Siapkan Dapur Air",
      "published": "2026-10-25T16:00:00+07:00"
+    },
+    {
+     "name": "Fajar Cirebon",
+     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNSTlIS3NHeXpleEIxMUtwamNMN2l5N0FWcEpsRWd6emh2RlNvYVRUNE1QMTN2aGlZbmxIdzl2NE9YRmVTRHA2dHZUZExxS2gyd1YxclNhOU9WT21hZkliLWFTNU03RGJxRmJ2WWxLNF9MQ1Z6SEdXdkNYR2JSRkd2N1VqWTdlLUkyNTRoRlA2bWNGOE85U0pjcF9yT2x2OUFwczVMZWtTaHRDcmpVUjR4WEs5Q2dNUQ?oc=5",
+     "title": "Kapolres Majalengka Turun Langsung Pimpin Pemadaman Karhutla di Gunung Ciremai",
+     "published": "2026-10-25T16:07:00+07:00"
     },
     {
      "name": "publikbicara.com",
@@ -392,6 +511,12 @@
      "url": "https://www.detik.com/jabar/berita/d-8723136/bpbd-jabar-siapkan-modifikasi-cuaca-padamkan-sisa-api-ciremai",
      "title": "BPBD Jabar Siapkan Modifikasi Cuaca Padamkan Sisa Api Ciremai",
      "published": "2026-10-25T16:30:45+07:00"
+    },
+    {
+     "name": "Lintas Priangan",
+     "url": "https://lintaspriangan.com/berita-jabar/berita-kuningan/karhutla-gunung-ciremai-titik-api-tak-terdeteksi/",
+     "title": "Pemadaman Karhutla Gunung Ciremai Berlanjut, OMC Disiapkan",
+     "published": "2026-10-25T10:31:48+00:00"
     },
     {
      "name": "Kabar Tasikmalaya",
@@ -422,77 +547,249 @@
      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPdExtVi1HanNoOEpGcDY3VHpvSTdpY1VEalljWDhnOU1kd1NBTjNxS0RYTGxqSTBDLTg0OHNqNi1zUEJHQTctcnM2X2x1YVhUaEJyMG9UdkZqU1Zpckg2eWR4UF9Kb0VfSGsyZGZ4czVXbWZ6cElhX0phMFFFcVdFd2NPcWRwOVE5NnQ3eWZDMk40ZUZIb0c3dGcyNGhHRTR4OFNuam1XYm52S3NuTjNOTzZzbFhxVXkzNVhVcFlrRS1NcUJq?oc=5",
      "title": "Pemprov Jabar Kerahkan Heli Water Bombing dan 500 Personil untuk Padamkan Karhutla Gunung Ciremai",
      "published": "2026-10-26T07:21:42+07:00"
+    },
+    {
+     "name": "Radar Sukabumi",
+     "url": "https://radarsukabumi.com/jawa-barat/dedi-mulyadi-pastikan-nol-titik-api-di-gunung-ciremai/",
+     "title": "Dedi Mulyadi Pastikan Nol Titik Api di Gunung Ciremai",
+     "published": "2026-10-26T09:29:52+07:00"
+    },
+    {
+     "name": "Kumparan.com",
+     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQTVE5dzRWVlhIMzBmVTRTTzJRaWV3d010c2RSV3NXWlZqQ1hjQnlaelRoUEtDX204aVRuRkdOZFo5aTM4eU5mbGpTTDZCZzJEMUZSLXBfcXZRanBwUHR3THhSMkhacGZnVlF6RzVWZDNfWVR6TFdOUWp1SnJ1c2xtZk1IVmF0bFFadkJPS0lJUUJpeXJEY1FTZTZWYlpheEZjRlltcDZIeloyXzRHQ09ESHpvZEVwVkhrU21zTmI3NU1VSENHN0g1bNIByAFBVV95cUxQTVE5dzRWVlhIMzBmVTRTTzJRaWV3d010c2RSV3NXWlZqQ1hjQnlaelRoUEtDX204aVRuRkdOZFo5aTM4eU5mbGpTTDZCZzJEMUZSLXBfcXZRanBwUHR3THhSMkhacGZnVlF6RzVWZDNfWVR6TFdOUWp1SnJ1c2xtZk1IVmF0bFFadkJPS0lJUUJpeXJEY1FTZTZWYlpheEZjRlltcDZIeloyXzRHQ09ESHpvZEVwVkhrU21zTmI3NU1VSENHN0g1bA?oc=5",
+     "title": "Padamkan Karhutla Gunung Ciremai, Pemprov Jabar Turunkan Heli & 500 Personel",
+     "published": "2026-10-26T12:00:00+07:00"
+    },
+    {
+     "name": "detikJabar",
+     "url": "https://www.detik.com/jabar/cirebon-raya/d-8724536/habitat-satwa-endemik-gunung-ciremai-terancam-akibat-kebakaran",
+     "title": "Habitat Satwa Endemik Gunung Ciremai Terancam Akibat Kebakaran",
+     "published": "2026-10-26T14:21:20+07:00"
     }
    ],
-   "report_count": 9,
+   "report_count": 13,
    "extraction": "llm",
-   "confidence": 0.9
+   "confidence": 0.98
   },
   {
-   "id": "17caa9193a",
-   "category": "kekerasan_anak",
+   "id": "5cc03c3a9e",
+   "category": "kebakaran",
    "subcategory": null,
-   "title": "Ketua RT Ungkap Bapak Bunuh Anak di Bandung karena Debat Judol Tak Ada Riwayat KDRT, Keluarga Harmonis",
-   "summary": "Seorang ayah di Kota Bandung dilaporkan membunuh anaknya sendiri setelah terjadi debat, menambah kasus kekerasan terhadap anak di wilayah tersebut.",
-   "kab_kota": "Kota Bandung",
+   "title": "Kebakaran Gunung Putri Garut Mulai Padam, Pemantauan Dilakukan hingga Akhir Oktober",
+   "summary": "Kebakaran di Gunung Putri, Garut, mulai dipadamkan dan pemantauan akan dilanjutkan hingga akhir Oktober.",
+   "kab_kota": "Kabupaten Garut",
    "kecamatan": null,
    "desa": null,
-   "lat": -6.91924,
-   "lon": 107.6366,
+   "lat": -7.35945,
+   "lon": 107.78794,
    "location_precision": "kab_kota",
    "event_time": null,
-   "first_reported": "2026-10-26T06:27:06+07:00",
-   "last_reported": "2026-10-26T06:27:06+07:00",
-   "victims": {
-    "dead": 1
-   },
+   "first_reported": "2026-10-26T14:17:38+07:00",
+   "last_reported": "2026-10-26T14:17:38+07:00",
+   "victims": {},
    "affected_entities": [],
    "sources": [
     {
-     "name": "Lintas Gunungkidul",
-     "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxOcXp3b05QWXBJdnphMFJ0ei1CVUNfVW00emQ4aFlXbWRtNHFWdUdDNHpMbng3ek9SaG1JdHg4ZHJJLXhpeXRyb0ZITXhDUWpGWWFrd0RpRTRoVEFGei1EeEk0bmpUMWVxYWc4YVNoUUhmaUF4MWo3YnRTNDVFcWN1ZllhSjQ2VTdKLWthSjNsM3VVMGtSZExwcjdJOWY5NTBoQUsyX2JxZ25mb3VoUHNkOC02OVlFazJxd0tqYzB5OTBRR21IS0YydmNTRURFN3U2bmNDUDM3eGk3azAyVnNNNGdxcmZmUkdSREpoekNPdkdCNnBpamUzQ9IB_gFBVV95cUxPRkt2aHZMZ25xd1ZJRWxsSmx4OFV5U3AyZE14OGZfbnFrWWEwR0lvQ01oMktvbjAxWWVJbVN4WXZyNnZnZDBsblZEN1JGMS1KTDh4NzBOMmpXQU5oRjNvVXR5TUlEdnB6ZEJ6NGdqMHowaWVrNVVnR1NfbWh6aThORmtWUFpzcFlHd3hCRnc4NVBkd0M4cDBfaG1VUVlETmRaVk9oVEVadk9TcHlEaDV3Rk0xMnp5RWFRbXE5NDBZUmRqUHRQVktKRHhldEVFWm5WbE04SmFVQkhFYm1QNURkaklZY0Z0T21jN3p4TzN6RmpYZVdlSXczZWo2SUtZQQ?oc=5",
-     "title": "Ketua RT Ungkap Bapak Bunuh Anak di Bandung karena Debat Judol Tak Ada Riwayat KDRT, Keluarga Harmonis",
-     "published": "2026-10-26T06:27:06+07:00"
+     "name": "Tribunjabar.id",
+     "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQMTJWdVdOakFGX015XzZqQVo4di1CbTQ4OWdRX3FJdU5hVFZJOFFQZVJxSHY0ejRKQkcyTFM0dGNrV3dsRWFJcE81ZkVYVDJ3UWRGN0ljQkV1TnVJN3A0VVJlbmVVTFBDb2FrZHE0M1JtLXEwUDkzM3BYZ3Y5WmctV3NDNnF1WENYNENIQjlDUk1VN2NLd09HU1JrUml5MjQ1aHBlQTBEZkNDLXNfdmJzOWhhdHJ1REJfWi1Xbi1jZ3hYa1E?oc=5",
+     "title": "Kebakaran Gunung Putri Garut Mulai Padam, Pemantauan Dilakukan hingga Akhir Oktober",
+     "published": "2026-10-26T14:17:38+07:00"
     }
    ],
    "report_count": 1,
    "extraction": "llm",
-   "confidence": 0.9
+   "confidence": 0.95
+  },
+  {
+   "id": "c8990ed557",
+   "category": "tawuran",
+   "subcategory": "penembakan geng motor",
+   "title": "Kronologi Pengemudi Ojol Sukabumi Ditembak di Leher Belakang, Pelaku Diduga Kelompok Geng Motor",
+   "summary": "Seorang pengemudi ojek online di Kabupaten Sukabumi mengalami luka tembak di leher belakang yang diduga dilakukan oleh kelompok geng motor.",
+   "kab_kota": "Kabupaten Sukabumi",
+   "kecamatan": null,
+   "desa": null,
+   "lat": -7.07632,
+   "lon": 106.70757,
+   "location_precision": "kab_kota",
+   "event_time": null,
+   "first_reported": "2026-10-26T13:10:31+07:00",
+   "last_reported": "2026-10-26T13:10:31+07:00",
+   "victims": {
+    "injured": 1
+   },
+   "affected_entities": [
+    {
+     "type": "lainnya",
+     "name": "pengemudi ojek online"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Tribun Video",
+     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxONmNpQ1dCYWtKVERXWXR2M2VWS1RET0M3dzd3cTRQSmNoNDJ4MHlacWU3Qm1JX2kxMXUwM0dSdU9EWFBXcE5uSHN3MTZRUHFjdjFpV0ZEZlJYSWlxZW53d2cwWWlsX3V3aGxkTXUxaU5LQlVNdTlBb2t6SHgyUk1OMGw4a3F6d3FQMGlBczNobXFOY2JxOHMtSmZMWmNwTGowZ29QbktVVjREUUJxb1RLSG5ld2dIZGxIWFRRNEQ1ZzFDWkZna1VFYU1LQm16RHVz?oc=5",
+     "title": "Kronologi Pengemudi Ojol Sukabumi Ditembak di Leher Belakang, Pelaku Diduga Kelompok Geng Motor",
+     "published": "2026-10-26T13:10:31+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.85
+  },
+  {
+   "id": "36a3bd4918",
+   "category": "angin",
+   "subcategory": "angin kencang",
+   "title": "Hujan Angin Sebabkan Rumah Warga di Banjaranyar Ciamis Ambruk",
+   "summary": "Sebuah rumah warga di Kecamatan Banjaranyar, Kabupaten Ciamis, ambruk akibat diterjang hujan disertai angin kencang.",
+   "kab_kota": "Kabupaten Ciamis",
+   "kecamatan": "Banjaranyar",
+   "desa": null,
+   "lat": -7.51967,
+   "lon": 108.55104,
+   "location_precision": "kecamatan",
+   "event_time": null,
+   "first_reported": "2026-10-26T12:45:48+07:00",
+   "last_reported": "2026-10-26T12:45:48+07:00",
+   "victims": {
+    "houses": 1
+   },
+   "affected_entities": [
+    {
+     "type": "permukiman",
+     "name": null
+    }
+   ],
+   "sources": [
+    {
+     "name": "Tribunnews.com",
+     "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNUm84djFDTlI2Zjktc0l2MVJYSWZkQ1Z5Q3pnQV9lY0lySlNWQXh1dEI0VlJCU0dTTDNqNU1Yd1pacFdDQ1oxd0RLRjR5YVpoQ0p6SkUxdHNYYkRQcVdCUmYxUEVBR3pLektZaTV3bzM5Nm1wMUZkbHRrSlFYUFRNT3dJdHFoWDc2djBlazQ0ekNlRGdzZ3d1TXFnemV2SXVSUzdqT3pVVGRuZw?oc=5",
+     "title": "Hujan Angin Sebabkan Rumah Warga di Banjaranyar Ciamis Ambruk",
+     "published": "2026-10-26T12:45:48+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.95
+  },
+  {
+   "id": "201bcda342",
+   "category": "angin",
+   "subcategory": null,
+   "title": "Hujan disertai angin kencang, satu rumah di Ciamis ambruk",
+   "summary": "Satu rumah ambruk akibat angin kencang yang menyertai hujan di Kabupaten Ciamis.",
+   "kab_kota": "Kabupaten Ciamis",
+   "kecamatan": null,
+   "desa": null,
+   "lat": -7.29025,
+   "lon": 108.42865,
+   "location_precision": "kab_kota",
+   "event_time": null,
+   "first_reported": "2026-10-26T11:55:45+07:00",
+   "last_reported": "2026-10-26T11:55:45+07:00",
+   "victims": {
+    "houses": 1
+   },
+   "affected_entities": [
+    {
+     "type": "rumah_ibadah",
+     "name": null
+    }
+   ],
+   "sources": [
+    {
+     "name": "Media Indonesia",
+     "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQaGlRMDY2dkx3STdmV0NZemI4WVhuTFQwUG9HV3cxY0xaUjlVUVYtaVJCYjVKejN3NjNMYUlKQ29XbFZDSDQ5WkVhemlFcVJKcWdBMnVZbDkzdU1rTVB2ODNOdDZvNEVfekExVHRmblF3djJ5ZGNKUzh6bENkNGJiMDFTc0tIU3NjR0JuVTNjZkVxbkFlNVpNbm1sYW5NVk5nOXc?oc=5",
+     "title": "Hujan disertai angin kencang, satu rumah di Ciamis ambruk",
+     "published": "2026-10-26T11:55:45+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.98
+  },
+  {
+   "id": "90c6a4f465",
+   "category": "tawuran",
+   "subcategory": "bentrok antarwarga",
+   "title": "Video Amatir Bentrokan di Pasar Caringin, 2 Orang Tewas | SAPA PAGI",
+   "summary": "Bentrokan antarwarga terjadi di Pasar Caringin, Kota Bandung, pada Sabtu malam (24/10/2026) akibat salah paham, menyebabkan dua orang tewas dan satu orang terluka.",
+   "kab_kota": "Kota Bandung",
+   "kecamatan": "Babakan Ciparay",
+   "desa": "Bacip",
+   "lat": -6.9437,
+   "lon": 107.57855,
+   "location_precision": "kecamatan",
+   "event_time": "2026-10-24T21:00:00+07:00",
+   "first_reported": "2026-10-25T15:43:42+07:00",
+   "last_reported": "2026-10-26T11:46:38+07:00",
+   "victims": {
+    "dead": 2,
+    "injured": 1
+   },
+   "affected_entities": [
+    {
+     "type": "pasar",
+     "name": "Pasar Caringin"
+    },
+    {
+     "type": "pasar",
+     "name": "Pasar Induk Caringin"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Tribunjabar.id",
+     "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPRGVSVWJkMVJxSVZFUUt6Z0Z3eGR2VkFOQ1lUS1hwMlJHZVlOa0FvNUFnY2ZSZzJuY2JBallQbWEyS2xrVnYtQ25HSVE3eVYyNVNuU0hCcjdPV19Xck93SkwyZDBFQjBGWmFTUmFwWGpERWVzWnBoZ2ZQM1RZMUEtS3hfTFlnTGVsWDZsMld0TE1QdTY1bmlCY1NBalhCSDFOVVdDUjFPaGpoVUhUVWRmd0RJUmFLeWZobXBGTy15OGR3NkZJcXpSeThENzNVWU1Ma2hGTm8wTTF5aHFo?oc=5",
+     "title": "Bentrok Maut Pasar Caringin Bandung Tewaskan 2 Orang, Wali Kota Farhan Panggil Pengelola Pasar",
+     "published": "2026-10-25T15:43:42+07:00"
+    },
+    {
+     "name": "Kompas TV Jawa Barat",
+     "url": "https://www.kompas.tv/regional/697971/video-amatir-bentrokan-di-pasar-caringin-2-orang-tewas-sapa-pagi",
+     "title": "Video Amatir Bentrokan di Pasar Caringin, 2 Orang Tewas | SAPA PAGI",
+     "published": "2026-10-26T02:39:53+07:00"
+    },
+    {
+     "name": "Kronologi.id",
+     "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNMXpyNTRNU1ZpdGN4Ql9kODByd1cxeUtCamNia3ZsemN6SjlmaHkzZGVuUEM2TE1rS3hPOHk0YVNsYXF1Q2d5WTJ4NTJUb1FVaU1NdmpnQUI5Qmd5VHlkZHJzSVhxWHA4VmsxeW43czdRNTVtZlhEMnlQVFZaaEtaSGRFQ3dJRmJsbldDa3VEV210S3B0R09CUWg2MzZWUVkzZ2Z2UDhETlRXTER3MmFEaE5CNU1Vel9pMHBZMmJnRlAwdw?oc=5",
+     "title": "Bentrok Maut di Pasar Induk Caringin Bandung: 2 Orang Buruh Meninggal Dunia, Polisi Buru Kelompok Pelaku",
+     "published": "2026-10-26T11:08:35+07:00"
+    },
+    {
+     "name": "Kompas.com Jawa Barat",
+     "url": "https://bandung.kompas.com/read/2026/10/26/114638178/2-orang-tewas-dalam-bentrokan-di-pasar-caringin-farhan-panggil-pengelola",
+     "title": "2 Orang Tewas dalam Bentrokan di Pasar Caringin, Farhan Panggil Pengelola Pasar",
+     "published": "2026-10-26T11:46:38+07:00"
+    }
+   ],
+   "report_count": 4,
+   "extraction": "llm",
+   "confidence": 1.0
   },
   {
    "id": "b1f3e02ac7",
    "category": "kebakaran",
    "subcategory": null,
-   "title": "Kebakaran Hebat di Kawasan Pecinan Bogor, 3 Ruko Suryakencana Ludes Dilalap Api",
-   "summary": "Kebakaran hebat melanda kawasan Pecinan Bogor, menghanguskan tiga ruko Suryakencana.",
+   "title": "Kebakaran 3 Ruko di Suryakencana Bogor Padam Setelah 10 Jam, Damkar Sempat Terkendala Sumber Air Halaman 1",
+   "summary": "Kebakaran melanda tiga ruko di kawasan Suryakencana, Kota Bogor, yang dipadamkan setelah 10 jam dengan kendala sumber air, tanpa laporan korban jiwa atau luka.",
    "kab_kota": "Kota Bogor",
    "kecamatan": "Suryakencana",
-   "desa": "Babakan Pasar",
+   "desa": "Suryakencana",
    "lat": -6.59349,
    "lon": 106.79936,
    "location_precision": "kecamatan",
-   "event_time": "2026-10-25T10:33:02+07:00",
-   "first_reported": "2026-10-25T08:12:00+07:00",
-   "last_reported": "2026-10-26T06:10:43+07:00",
+   "event_time": null,
+   "first_reported": "2026-10-25T16:17:00+07:00",
+   "last_reported": "2026-10-26T11:42:17+07:00",
    "victims": {
+    "injured": 2,
     "houses": 3
    },
    "affected_entities": [
     {
-     "type": "lainnya",
-     "name": "Ruko di Surya Kencana"
-    },
-    {
-     "type": "lainnya",
-     "name": "Ruko"
-    },
-    {
-     "type": "jalan_jembatan",
-     "name": "Jalan Suryakencana"
-    },
-    {
-     "type": "lainnya",
-     "name": "Suryakencana Bogor"
+     "type": "pasar",
+     "name": "Ruko Suryakencana"
     },
     {
      "type": "rumah_ibadah",
@@ -500,11 +797,15 @@
     },
     {
      "type": "lainnya",
-     "name": "Tiga Ruko di Suryakencana"
+     "name": "ruko"
+    },
+    {
+     "type": "permukiman",
+     "name": null
     },
     {
      "type": "lainnya",
-     "name": "3 Ruko"
+     "name": "tiga ruko"
     },
     {
      "type": "lainnya",
@@ -512,229 +813,39 @@
     },
     {
      "type": "pasar",
-     "name": "Pertokoan Suryakencana"
+     "name": "Ruko"
+    },
+    {
+     "type": "pasar",
+     "name": "Suryakencana"
+    },
+    {
+     "type": "pasar",
+     "name": "Toko di Suryakencana"
     },
     {
      "type": "lainnya",
-     "name": "ruko di Sentra Kuliner Suryakencana"
+     "name": "Ruko di Suryakencana"
     }
    ],
    "sources": [
     {
-     "name": "RRI.co.id",
-     "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQblVudk9NWDI4VkpZQWtReDB0Zy1nbURGeUx0TjBpRXBQUWZjM3BpVXYyWDhQYmJSUHQ4bGVRa3l6VmF5aGlKYWJWdjFKdG5ZV0ZWTXBjZ2xVaS1zbjJVV0tLUmdGRDg0UzQzY28zSUNsMkJsdHRjcWo2RnBfTGdJTl9nMFVKR0JpZGcxSjlOdk5xMFp5b1BXTld6MHB2LW8?oc=5",
-     "title": "Kebakaran di Surya Kencana Bogor, Tiga Ruko Ludes Terbakar",
-     "published": "2026-10-25T08:12:00+07:00"
-    },
-    {
      "name": "Kompas.com",
-     "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQbUl0bUE4T29RcVNNME5aZmhyVldLZ2RUd1BwSXZJOW9fQ0ZzRWFiV0IxcjhGN25UeUl1dUVLZzJzTF9QY2ZQS1RKenVMUE55a0RkR2NaX0ZweFU5YVdfaTZYQnpRYUtSMlVxVWZpRVVNNXFzVlBkc0hYd3JVN29Pdk42RGJKQlFiT0JHQlZZc2JLUFlwQjlqNVZmM1ZZTjFzeGlYUzBiWWdCSlUtUkJhSUJpTEVaaXJNQkFsNGYwT2VYTWM?oc=5",
-     "title": "3 Ruko Terbakar, Jalan Suryakencana Bogor Ditutup, Pengendara Dialihkan",
-     "published": "2026-10-25T08:13:00+07:00"
-    },
-    {
-     "name": "Pojok Bogor",
-     "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOaFBmbnVUQXdYbUgtNHF4bElHakdHZW10TkVNNl96Sl9XMmEwQTlCRzN5WG05NDdjNjlUdnpOVFlGZmRiVHdVTmJUdl9WamQwMVQtdENkVXVxMV9NNzVySzFzSjlxYnBCbHVFSmllMDdWODQ1UkwyVmdrelpXcHVtZGxPUE5oaWhDZ0NXOV85UkVGRWZpUlk2bmhZVzFVQ2todXRhSHY0a3hjbmp2OWpqT1RFOHNQbXVhMzg1VA?oc=5",
-     "title": "Kebakaran Suryakencana Bogor: Kabel Tua Disorot, Gergaji Petugas Damkar Sempat Patah",
-     "published": "2026-10-25T08:42:55+07:00"
-    },
-    {
-     "name": "Metro Bogor",
-     "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPRjB3blg3MDYzQ3lMalgzR3F0TnluQjBYNkprZ0JUSlBSS2VhZnlaZDU3ZUdqQlBNQ1F2UEJ3Ml9tZUlhV3pZbFUwYV80MWNSMUdNVDFkR1hERFhGclJWTWg2V0JPSDJicURueTh6R2IzWGh3ZWhidWlQMFg5a19RamhIa3BBWFpBWERXMUJGQnJwOHJzbU8yUjZHYXI0dTN3X0dTU2JGdlZtM2NQbnVmaFl3cWN6V0Mwd1JUbklOc2trdVgtRElTYVIxNkljRTJtbzRXc0ZmMkluTnNUVTFMYdIB4AFBVV95cUxPRjB3blg3MDYzQ3lMalgzR3F0TnluQjBYNkprZ0JUSlBSS2VhZnlaZDU3ZUdqQlBNQ1F2UEJ3Ml9tZUlhV3pZbFUwYV80MWNSMUdNVDFkR1hERFhGclJWTWg2V0JPSDJicURueTh6R2IzWGh3ZWhidWlQMFg5a19RamhIa3BBWFpBWERXMUJGQnJwOHJzbU8yUjZHYXI0dTN3X0dTU2JGdlZtM2NQbnVmaFl3cWN6V0Mwd1JUbklOc2trdVgtRElTYVIxNkljRTJtbzRXc0ZmMkluTnNUVTFMYQ?oc=5",
-     "title": "Kebakaran Hebat Terjadi di Pusat Pertokoan Suryakencana Bogor, Tiga Ruko Dilaporkan Terbakar",
-     "published": "2026-10-25T08:51:00+07:00"
-    },
-    {
-     "name": "Pojok Bogor",
-     "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPTks1N0RiYjRuaTZnbWZJSVFoLVM0SzlxZWx0WjlvNE5HcFNEMlJ4NFdPMDhTTFlMOGpVM0FYaWpDX2M3SEdsd09BNnhTdk1aMHZTTWNYTDctaENOVUZvaTJKYm4zYldWb293VU4wczV1OTJDV2RDNC1vcEUtSUhuaWN0OWRpWE1LTHl0NDJvNDM1emZJT3c5N29PWDIwVTdqTzlQMElnT2NES1NTUGQ2RGMwMA?oc=5",
-     "title": "Tiga Ruko Terbakar di Suryakencana Bogor, Penghuni Bangunan Berhasil Selamat",
-     "published": "2026-10-25T08:52:56+07:00"
-    },
-    {
-     "name": "Bogor-today.com",
-     "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNSkx1ZW9XdG9POTZhNVUwdlYzYjlOMGYwT0Nza21HNHMxMFprZjl2d1VNS21XaVdBZi02NWVXd0NVcUdHdi01ODFOWHFuMXJjYks0V3JKUVdoakxfOHczTFJodlBQbGVoaXQ0ckc4MkZCTzRCLTJhVmphSk5BYzlwT3JzckM1NWdRRDJXNnBDMmJudWl3aERNUnNieE9Zd2NIbkZtODNMVmJVX2o0YWpQUTVQa1ZSbGU0S1hwdU9LS0o?oc=5",
-     "title": "Pantau Kebakaran Suryakencana, Wali Kota Bogor Minta Bangunan Usaha Miliki Akses Darurat",
-     "published": "2026-10-25T08:58:48+07:00"
-    },
-    {
-     "name": "Tribunnewsbogor.com",
-     "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOQjgyd196SVZfXzBWcDJnM3pIaV85a2VVVDRpaFpSZ3dZM0wwRTd2WEE1Q3lEVGE5UHpjT3JFS2p5aTRJNUwwVUZUVnp5b0F2LXJtX3hYMENBS2cyWTlBWS1icjRWLTZrZWtWSEVuTjhrNXpyUlF5Q1FTelUxTWZ6dUtqc2ppanowX29fUWU2TkcxbVBJdEZSaWdWUndZQ1lwcGNRbG5Jc2U0QlZKTHNXV0Rxc1BsdEZKYXVQT2x2a0JIbGxBcUtZX3NOYi1FWm9vSmphWmRQeU5aWlJOb1E?oc=5",
-     "title": "3 Ruko di Kawasan Suryakencana Bogor Terbakar Dini Hari Tadi, Asap Tebal Masih Terlihat Sampai Pagi",
-     "published": "2026-10-25T09:00:32+07:00"
-    },
-    {
-     "name": "Kompas.com",
-     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPbDRBUmhwdUEzQkZWazRyTlB1SjFJWDVnRWNtcUx3YktVNEpZck1QdW8yVWxTTVU5Q2pObjVXTGNRSTJhNUZqbFRINWh3Zlo4RTd0LXlBSWMzYzg3cXpJckUtV21mNWlDS1RKNEVxV01pT3dwZ0N4SUVETlI0QjkzTnVlTUlRc1lDeGpoWXU4VFFzaWtnM3lMbzBFUnlFajE0ZEs2b3ZzQTVlRU5IZnhsRk5OZk11ZUdJZi1IQ0hRdw?oc=5",
-     "title": "Jalan Suryakencana Bogor Ditutup Imbas Kebakaran, Kapan Dibuka Lagi?",
-     "published": "2026-10-25T09:01:00+07:00"
-    },
-    {
-     "name": "Bogor24Update",
-     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOSFFlZHhIc2cwTmgzTE9ralBLdTRLV25ZUWFkLXc5ZC1wbDM4NEExRElHMzlxeHNDWTdfa0dPcEN5RlBwMlE4d1h6SXdKb1JzdlVYcjJQbElEVlNTQ29nWXF0SnN5WDJSTVpPQnZtLUZNSkdRSDRnS2NDaGY1YTA0REQ0OFR3bjZrMUktc0M3WXJkXzYyZWtqUThFWHhKRkwy?oc=5",
-     "title": "Tiga Ruko di Suryakencana Bogor Terbakar, 15 Unit Mobil Pemadam Dikerahkan",
-     "published": "2026-10-25T09:30:26+07:00"
-    },
-    {
-     "name": "republika.co.id",
-     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQVHU3ajhaZlVWd1A2aGwzY1ZUeU5mb2Rpa1QxVU94TlRIc1ViSFZGa09Xa0N6SnYzYURkRVg0eGVuUnpMTm5MT0ZFSE5FOGdUUGRfVjNWM3ZJVnBzM2VIWUt5MlJCQk9ic0hONGFzblhzbnRmdXZ2SEtFUU55ZnFFVXFqXzhJZkhtRTR0RFQ3VGd0aTdLYzMzNUdPSGJxSmNIa3ZPck8wbGpCcVNVeG1LdQ?oc=5",
-     "title": "Kebakaran di Jalan Suryakencana Bogor, 3 Ruko Ludes Dilalap Api",
-     "published": "2026-10-25T09:30:41+07:00"
-    },
-    {
-     "name": "Tribunnewsbogor.com",
-     "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNenVPNG54alpHR09odWVQakFjN2RvSGZ2OFM1LVVIcmlDdEY3ZWlYMTAxQ2NxVlJGSGdFXzhmVXVwMHltdXh0SFFxVnlvTzN5R1lKN2M2cU1GZU9SZENtb0wySkRWckNubThTVVRYeGtCb093LUtGRU1CZmhLczdaUDZuLXdRRzdhazVCZEQtX2JiRmVDcmR3S21IdTdIZlZWXzU0SHk2QUtJbHFQaE9YUWtoSWtXOFNVRmNEelByeGFMYkQ4RW9QRTJkUUd5aC02Q2JjcDJMcGVWLWM?oc=5",
-     "title": "Kesaksian Warga Saat Ruko di Suryakencana Bogor Terbakar, Sempat Dobrak Pintu Sebelum Damkar Tiba",
-     "published": "2026-10-25T09:43:35+07:00"
-    },
-    {
-     "name": "Bogor Network",
-     "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPUlprMkxjVjJNNlZVMHZWLThSdERFeG5ZLWJEU1VUUFNqYkgzOE5UTkRUSHhsNWFIMFlicWZxcjVPUmd6WHZxQzlpbWppaUp3ZkJCY0QtV2duVUc5UzVDa1lya1ozVFQtdjM3QXhOQU4wYk5LM1l2QXB3T3VXckY0bE5hcl92TDBBSXhzbHdSelFleTdYZ0JFY21kbU01VTFhb3pLdnZfbw?oc=5",
-     "title": "Kebakaran Hebat di Kawasan Pecinan Bogor, 3 Ruko Suryakencana Ludes Dilalap Api",
-     "published": "2026-10-25T09:56:07+07:00"
-    },
-    {
-     "name": "tvOneNews",
-     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOdXNNejVPLXFUY3NwbnFEWUR0aDBDeGt0Z0c4Z09oaG9VZk11d0w0ZHlhSk93ci1ieHdhOWRWZThTcXZ0NW8tMDYweHU0aVJ1S1NxUlhuOVRRLVluMVQ1eVZmMUNUZVdIWG5uU1UtRTMxdjhocFhtWkJ5alN6bjFMOXFXb2RDUmNJeHRvX3l0cmlKcmo2T2lhenJZMktVdzFQMndXcnlLLUdtalEwSUtTM0ZSdUstdVExWE5PUFg2UGUxMF9OUzQ4TzMwc084ejJZQWxz0gHTAUFVX3lxTE51c016NU8tcVRjc3BucURZRHRoMEN4a3RnRzhnT2hob1VmTXV3TDRkeWFKT3dyLWJ4d2E5ZFZlOFNxdnQ1by0wNjB4dTRpUnVLU3FSWG45VFEtWW4xVDV5VmYxQ1RlV0hYbm5TVS1FMzF2OGhwWG1aQnlqU3puMUw5cVdvZENSY0l4dG9feXRyaUpyajZPaWF6clkyS1V3MVAyd1dyeUstR21qUTBJS1MzRlJ1Sy11UTFYTk9QWDZQZTEwX05TNDhPMzBzTzh6MllBbHM?oc=5",
-     "title": "Kebakaran Hebat di Pertokoan Suryakencana Bogor, Warga Saling Bantu Selamatkan Barang Dagangan",
-     "published": "2026-10-25T10:04:00+07:00"
-    },
-    {
-     "name": "mili.id",
-     "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNNlIwOU9WUWRhdTdUVzJaYUl4ZVRaVHJZbmttNUhvZWRVMU42THBTa0lBMXZxNGJ6WWhPbnozUjlyRnA4b1VvWFFpX3VQSHFZaDI4ckJwRVFaRFd5TVNtOUdLLVlDbjdMemFhMVNxVFM4aTBRdGdTQ1hRclpmTVh1amxJeWppOG9fU0o5TDMxZ2NZT0V0QXVYVVp2dXpUd3NkZFRjVkRUUi1YYmFsRlBtdnhmRQ?oc=5",
-     "title": "Kebakaran Landa 3 Ruko di Sentra Kuliner Suryakencana Bogor, 15 Mobil Damkar Dikerahkan",
-     "published": "2026-10-25T10:17:00+07:00"
-    },
-    {
-     "name": "detikNews",
-     "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOVm9lUV9IQ0xnRmxRMENVRnNjOC1UT3lJUWRnMFJzbmRwYWp5M2ZzWk41Vk42QW1CWmVnTC1FdWE4LW03QmZyY1ZPN1VCNWI3S3hzMzFHM1M1QXI2bUF3X3hYVVRRMFBVME94QkhPNzAyZDFHUC1aeFNVU2R0djhjZ3hEZ1dJVm5oSkxydjUwcl9odWxWd21aTVR5TXBMeGk0SUloazZn0gGrAUFVX3lxTFB3dDJ2SzhjSUpTUjNsTDRGdXlLOFRpdEpXT0JKMldOeld1Z09mUHI0R0tPR05kaVhaRFlYa1hBWlpGZkRZMjc2R2s0d200dTdydUMyRjUtRFU5NXBKNnJsTzhHSkotdVlRV3RmeVBmSWp1bEozbHlkRzFFOEJaa3FhSmRTUDl0M3NwcHFWd1A4ZHdOMlVoUU5uRTJoX2JpZElsaTRwSWRRaEdpOA?oc=5",
-     "title": "Kebakaran 3 Ruko di Suryakencana Bogor Diduga Dipicu Korsleting",
-     "published": "2026-10-25T10:22:04+07:00"
-    },
-    {
-     "name": "Lensa Hukum",
-     "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPb1A0SUwwclNmUTJlMkdBRElGWlM5U1Z6R3MwLURWemlyTExLRUJzd2VHYXNHTGxnbVhDQnRiS0d3S2R1VXZJWUVwN192SVUzUHR5VEFLUi1UdHBtbnMyak5GdXdQLWRfWFZvVUYwaDM4dzhHcUhxRWIzM2hfUmpMOWZxX0djTDhnWHc?oc=5",
-     "title": "Kebakaran Hanguskan Tiga Ruko di Jalan Suryakencana Bogor",
-     "published": "2026-10-25T10:29:28+07:00"
-    },
-    {
-     "name": "Bogor Daily",
-     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxORngwZ3d5c0xkdDZKRXV1bmFxZmZ0OHdEbkRLUXp1WW83dHRmUWFhVThnVHEtYzVYVE9BMnpjVmZjdFFydF9MZFp0aURRMmM2TEJteHZjU0FwZzg3NDd0Y3EyZmhCN0tGS1NvenplSjVyRmw4N0s5VWh2UGhnNjlLc2kwRC04YzhkMlNzeEZNRk5yV1RLeXJxbjNDeXk?oc=5",
-     "title": "3 Ruko di Suryakencana Bogor Terbakar, 15 Mobil Damkar Dikerahkan",
-     "published": "2026-10-25T10:33:02+07:00"
-    },
-    {
-     "name": "VIVA Bogor",
-     "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOV2c0MnIzeGNEUWhlTzNkTmpXRzdDUmxDTHJfT05pblpQRWVnbG5tb1FoWDJRZW81Q29iVnBnSXd1dEtleVpoYnJISzEtaTZjSlVqWGJYa1k5eGtYRFhFMnN2dUtHN2hGaXdkMWpmZ2djUG5NVS0ycF85SXBENnF3WFVBTmZoeC10S2dlLWFLZ19EaHYyMHVZMlEyR0Zya2dIVEM4NTVSUUVGNnRNXzZGUmhnYUluN2RtTUHSAb8BQVVfeXFMUE9BUVhPY2kxX0RBUHRTc0JqZkV2SzZWZWwtVVhsTE5uOWRYT0tRcFl0akRzLWY3RUVNZ091bldNYzlnLXRTX0VNWnNTVDBZMjJWMDZwcTJmbTVlWUNYRkFnMENvU0JMdWUycC1TbmFuY29PZjVxWGhEcGxlYUU5NE1PVEIyXzgyZzZBYnV0MmltV0Fud05uTHdlYWhMYjlkenFnSDg4d19vVXIzdDREUlJ4UzRQd2Vyclg3enk3eFU?oc=5",
-     "title": "Kebakaran Suryakencana Bogor, Wisatawan Kuliner Terpaksa Parkir di Kebun Raya",
-     "published": "2026-10-25T10:34:00+07:00"
-    },
-    {
-     "name": "Harian Terbit",
-     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxObWQyaWlZVHBoTnJWeDdEd1U2WEhJSm1WYl9TanJGSTluYklkMHdSM0MtazNZWDJNUW5KZXk2cW5POHViOWphSWtrNFRhSWhSb3JyZ2FYMTBKSFpSeWo1UDhrN0loaVBrRUxxUU1lY3RsbWJZQWZ6dlpfbXBQa21jalRpWElmNzZ3OFJBbjhabUZ2SUxLNVZ3RVRCek5mRlFfZ2JhM3hWNHhUdHdaaFFqQUR4NWtuWDB3bjNweW9n0gHDAUFVX3lxTFA1eFhGZ1Nfa01GalVHWlZNVDkwb3MxUF9zMFA1ZXJORGFoaXY2X2xMRTg0S0ZITDdWNXRwNVdfbklyQ1NWR2RMMm1SZHh3NXNSVkduZkVJem9YN3J5LXBkN1hHOUY1eUlOdXdKZGl2Mm1FdDdleEtpenBZYWdqOURHSTFqX3FDZEN6OERxX1R4VjliVjVjSmY3QUg5YWV1V0Y2b1dWbHVPRDRMQTh3c0VPazgtSXJUckF4Wm9DQVJWeVVJdw?oc=5",
-     "title": "Kebakaran Hanguskan Sejumlah Ruko di Surya Kencana Bogor Minggu Pagi",
-     "published": "2026-10-25T10:42:49+07:00"
-    },
-    {
-     "name": "Beritakota",
-     "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPOEcxa3JaQ3BkSFVBLVFhdGs3YTI4TnNkSXlfbEpSdC0zOTQ1bHh1QUVDMXpVemZocGNENnhRalRrNHJSTk56bDJsbmdoeWlPdnBjR3RQRzdEV2tEeFlFU25JeU1xMWdGZUQ1T0VNMkE0RV9PU1ItT3pPSldGdGdxcVpVVVFDSVFkU09vVHZQSjFsUktrRFdFYy15WFNtTXhXc0E?oc=5",
-     "title": "Kebakaran Hebat Landa Pertokoan Suryakencana Bogor, 12 Mobil Damkar Dikerahkan",
-     "published": "2026-10-25T11:36:00+07:00"
-    },
-    {
-     "name": "Tribunnewsbogor.com",
-     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPVWU3MGwyeHdJYmtwM21VZjNqQmVrUXN4Nk5tTjJCcEpLa3lEWk1tZkpvQVRKWC1iaXJkYzFzb3FkZ0ZxSnVlUlEya1Bja25PMllERFR0Yno2MEpJcUwzSUtaTlEyRmlrZGhCYkNyUkZMRjNpU0RGcnRaOEl3cUFjVUw5NjdiRVF3YW9MbDJCRmI3SGJRZVJsMUZRSm1sOFFVRkZSZS1nV2Ffa2RkZVAyS3ZzbG1KSW9odzFraWZiRVhMaHBETGw1YlVJazJ0c3ZT?oc=5",
-     "title": "Pantau Kebakaran 3 Ruko di Surken Bogor, Dedie Rachim Minta Semua Pemilik Cek Kelistrikan",
-     "published": "2026-10-25T11:56:03+07:00"
-    },
-    {
-     "name": "Liputan6.com",
-     "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOR21pUFEwUklxZXpKRmo0RTM5MEZIU0ZqZ0dlRmpwelVRbERpMzZlSGdTRTdRb25BczNDblRpNS1UaFdJRnk2RzExTzJSWUxmY3Mxa1Zab2FTMDdzUFlFVHRYXzlVRHhVb1RxQVBRTnpQUTRKNExkY0JYYTlxQkh1SHdPOVl5WnNlYnJFWEdJSXNPeEZFSkZNTFJlblN6R09oMlFSUmc0Nmo0MzZ6dXo1Y0Jpc1fSAawBQVVfeXFMT3U4di1kZFJobkR4VVJmVGt3aEdHOFJNekRfTHFWcXBNSjBXY19jQmkzNlFvTWxoY05KTXpuU2lsU0NKMlR6d1czNTA2V1gtcXQxeWJrajdVdDdySHMwSmZ4VGg3R201eGVqMTlHT2tLZ0pONzBsaDlOV2gtbk5XWHRSS0xNdTRnd1lodGRXZ3RCODkzeHhGV05qU2hubS12c0RhWUNMaThiaENVTQ?oc=5",
-     "title": "Kebakaran Hanguskan 3 Ruko di Suryakencana Bogor, Ini Dugaan Penyebabnya",
-     "published": "2026-10-25T12:18:47+07:00"
-    },
-    {
-     "name": "detikNews",
-     "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOd21aUWxVX2k5aVZKWmk4aUVRdUNjblNDb2NtcjVPcklDZHlYeENBRG1VenJFYThtZGw3RTkzdWVLT01CemZGWFBSakFtNGd5YWZTblQyN1dSU3gySUtoU1VHQkt2UUlZS1c3VG1HaGpQemEtZEhQSDNOMUVMSzdyVzRwS3A5MXJqSjljSmN0YnFSRk5RbE44dFVrTTRlbzc4dmpoQWlSdlpVWWRocHZVVVgzVdIBswFBVV95cUxOd21aUWxVX2k5aVZKWmk4aUVRdUNjblNDb2NtcjVPcklDZHlYeENBRG1VenJFYThtZGw3RTkzdWVLT01CemZGWFBSakFtNGd5YWZTblQyN1dSU3gySUtoU1VHQkt2UUlZS1c3VG1HaGpQemEtZEhQSDNOMUVMSzdyVzRwS3A5MXJqSjljSmN0YnFSRk5RbE44dFVrTTRlbzc4dmpoQWlSdlpVWWRocHZVVVgzVQ?oc=5",
-     "title": "Sempat Ditutup Akibat Kebakaran, Jalan Suryakencana Bogor Sudah Dibuka",
-     "published": "2026-10-25T12:21:39+07:00"
-    },
-    {
-     "name": "شبكة تواصل الإخبارية",
-     "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBMRUhPNElnc09vZjlLRC1RbFctSWwtQ3lZZksyS2QzWTFfT1ZKazlEQ0MtUkhhNFFCR0N2bl9DNUwwdTAwNmJVSFJIZzB6Uy1CYkVv?oc=5",
-     "title": "Kebakaran Tiga Ruko di Suryakencana Bogor Padam",
-     "published": "2026-10-25T12:24:53+07:00"
-    },
-    {
-     "name": "iNews.ID",
-     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNeC1jdEM1TTc1Sm0wa1ZhWWc3RFlVMEctMGZTaEpKTEJxbjV6UGRRb3JsTVlVWnVsTURKcHlSVFZORTR6TmNXX0ljbDlrdWNrU0NNSndTdHZCSjZlYUowNmhobGxlRU5JZnEtZEoyU3NHQ1Y3UTk0VXlxaWFHR3JSaWp0YWhGZnRYeGVqeTJOZzFGbVRrUFBIWmx3X0tHWkNWSWotUVkySGpxaFZXR1lJWlBBc2E0cW9I0gG3AUFVX3lxTE5kMjdoOU1xamRaaVhnNDRqNjJDVmZwLVF5NHNhU1VMakxxR2RDZHpPMUlWNlRKeDhjWFJ0NTJ2RmxGaXpYSXBMVkNxYS16Rl8taVpJM3FPMklacXhQcmlHWjhhTktYYmtpMWM3Z2toaGk1Zkl4ckdiLThuMHdpS0FkbHhTdWFZemJNTm5rRG5KSkpaNHV1bUREWG1laDc3OTNaWjRmUGhvODhHcVJERzJoRnJiMUlFRQ?oc=5",
-     "title": "Kebakaran Hebat Hanguskan 3 Toko di Suryakencana Bogor, 12 Armada Damkar Dikerahkan",
-     "published": "2026-10-25T12:38:21+07:00"
-    },
-    {
-     "name": "Sumbawanews",
-     "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNMDQzcHFaMnlTWU1Pa0RHQ21tRGp0REI2RmNISE9VT1J2Mk1GZkdiZzBKd29jZ1QyNXdYUjJxdU8zNm95djRTck8yZFgtYkF0Y3EtVVlLU0JKNlpxT1RhLWgybjVnd0R2ZzVPVnluNmZvalZmeFFUZlV4LTZGMk9PY2FfSkFMX2dQYnAtbnF4X3JsTHFHd3pnOTdueHQyQXZBQkVBSGM4ZVZiY3JaSERlcFJfZ203RjE2TFE?oc=5",
-     "title": "Kebakaran Hanguskan Tiga Ruko di Suryakencana Bogor, Diduga Korsleting Listrik",
-     "published": "2026-10-25T12:40:57+07:00"
-    },
-    {
-     "name": "gadget.qoo10.co.id",
-     "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBKMVMxS3hfVHg5LVhaT09taXQ0TFdEZm1rVk5ielRvNVo5bG95eTR1Y3hJMlN4UVhmNnl5bFVwdUhnNU9FRTBDOEZudVRSb1dlV0xiMG5wN1NIQVpDMDV3TENBZ2MzX2h4WmZ3RGE1RlRDeU90T0tvUnF2RUM?oc=5",
-     "title": "Jalan Suryakencana Bogor Ditutup Usai Tiga Ruko Hangus, Instalasi Listrik Tua Diduga Picu Korsleting",
-     "published": "2026-10-25T12:49:00+07:00"
-    },
-    {
-     "name": "Radar Bogor",
-     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNTlk3TERERkxkazJmRF95elJYbjFyVFdBa2k4bmprb0hrTFNwY0Fhazl4ejZtMm5BTmZwQklabWd1NnB3Mm1sZjM0Q2tFNU55LVRzOF9sVmpqQXYwUWZDbkNGVmRkWE9ndlJwVTBfam1IUzcyR2tpb2YxVlNIMkNjNC1WTWdXNEJnTUluYmdRZ25IOU1QR19xYjhsODhickpXdWJjUUFMRWpBa05HbWZfQzVyVUk0MG1NajQyUVdZSmNKSWo3V3ZFVXlWaWR4d2hqcUI3OENR0gHbAUFVX3lxTE5aNUdnYVlMWE1nclZRSmZIejExVnVDa0hVWjU1ZUpXdlExak1INjRfS0EtQk1HcHBiTm54amtTUmo3dTZqdk1nMTJ4clpsYWZsZUhXbmZJUE94MWZ4MVpaNU56ZURaUl9tSkFWNWJ2Rk9LNVgzRnVwYXlZZGpMTU83YmQ0RjdSa0FlUkEyY0pLREZ1TG1OZEg3RUQyNjRDTU1kckc2c09TaVdvZVNheXRNRHdVNzZhN1d2YW1STTQ2c0dOMy04Ti1jcVJYVkJ3bnZBRzBTS1ZTcjhsOA?oc=5",
-     "title": "Viral! Kebakaran Ruko di Suryakencana Bogor Dikaitkan dengan Aksi Tawuran, Polisi Dalami",
-     "published": "2026-10-25T13:24:59+07:00"
-    },
-    {
-     "name": "Kilat",
-     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOenZKMl84ZGx6YzJ0NWFsZmo4bGxRbXl1N3UzNTBZNEFVMS1xSTZscUgyZFlmd0VoekU2YzYwNkVva0kyVkVqQXJxTTdhaGRMb0d6cTNMVEttQXRWX3ExN3dhYy0tSjFVVmwxZ3JaWnZrMG9VSWlDd1VjOHNqdW16Z2FSblpjM0dBVktwSkdDQ2VvTTQwQlI4b3llWXdPNDZHUFc2UC15Z0Vxd1po0gGyAUFVX3lxTE5jUmMwam41YTZTZXllRmthWjBYMzRma2psSjlUUEZCRkNzYlVQTTBTUl9BR3RPUk1MX0xFWEZpZzJ3eW5XZWNVdWhuQnpMYTVJMWNsV2RERU9CY3dnNVQtYWpjcTVKOEk1TGd3V01Kd1paemp1X3RDN3JINXZrTDY0TnhJZ1hmakZVcFV5Y2ZkTFZMQWdCQy1KUXUyN2ZNZkwwQUNLV3UzTnRvbkdJR3FMS3c?oc=5",
-     "title": "Kebakaran di Suryakencana Bogor, Diduga Disebabkan oleh Geng Motor",
-     "published": "2026-10-25T13:48:56+07:00"
-    },
-    {
-     "name": "Holopis.com",
-     "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQWXZRNXFRUnRGQmFHbVBkTzFDcjdtbFRveEQ2X2hvdFZxblUwbUZmcTZiZkVIaHZqeXo4M0xwS0NwbGRlWXN6NGxxLTdBcHhGdnF0QVBLckFjYjVvSUxNbmR0VlB6Qy1vQVZ0Vlh5RGFWZmJrUnBfdHNFLTJDY1g4MG9GR0liSnpjOFRsV0xOSUdmazhENlBTRW5CQl9YVUh1M1oxN3h1bWNPWXZ1TUg2Q0dzWXZyUzlfdjAzWmVZbk5kZw?oc=5",
-     "title": "Usai Kebakaran Hebat di Suryakencana Bogor, Wali Kota Bogor Minta Instalasi Listrik Diperiksa",
-     "published": "2026-10-25T14:03:05+07:00"
-    },
-    {
-     "name": "Harnas.id",
-     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOSFl6eW5TckE0ODJCRzNMVy1OblZlY29zMjVzdFE5T1BTRW1zMmxCQ1h6VS1SZ0pINHdzVTBwTHpaQlAyVmtNcUlvZFJGdVFFRDVNRHZZT3dxWVBKOVp0QUdmbk1uMTRXaVhxZWF1MnF6cmVVdVdkdDlhWmduQW96YjJCY2l6OXMtR3BrbGRYbW1vbWNZZ3VTVW13?oc=5",
-     "title": "Kebakaran Tiga Ruko di Suryakencana Bogor, 15 Mobil Damkar Dikerahkan DAERAH",
-     "published": "2026-10-25T14:27:13+07:00"
-    },
-    {
-     "name": "klikbogor.id",
-     "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQRzhZemoxSmtZdVl5ejhyd0FtMVp1dWJhUEVoZk9KdURnakQzWTVqaVJWWWVGWF9yeVJjb1lUcGp4QVZocUFfUGRGcG15RVN4UVFMSVhmSXpLbDZVQ0F2Yy1qMlZiSzlUdkZrQmprLU9xbzNtYzFRRGgweDhyakJUdUJtRDB1S1BFRXlIMnIxR2hvTlhRVC1IQ21XWFQyQdIBngFBVV95cUxQRzhZemoxSmtZdVl5ejhyd0FtMVp1dWJhUEVoZk9KdURnakQzWTVqaVJWWWVGWF9yeVJjb1lUcGp4QVZocUFfUGRGcG15RVN4UVFMSVhmSXpLbDZVQ0F2Yy1qMlZiSzlUdkZrQmprLU9xbzNtYzFRRGgweDhyakJUdUJtRDB1S1BFRXlIMnIxR2hvTlhRVC1IQ21XWFQyQQ?oc=5",
-     "title": "Kebakaran Ruko di Surya Kencana Bogor, Petugas Damkar Berjibaku Padamkan Api",
-     "published": "2026-10-25T14:49:23+07:00"
-    },
-    {
-     "name": "Metro Bogor",
-     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOVVItNVd1RWNwWS1EWjhlLTZvVkN5bWRkM0ZOVldacWlRVWZPU2h0NGpQeWM2bUN5c2lsQUlOWWZncXhTcWItWWJtdHZ0VFBlWjdvVks2VE1mRlAtNm01cEVyU29ZaDZWdTVVNF9ZNU1lV1pDNEt5TG16VWtXenZRM2c5dGMtOUk2ZkJocWhQdUVEUFZwTjB2eU16aXZva1pTd1VtbHlEaGhhaHB0MVBqa28xV0l4VFNiVWl6ZHNvZ1l1aTc1elRUVDd2WERsd1o4dlZv0gHYAUFVX3lxTFAwcWFMMTBUNXZYQzd0ck0wUDl5dTFkd0VNNTRkWUFUam9OVVNkbjM0MWtJcVBCRE5BR2dvT0JocGQzV0lUTmlWOXp2cHQ3YjA1UnRpQlZ6NzhmTEpTMXJTMTYzN2dJWUZnYjFPd3hTcndIbmJaZFZuT3ZWY20yQmZWQ0JSeDVpWWhwTWlySnNZZGxpSVNHMzNveEZodTBKLWpXci1UWGdZVjlkcGpHUjVyN3k4WWpIRl9zbFhhVnRjSWdCajBWelU1Y3JvZUtlRmJDQTdXR2VRMQ?oc=5",
-     "title": "Tiga Ruko di Jalan Suryakencana Bogor Kebakaran, Petugas Damkar Kesulitan Padamkan Api",
-     "published": "2026-10-25T14:49:59+07:00"
-    },
-    {
-     "name": "Kompas.com",
-     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOakM5ZnAzbmJIaHNBR0RuYk9CR09hX1BjWlF5cUpGd0xqeDdHWm5pbXF2bklodDU0Y2I5RmozNURiQS1FdlJib2FrQU9EMlBWMnJCTkZqZEVZQ2RjWVpvV0xtdkNTN3Y0RVBVMzdhT2lkNGlTbE5FRXg3OTVQYVNaYmlzT2FVTE9QRTJrZkY1TUo3NkxrNHUzcm5pQUtmcnZVeGQ1RzRXbmVINDlheXlnZkFEYmZTRFdJSV96RUJKMUdycHpheGwyRA?oc=5",
-     "title": "Kebakaran 3 Ruko di Suryakencana Bogor Padam Setelah 10 Jam, Damkar Sempat Terkendala Sumber Air",
-     "published": "2026-10-25T15:13:00+07:00"
-    },
-    {
-     "name": "gadget.qoo10.co.id",
-     "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFB0N3NDbHdOZDVuZ2o4NGJTV25IZndLdjRpeWtHN3NmRk9zdFpudTk4Um5FNU0yRzk1aFhIVEIxRVpOa0NqOWNkUzl3amI5Y0JnVmJSdVU1VHlXa1paVFE5eDRjNlVYb2ZxNzMzRFJsY3lZLXdsZUpSM0FDdE40Sk0?oc=5",
-     "title": "Kebakaran Suryakencana Bogor Padam 10 Jam, Hydrant Jauh dan Ruko Terkunci Hambat Damkar",
-     "published": "2026-10-25T15:31:00+07:00"
+     "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPb3l4S2x5Yl9FbHY4UzNXdGh3b2Q2RW9leUdwenBfQjlMNmJRSDRRRjRFZHJpVmFhdFAtWkhmbFdlVE1TakNUZTNsRlNuUDlCdk94dTM4UWlUdktqQjVCZXdtT0dhOVl3VHEzVEV1Y3plNGNoYzM3QmlhQmd5TXpqMmVVTmtBWGpHSGJueDZHREVmUkl2bDFDWUt6clZoRkM4MmdYcDZWX2ZHSDhkemMzbXlfdnZXV1dCQW5r?oc=5",
+     "title": "Kebakaran 3 Ruko di Suryakencana Bogor Diduga akibat Korsleting",
+     "published": "2026-10-25T16:17:00+07:00"
     },
     {
      "name": "MetroTVNews.com",
      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPTldDZnp5ZXlvQlliWnRiZ3J3Rk9odktNSjZueHRJdjh4MzNCVkJ6SHk5WFhSTkkxeXhzN0RfaUlOUkZHUEJqd0ZwMHlNZHg1aktiZ1F1Yy0xdHhFdkQ0M1FvUEZuNWtWOVRKME5fOU40c2Z3ZjIxMXQ5Q1k3akNTVTVoWnltX2xyMHJkS2RNZHRCVnBHVERRZG1NRDA1d2F4UzFQYl9VZjVpMVpmcmlQcVlpaWx0NlVFRGc?oc=5",
      "title": "Diduga Akibat Korsleting Listrik, 3 Ruko di Suryakencana Bogor Ludes Terbakar",
      "published": "2026-10-25T16:56:52+07:00"
+    },
+    {
+     "name": "Kompas.com",
+     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxONWdUalpBOE4wcUU1eFdyZlZFaDZocUNia25vdF9CU05oV0o4YWw3ejB5R0o0OHhWdFl1RkI5REVhTmFPZVA1ZjlZVGVMRm5RcTc3azFKaThqa1lKbDFGczJ5bUhwbDJyNGp1cl9PTmphdTA1Q3pnM2ZFSzFkVXJfUHJMT0tWSFhiaHRQLXRfSElJcXdkNnBXN1NBbHpmY1NIWUJ2NnpZUktLR0htQXE4cE04UG1Ta3NHb1dBWXBIb3pVUWRxR0pnd05JVEtFd2RQRlMw?oc=5",
+     "title": "Kebakaran 3 Ruko di Suryakencana Bogor Padam Setelah 10 Jam, Damkar Sempat Terkendala Sumber Air Halaman 1",
+     "published": "2026-10-25T17:32:17+07:00"
     },
     {
      "name": "RASIOO.id",
@@ -809,8 +920,8 @@
      "published": "2026-10-25T20:46:31+07:00"
     },
     {
-     "name": "RCTI+",
-     "url": "https://news.google.com/rss/articles/CBMizgJBVV95cUxOOUNtdlZjdmRuY3JsTTNmNGpKeW1WcGptVmdCUGE4bVJ4b0tWZEluWDlfbEhFNGVIU0RmcEI5RGpTVVFBUHl5ckQ5T0FRelo2ZFFmNDg0NG94OGRMa3p1Z2JNTDdDOXdQdmgxN2kxU3VpeWFvY0NPYXVvWWZBWTRjbU9wWW9rYkVzeG1TZ0h5WFNaX3dJUXJpV19nT2tJSjlwd1dxalFZZlhXVHZHSVVQejgzQlNHTEk1NGgwRF9oakJLU2RjdlRzODNEWDkxa1l1Q0dybk5Pb1h4N0dfOHVEX2pXeUVNRWhaQzRGS0FyenA2YkZiYXVTb2NQYnlRT0Z0bkdUaVNTUDZqNGRnNk9oT183Sm56Sng1SzU4cTJXbjZBeFJiandQMHJWSzJ3NGMzM0JNVjZFNWZvVFEtTzdiUWtLNUF2MEpHeEo3ODZ3?oc=5",
+     "name": "iNews.ID",
+     "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNWXl2elBFNDRiWXpqdHlsMV9TSDVCa3I0QTJZanRSTVpiNy15aWNGU1NXWkRWTzJMQ3NLQVlmNk9QeHFFWmFsakQzV21ESEhkY0NJRXlHQ0x4akN4Uld0eG5pSW0zM29FWnZ4WXp4eGNHaERoSjZtTGNCUi03eTl5ZTVBaThmcHA5SjRPczhPMFcwMkdTaGFEeUo0bmFGQVZnbDM5Z0ZpWjBIa1gtTDRhUlpoYm9lZGVBUHhnSjc4N05venY3c0FpMVdoY3hEeFF1VFRqRNIB2gFBVV95cUxPWTVneEFzZGs5d0dCQ2c2dTBwZl9Lek8tcDE3RUhCQ0F4c0dsWElFc2JkUkdzRW1UNno1Z2gtRWY3a2Z6Mk1EbmhOQWNPSS1jSWdBWEJITGRrZmlQd0k1dFlkQXU5V2ctTlhDUDdQWUNLV3J5TDFDVWUtaU9rSHg4S0hSX1haUkZQUC1LOGpZRVZ1d0laQ2pMNzA0NGVrWVVtLUVfZTZKMTRyVXdkejlPWlNTRGNSUjRtWGRUbzZleVU4RnZBV1RZbVBZaE82NzRtcW5aZlYzQXNiUQ?oc=5",
      "title": "Tiba Pertama di Lokasi Kebakaran Suryakencana, Perindo Bogor Siagakan Ambulans Beri Pertolongan Medis",
      "published": "2026-10-25T21:26:00+07:00"
     },
@@ -827,6 +938,18 @@
      "published": "2026-10-25T22:30:00+07:00"
     },
     {
+     "name": "Berita Utama",
+     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNeXpYWkRERW9ma0RPNE9kajNldnJUZl9odzhOT3NPOW5aOWRMX1JZeEFGUGFVM05Dc3FHRVl4cnZhblYwcjFxblFjV3lOVmdpVEppcDJjWmwtVjliWGg5dk1GTmVTMmVMSmJlX1JxSlZhWXFuSXBQOGRVcjBPYzV1Y05CaWlpSUFSYXIxb0d5Um5kd1h2SE13OHV1VFYtQTlDdnpfd0JzdUxpZG53Z09WZkR3bFA1ZG9M0gG-AUFVX3lxTE84SUNfcmlxSE0tQV9hTXBHMEtBVlo0MUN2NkVjMnE3Yi1RVHFYYmhiU3VNXzVrVDgzRHJQcFlla3pzWUZkTUN3dWxnUlJEVUdMbzhjSVdrZmNBS3RSVmVid0Y0VVBudjE0akNBVndORllWWVJsTE9FUHdBTFVseGlFVGllTG9udC1xWHI5VWhnbW84WUhlZkQzTm95X184NXZweXI0UzlsbkJBcURBdnhQSVNvS2QyaGdQLVVlamc?oc=5",
+     "title": "Tiga Ruko di Surya Kencana Bogor Terbakar, Kerugian Ratusan Juta",
+     "published": "2026-10-25T23:24:20+07:00"
+    },
+    {
+     "name": "Inilahkoran.id",
+     "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOT1NYeW01b0pRTFp4NjNVSzJaMzZJanlnamtCdzVOUUNQaFB4RzktMmZ5SHgyWVpxZmw3WkZLZUFFMVVFUmlMSjhUTDNGek1URHNNZU1DOXV4aFRCdVJEbXVmQzF4VWpHWG1RQU1pUVFSRFRmdVd4QkJLSUsyMWpya2hta3pDWlBl?oc=5",
+     "title": "Kebakaran Hebat di Bogor Tengah:Api Membara Ruko Merana",
+     "published": "2026-10-26T04:20:20+07:00"
+    },
+    {
      "name": "Lintas Priangan",
      "url": "https://lintaspriangan.com/berita-jabar/berita-bogor/kebakaran-suryakencana-bogor-berita-bogor-261026/",
      "title": "Kebakaran Suryakencana Bogor, Bagaimana Ruko Menyediakan Akses Darurat?",
@@ -837,52 +960,60 @@
      "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQMFBCclo0MlZPR2FRQTNQQVlnT1g1cjRYTXh6Q3NpRHpsdTk0OE9fcXNwb2t1MU5FdmlLQ1FJeWRVejBxX3o3WTFvY0RXNFgzUnpEUUhnMUl2VGkxdGpNNFVKeUlWYmktM2dmTURiWTBFcDlfNHhTNHhqaUtPbE1FclFfRDhmTmVnbGkxdkJmUWtORW1GdXY1SkU1UGRpeUVzaUhKNUQxN3hPbTRZVzBVaVpIT0FQeHNRY0VYeDcxd1o3WHZ3UWpKb2RpTjhvMzZQdzRrZzZwOWM?oc=5",
      "title": "Heboh Isu Remaja Perang Petasan Sebelum 3 Ruko di Suryakencana Bogor Kebakaran, Ini Kata Polisi",
      "published": "2026-10-26T06:10:43+07:00"
+    },
+    {
+     "name": "Metro Bogor",
+     "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxQNXJNanV5THUtTjloYy0xZDRqWVM2WmludHhTaXdldHlRckN3eXZabXpHTURVaG90NVVmbzdlekpxWnlybHY0LXpKZ3RvWmo5OXdnUTFKZURaa3NRUi1CRVVnVDM5SEc2VTl4U2hJcXdfanhBYnphdm5rRjVIZ0g0dXV0RjZTT3dIelNIUmxuQ3Q4cDlDck15MnRNQXhTU3NQei1pY0J1T2lGLWVtSjZ1NFZfVEFIVmJUbG1PdWYxM0pMa1J3cjJoM18wRjJFRmdheFZoLWJvM2l5WlJTc3Baa0M1OG5YdlJM0gHuAUFVX3lxTE1VQm5FV2o5MnlQS3NDSHc2RGdCZnc4amtfczdNLVVNdkRESVpIVmpLZThzbUJfYk1xMUNvV0x5Vk0tS3NJVmJWbjloVXFhT2N3UVFOX0g4SjJkTGFjMUxXX2VqOHRsT3Y1bVp4UnNfczhlQUhNTVhGVnk1aERNTDlIeUFXUFpDb1dla1ZXVWhmcWp3QTlKaXJMX1ZlMk1pZkRwUnNqbGRsek9VbVptSnpIb0dUdVJQdzkwaUMyemVoVWNGV1lDNmRZUk1NNXpmZ2JzNE9SU0kwTzdFdy13MjI5cHo0eGJuRlhKVnN4d2c?oc=5",
+     "title": "Viral Dugaan Pemuda Mabuk Picu Kebakaran Ruko di Suryakencana Bogor, Polisi Masih Lakukan Penyelidikan",
+     "published": "2026-10-26T07:20:00+07:00"
+    },
+    {
+     "name": "Merdekanews.co",
+     "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOdWY5UjlpeTUwNl9objBRU2NaTTVxVHFLWlZDb3o4UTRWUkg4ckdaRVVseFJ1dWp2VUprYTNRamFkMWNnbjRWc2l3eVVYaWlIdWx5d0NkYTlMUjI4U3FPLTVtZEdqYjZySXVrYi1qVS1ZbGUzVlRoakl2bTNKaDB5QUVaZ1d6TU56bWxTcExMM0I4X0xSdVl2R1otbW1PQ0QzS3UtRndlNXNXal9NY0U4Q3ZNa2daZkNJOGJkSjkxRFRxZjA?oc=5",
+     "title": "Bukan Korsleting Listrik, Ini Penyebab Kebakaran Hanguskan Tiga Ruko di Suryakencana Bogor?",
+     "published": "2026-10-26T07:25:00+07:00"
+    },
+    {
+     "name": "Harian Bogor Raya",
+     "url": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQeDhYMm9iTWlJZ2pCSmVoZHdfS3RVcG14c2FCTWpObzMzVUFvUUdTaFlDNlptN1Vodno3LWZ5bUwwVXFwY09zUkdsR2htRE9KXy1zMzg3SVRsTHpEVjhrRlFLRHJ2VlhOWHVGbms4M0JaSVozNUc5X1RsVFZoNXpzRjM3WjNtY2h6SEQtMmpCS2Q0YmI1Ukd6dFQ4TU5mS2Q5bUdWWHNCaG1FNVV2cTZTTEpSS2gzVWtTOGFZVHlQaHp6WTJXXzZFMEVuSC1ESU93OG1oYjBZa2YzM0FCOHBfT3N4cTF6NmROQzRiTnZkY9IB9AFBVV95cUxNNkU4QkpCS3VJR3lWdDJtSE1XUXlFNXFHTjlnaTBobHBOZWoyTFVQbnk5NUoxaVhaMWlVYTdVa0V3OEg2TWl0VndES1hacWZtSG1SMXNQSHVlNTkxV2pwVVNMenFqTktJeGVOWWVkaFl6c0ZHWkJFN0xuRXoxSlYxbmEyTW0wODdLR3ZWeHhkcVZEalJfb1kza21pYWktY1BNN2REQWM5Q2tEcUlNTVMtRjUtZU1LZkM5NWRFTjFrOXRieXBjdW5OM3poR1JIZkFTVVgzdFVhMGpqMDg3d0RFY3o4cXdGTGN0UXhkMmVjWFNFOGFN?oc=5",
+     "title": "Ambulans Perindo Bogor Siaga di Lokasi Kebakaran Suryakencana, Dua Warga Dapat Pertolongan Medis",
+     "published": "2026-10-26T07:26:00+07:00"
+    },
+    {
+     "name": "شبكة تواصل الإخبارية",
+     "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5OSTF4S1BCOEkzSm04UFhTcjhvbUUzMnJvaUloOVJMcFZRVDV6M3lBYndaRTZsUDhPbzhSakhxaFlhdFM3YWxTQlpTN3F2NFQwU3RZ?oc=5",
+     "title": "Pemuda Mabuk Diduga Jadi Biang Kerok Kebakaran Toko di Suryakencana Bogor",
+     "published": "2026-10-26T10:50:53+07:00"
+    },
+    {
+     "name": "Tribunnewsbogor.com",
+     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNUWotbk9mV3N3dGc5T0h5OXVoUGsxVU9EYnBKT1A0bEVLYkthWjJKZ3ZHN0ZXM2lTUnhYWEFJcXpVeFNRZ0hodHd3TVBNTHB6T2Y2V0d2TVRKU2V6WEpOamkwbXAyNU1HLW1QWjlRWlJmLWRPZEN6QlpvbmtwQXNSZjVRTmxhNVQ2TDMzbWdOWV9Kd0p5RjJ4cVZVdlJERmU5X2VwMkJ0Y2I5am81RlVjRUFocE5iaVFiUndWMTBjbGM3cmR5T2JBRVVUUjg4eXRSX2Y3X3FR?oc=5",
+     "title": "Ruko di Suryakencana Bogor Dilalap si Jago Merah, Dedie Rachim Gercep Datangi TKP dari Subuh",
+     "published": "2026-10-26T11:23:19+07:00"
+    },
+    {
+     "name": "Lingkar",
+     "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNNkxWampNWUxaN0g1dkdaQ1MyRkdKOVllVkpsRUVuLXdIeG5LdllTWG1SMksyWllOWVlXZGJPaHZHV1RBX2F0VmdURU85YlFFcnM2VzZCNjdwc1JnSWtVMFFQMU9pcHR6MmNUTHU5OGZwMERjRVhhTzZJa1pyYWlPbTZmOVh5ekdoNjQ3cjlIa0xuQlk4N2lTWg?oc=5",
+     "title": "Kebakaran Terjadi di Suryakencana, Bogor Dengan Menghanguskan 3 Ruko",
+     "published": "2026-10-26T11:38:22+07:00"
+    },
+    {
+     "name": "MPN Indonesia",
+     "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPLTN5cXFXQi1sd3pvWGVuUWtudU93YjN4alpWeWFfOW1Ka3N2U1J1VmFudkZITnV3Vm90b0g4YkVxbm1CX0V3NlZMSU1uNDB0U09MS2YtWE03cWlfV1hlZjYtQ2lQZ0VUT3VJNHNacV9RQUxhbi1yZmp1RlpJNC0tdEl1X2NyczhER21NaDhQNWpwdGdUTlhHZ2NVcHZOWnIyZGdGOXJXSmRlTlpxa09uQWpaN0JiWE8tMkMtVDZISTM2dGtV?oc=5",
+     "title": "Kebakaran 3 Ruko di Jalan Suryakencana Bogor, Dugaan Sementara karena Korsleting Listrik",
+     "published": "2026-10-26T11:42:17+07:00"
     }
    ],
-   "report_count": 53,
+   "report_count": 29,
    "extraction": "llm",
    "confidence": 0.98
-  },
-  {
-   "id": "80ce025f25",
-   "category": "banjir",
-   "subcategory": null,
-   "title": "Pemkot Bekasi Kebut Perbaikan Jalan dan Penanganan Banjir",
-   "summary": "Pemerintah Kota Bekasi berupaya mempercepat perbaikan jalan dan penanganan banjir di wilayahnya.",
-   "kab_kota": "Kabupaten Bekasi",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.21975,
-   "lon": 107.12171,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-26T01:15:00+07:00",
-   "last_reported": "2026-10-26T01:15:00+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "jalan_jembatan",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "RRI.co.id",
-     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNWTVXVGdlNkg4V01FVVFJU09YODlSbG1CRVFaeTdkdU9vd2ptLXZkejhseHItNldHZnZ6VW1NMzFnVnB0czBYYWdXcHdLNkhvT2pFc0xVd0NZeE1ITHBxXzlTMFJlWW9JQ3VqeXZUdTBYeGQ5VGFHYy1OcU9VTDZXTjZVRWxId2FjYU5hOGRQRWpJaU80UEhr?oc=5",
-     "title": "Pemkot Bekasi Kebut Perbaikan Jalan dan Penanganan Banjir",
-     "published": "2026-10-26T01:15:00+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.8
   },
   {
    "id": "211f36e128",
    "category": "banjir",
    "subcategory": null,
-   "title": "Tanggul Kali Sugu Tamu Jebol Usai Hujan Deras, 113 KK di Bogor Terdampak Banjir",
-   "summary": "Tanggul Kali Sugu di Kabupaten Bogor jebol setelah hujan deras, mengakibatkan banjir yang menimpa 113 kepala keluarga.",
+   "title": "113 Rumah Sempat Terendam, BPBD Bogor Ungkap Penyebab Banjir di Cibinong",
+   "summary": "Banjir di Cibinong, Kabupaten Bogor menggenangi 113 rumah pada tanggal 26 Oktober 2026, menyebabkan kerusakan pada permukiman setempat.",
    "kab_kota": "Kabupaten Bogor",
    "kecamatan": "Cibinong",
    "desa": "Pabuaran Mekar",
@@ -891,7 +1022,7 @@
    "location_precision": "kecamatan",
    "event_time": "2026-10-25T17:40:00+07:00",
    "first_reported": "2026-10-25T20:28:52+07:00",
-   "last_reported": "2026-10-25T23:42:44+07:00",
+   "last_reported": "2026-10-26T11:32:45+07:00",
    "victims": {
     "affected": 205,
     "houses": 113
@@ -915,6 +1046,10 @@
     },
     {
      "type": "rumah_ibadah",
+     "name": null
+    },
+    {
+     "type": "rumah",
      "name": null
     }
    ],
@@ -990,11 +1125,197 @@
      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQSmVDdXhfeWtVWHhhVDhNUzV4azJnVWVrcTJOa1RqME4zenZLbmhMY2d6akU1TE44S1RUWWRvMjhUYWhTQUVKVkFOdEpaY1dmSWozckZfY2p5RV8xV2UwS2h1S2prWTlaSEoweWNzRHhoa1l5Rl9BR2dWaFY3WndQTEFwNjA2MUV1VkRGLXVmUkVONjRCRGlDcDM0b1pRZW1mVDd0bUZHVUdOYktwXzJrcXU5R1FVY0pY0gG4AUFVX3lxTFBKZUN1eF95a1VYeGFUOE1TNXhrMmdVZWtxMk5rVGowTjN6dktuaExjZ3pqRTVMTjhLVFRZZG8yOFRhaFNBRUpWQU50SlpjV2ZJajNyRl9janlFXzFXZTBLaHVLamtZOVpISjB5Y3NEeGhrWXlGX0FHZ1ZoVjdad1BMQXA2MDYxRXVWREYtdWZSRU42NEJEaUNwMzRvWlFlbWZUN3RtRkdVR05iS3BfMmtxdTlHUVVjSlg?oc=5",
      "title": "113 Rumah di Cibinong Terendam Banjir Akibat Tanggul Kali Sugu Tamu Jebol",
      "published": "2026-10-25T23:42:44+07:00"
+    },
+    {
+     "name": "https://www.suaralandak.co.id/",
+     "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1hUDJuSTlCb0o5WC1sUldZVTRXNmpxeFBVM3l6MW83VXl6a3dzR3ltVUdmaHdMWjhPUXpLTDJLOUtXQkxqRl9DZU8wUkI3cjZBS0dTOF9OSEtrVXhXTXhta2NiNFVXUkEtNUN4UFJzTVE?oc=5",
+     "title": "Banjir Rendam Jalan Mayor Oking Cibinong dan Matikan Motor",
+     "published": "2026-10-26T00:01:00+07:00"
+    },
+    {
+     "name": "RRI.co.id",
+     "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNTTNwSUFWb01VX0ZZY3luZVFPLTNpSDRqR2tLemJzbnkySDdpY2ZfTm5tQ0dHLWlJejVVWmVIT2lvR3FZRjFnZWdyMURVSWZIQVFMbnRWWHJ1MjdodWVEYzF1bG1fSWFPMmVOeGNvV3VlbTRrVVhaS21jclMtSV8zMnFmLWxSSTFXZEtnMDN2bFJQbzVTZml5dTBOTVVpUElRUURnenNnbWZ0UQ?oc=5",
+     "title": "113 Rumah Sempat Terendam, BPBD Bogor Ungkap Penyebab Banjir di Cibinong",
+     "published": "2026-10-26T10:45:00+07:00"
+    },
+    {
+     "name": "Tribunnewsbogor.com",
+     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNMkM0Tm90Q0Qxc0ZQUktJVEdHenBiaU9QRURxSkRmZXZzNkVmeHpVNVlnd3oyZERNS3dXckpoTWd4dUV4X0VjcTl4OV95R2d6VmpsM3JtaHlqRjBsMFg2Q0t1alQ5RUNZR3ZhSlh1T2x3YUtCWEFGOTZGYlR2ek1KNUNRTkVVNkZKMF9WRTlJOWZtamxBVGJGVXhMV3JnNkt1NkRKSy12bWZ6ay1ZX3RjeXlpejY5Q2ZKdk9mYUQ3Z1BPMXVmaVRrRUFtRWMxUQ?oc=5",
+     "title": "Aliran Kali Jantung Meluap Imbas Hujan, Belasan Rumah di Cibinong Bogor Terendam Banjir",
+     "published": "2026-10-26T11:06:03+07:00"
+    },
+    {
+     "name": "garuda tv",
+     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQaGdlWkNlY3VYeXhYcHlXN2Fndk5oZ29rMVNrQkJCbHcxNnhoQ3NLaHdnNkdLV3F5QmNNMmhwVE1wWkkyV1lIdTdienNFUzhFRUVyczFIYW9mcXBOZGFhbGlGWHNNd3JnM2NLUnQ1cnB2MlluMWQ4T2dJTVFrZ1RvR1BWNDdWZXdjbEQyY0ZR?oc=5",
+     "title": "Tanggul Kali Sugu Tamu Jebol, 113 Rumah di Cibinong Terendam Banjir",
+     "published": "2026-10-26T11:32:45+07:00"
     }
    ],
-   "report_count": 12,
+   "report_count": 16,
    "extraction": "llm",
-   "confidence": 0.99
+   "confidence": 1.0
+  },
+  {
+   "id": "53aea7f9fa",
+   "category": "longsor",
+   "subcategory": "longsor susulan",
+   "title": "Dipicu Hujan Deras, Longsor Susulan 15 Meter Terjadi di Kedung Badak Bogor",
+   "summary": "Longsor susulan sepanjang 15 meter terjadi di Kelurahan Kedung Badak, Kecamatan Tanah Sareal, Kota Bogor, dipicu oleh hujan deras.",
+   "kab_kota": "Kota Bogor",
+   "kecamatan": "Tanah Sareal",
+   "desa": "Kedung Badak",
+   "lat": -6.54683,
+   "lon": 106.78545,
+   "location_precision": "kecamatan",
+   "event_time": "2026-10-26",
+   "first_reported": "2026-10-26T09:32:00+07:00",
+   "last_reported": "2026-10-26T09:32:00+07:00",
+   "victims": {},
+   "affected_entities": [],
+   "sources": [
+    {
+     "name": "PELITA KARAWANG",
+     "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOTk5Oak8ya3BBdS1RNTJlOXB4NFllZ25QZWZFeG9EQlJwR0JQa2RNdE1IQm1DMENKdUpKLXpCQUI5NWNpVkl4dUhhLURtRnFhYmU2RGZTOHFvTjVseXE5VXBpeTc4UlhBRlkwR1lVRDJyTUFiVmxsbG1BM21OdllrZ3JzTUt0ekZL?oc=5",
+     "title": "Dipicu Hujan Deras, Longsor Susulan 15 Meter Terjadi di Kedung Badak Bogor",
+     "published": "2026-10-26T09:32:00+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.95
+  },
+  {
+   "id": "4f14bfeabb",
+   "category": "kebakaran",
+   "subcategory": "karhutla",
+   "title": "Diduga Akibat Puntung Rokok, Lahan Seluas 250 Meter Persegi di Losarang Indramayu Terbakar",
+   "summary": "Lahan seluas 250 m² di Losarang, Kabupaten Indramayu terbakar diduga akibat puntung rokok.",
+   "kab_kota": "Kabupaten Indramayu",
+   "kecamatan": "Losarang",
+   "desa": null,
+   "lat": -6.38644,
+   "lon": 108.16954,
+   "location_precision": "kecamatan",
+   "event_time": null,
+   "first_reported": "2026-10-26T09:20:40+07:00",
+   "last_reported": "2026-10-26T09:20:40+07:00",
+   "victims": {},
+   "affected_entities": [
+    {
+     "type": "lahan",
+     "name": null
+    }
+   ],
+   "sources": [
+    {
+     "name": "Tribuncirebon.com",
+     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOa3VadkhlZVVqRU9ZcUJBVEg2TWxBYmoxeGZ2dWJVVXQtRG5NdDh2ZVQ1LUd5T1NrejZodUNyTTA1RkprMXZPRUhtN193YTg0X2c5QVJzYVVJNmJ6a2RTX0ZlZkZzOG5NcEpKcGt4Qjk3Wmx6RTc5aGJGZml1MDlOZDgwX3NwNkdIcVBGTGxDTGJkSTllTlltNWRqMDgySHc5NGs5RnNwd2xRejZ3bGR3ZE05RS1vQUkwOW90YWx1TTlpSV9mU2pONW9jSnVhNXZQbW1n?oc=5",
+     "title": "Diduga Akibat Puntung Rokok, Lahan Seluas 250 Meter Persegi di Losarang Indramayu Terbakar",
+     "published": "2026-10-26T09:20:40+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.98
+  },
+  {
+   "id": "17caa9193a",
+   "category": "kekerasan_anak",
+   "subcategory": null,
+   "title": "Ketua RT Ungkap Bapak Bunuh Anak di Bandung karena Debat Judol Tak Ada Riwayat KDRT, Keluarga Harmonis",
+   "summary": "Seorang ayah di Kota Bandung dilaporkan membunuh anaknya sendiri setelah terjadi debat, menambah kasus kekerasan terhadap anak di wilayah tersebut.",
+   "kab_kota": "Kota Bandung",
+   "kecamatan": null,
+   "desa": null,
+   "lat": -6.91924,
+   "lon": 107.6366,
+   "location_precision": "kab_kota",
+   "event_time": null,
+   "first_reported": "2026-10-26T06:27:06+07:00",
+   "last_reported": "2026-10-26T06:27:06+07:00",
+   "victims": {
+    "dead": 1
+   },
+   "affected_entities": [],
+   "sources": [
+    {
+     "name": "Lintas Gunungkidul",
+     "url": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxOcXp3b05QWXBJdnphMFJ0ei1CVUNfVW00emQ4aFlXbWRtNHFWdUdDNHpMbng3ek9SaG1JdHg4ZHJJLXhpeXRyb0ZITXhDUWpGWWFrd0RpRTRoVEFGei1EeEk0bmpUMWVxYWc4YVNoUUhmaUF4MWo3YnRTNDVFcWN1ZllhSjQ2VTdKLWthSjNsM3VVMGtSZExwcjdJOWY5NTBoQUsyX2JxZ25mb3VoUHNkOC02OVlFazJxd0tqYzB5OTBRR21IS0YydmNTRURFN3U2bmNDUDM3eGk3azAyVnNNNGdxcmZmUkdSREpoekNPdkdCNnBpamUzQ9IB_gFBVV95cUxPRkt2aHZMZ25xd1ZJRWxsSmx4OFV5U3AyZE14OGZfbnFrWWEwR0lvQ01oMktvbjAxWWVJbVN4WXZyNnZnZDBsblZEN1JGMS1KTDh4NzBOMmpXQU5oRjNvVXR5TUlEdnB6ZEJ6NGdqMHowaWVrNVVnR1NfbWh6aThORmtWUFpzcFlHd3hCRnc4NVBkd0M4cDBfaG1VUVlETmRaVk9oVEVadk9TcHlEaDV3Rk0xMnp5RWFRbXE5NDBZUmRqUHRQVktKRHhldEVFWm5WbE04SmFVQkhFYm1QNURkaklZY0Z0T21jN3p4TzN6RmpYZVdlSXczZWo2SUtZQQ?oc=5",
+     "title": "Ketua RT Ungkap Bapak Bunuh Anak di Bandung karena Debat Judol Tak Ada Riwayat KDRT, Keluarga Harmonis",
+     "published": "2026-10-26T06:27:06+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.9
+  },
+  {
+   "id": "4521ddd7a7",
+   "category": "kekeringan",
+   "subcategory": null,
+   "title": "Kekeringan Sawah di Karawang, 13 Alat Berat Dikerahkan",
+   "summary": "Dikabarkan terjadi kekeringan pada sawah di Kabupaten Karawang sehingga 13 alat berat dikerahkan untuk mengatasi masalah tersebut.",
+   "kab_kota": "Kabupaten Karawang",
+   "kecamatan": null,
+   "desa": null,
+   "lat": -6.25228,
+   "lon": 107.35429,
+   "location_precision": "kab_kota",
+   "event_time": null,
+   "first_reported": "2026-10-26T05:00:00+07:00",
+   "last_reported": "2026-10-26T05:00:00+07:00",
+   "victims": {},
+   "affected_entities": [
+    {
+     "type": "lahan",
+     "name": null
+    }
+   ],
+   "sources": [
+    {
+     "name": "Pikiran Rakyat Koran",
+     "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOUThCNHc4NHIwckd2N2FYRVo0V1hnemtUTzZTeGxmemtpT3BpTHZ2MzludjVQQkM0b1R1ekZlc2NDWFdiR0FLSTE3TlVfUnVHelJVSWVPUU9UMXdYeGRUNDBTVnlpODFjM291XzVFakF4ZU9OYnVNZ3oza3ZVQ21aMVN5TXlWM0xiZjNHc29QYk16RGcxZnFyaHNDbkFyZWhwSGs0WWZrQXNhdw?oc=5",
+     "title": "Kekeringan Sawah di Karawang, 13 Alat Berat Dikerahkan",
+     "published": "2026-10-26T05:00:00+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.9
+  },
+  {
+   "id": "80ce025f25",
+   "category": "banjir",
+   "subcategory": null,
+   "title": "Pemkot Bekasi Kebut Perbaikan Jalan dan Penanganan Banjir",
+   "summary": "Pemerintah Kota Bekasi berupaya mempercepat perbaikan jalan dan penanganan banjir di wilayahnya.",
+   "kab_kota": "Kabupaten Bekasi",
+   "kecamatan": null,
+   "desa": null,
+   "lat": -6.21975,
+   "lon": 107.12171,
+   "location_precision": "kab_kota",
+   "event_time": null,
+   "first_reported": "2026-10-26T01:15:00+07:00",
+   "last_reported": "2026-10-26T01:15:00+07:00",
+   "victims": {},
+   "affected_entities": [
+    {
+     "type": "jalan_jembatan",
+     "name": null
+    }
+   ],
+   "sources": [
+    {
+     "name": "RRI.co.id",
+     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNWTVXVGdlNkg4V01FVVFJU09YODlSbG1CRVFaeTdkdU9vd2ptLXZkejhseHItNldHZnZ6VW1NMzFnVnB0czBYYWdXcHdLNkhvT2pFc0xVd0NZeE1ITHBxXzlTMFJlWW9JQ3VqeXZUdTBYeGQ5VGFHYy1OcU9VTDZXTjZVRWxId2FjYU5hOGRQRWpJaU80UEhr?oc=5",
+     "title": "Pemkot Bekasi Kebut Perbaikan Jalan dan Penanganan Banjir",
+     "published": "2026-10-26T01:15:00+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.8
   },
   {
    "id": "e755ec2ade",
@@ -1070,8 +1391,8 @@
    "id": "1d0e7ced09",
    "category": "kekerasan_seksual",
    "subcategory": null,
-   "title": "Oknum Dokter di Bandung Cabuli Anak Kandung Hingga Tertular Penyakit Kelamin",
-   "summary": "Seorang dokter di Kota Bandung diduga melakukan cabul terhadap anak kandungnya hingga menularkan penyakit kelamin.",
+   "title": "Bandung Raya Sepekan: Heboh Dokter Cabuli Anak Kandung",
+   "summary": "Seorang dokter di Kota Bandung ditangkap karena diduga mencabuli anak kandungnya berusia 3,5 tahun sejak November 2025. Peristiwa ini terungkap setelah anak korban mengeluh sakit di bagian organ sensitifnya.",
    "kab_kota": "Kota Bandung",
    "kecamatan": null,
    "desa": "Gandasari",
@@ -1079,7 +1400,7 @@
    "lon": 107.6366,
    "location_precision": "kab_kota",
    "event_time": "2025-11-19T00:00:00+07:00",
-   "first_reported": "2026-10-25T12:56:09+07:00",
+   "first_reported": "2026-10-25T21:00:43+07:00",
    "last_reported": "2026-10-25T21:01:00+07:00",
    "victims": {
     "affected": 1
@@ -1100,12 +1421,6 @@
    ],
    "sources": [
     {
-     "name": "Kanalinspirasi.com",
-     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQX1J4a09MWE8zdW9zOHR0VHhOZENwOXJ1X3pvQ256TUtVc3RmT0Yyc29la0V3aWxMWXM0eUl2NlBiSEhmZC1EUnFiNXN5UW1iNE0xN29KVlZZdVBNMXZIcG1Rd1l6UnREbnlPbWp6bkVHaGdqT1NFcXZKSjVIdnRCNl9MY0pQY0plN3VMLS1hcU0yRDc1a04wMDJlM1oyOFNhdmF2ZHJtMjBBTXJpMExNWDhGbnl6aHFPYzRFOUVR0gG-AUFVX3lxTFBfUnhrT0xYTzN1b3M4dHRUeE5kQ3A5cnVfem9DbnpNS1VzdGZPRjJzb2VrRXdpbExZczR5SXY2UGJISGZkLURScWI1c3lRbWI0TTE3b0pWVll1UE0xdkhwbVF3WXpSdERueU9tanpuRUdoZ2pPU0VxdkpKNUh2dEI2X0xjSlBjSmU3dUwtLWFxTTJENzVrTjAwMmUzWjI4U2F2YXZkcm0yMEFNcmkwTE1YOEZueXpocU9jNEU5RVE?oc=5",
-     "title": "Oknum Dokter di Bandung Cabuli Anak Kandung Hingga Tertular Penyakit Kelamin",
-     "published": "2026-10-25T12:56:09+07:00"
-    },
-    {
      "name": "detikJabar",
      "url": "https://www.detik.com/jabar/berita/d-8723523/bandung-raya-sepekan-heboh-dokter-cabuli-anak-kandung",
      "title": "Bandung Raya Sepekan: Heboh Dokter Cabuli Anak Kandung",
@@ -1118,7 +1433,7 @@
      "published": "2026-10-25T21:01:00+07:00"
     }
    ],
-   "report_count": 3,
+   "report_count": 2,
    "extraction": "llm",
    "confidence": 0.9
   },
@@ -1126,8 +1441,8 @@
    "id": "1aa3d0a77d",
    "category": "longsor",
    "subcategory": null,
-   "title": "Rumah di Cibinong Bogor Ambruk Terseret Longsor saat Hujan Deras",
-   "summary": "Sebuah rumah di Cibinong, Kabupaten Bogor ambruk dan terseret longsor saat hujan deras.",
+   "title": "Penampakan Rumah Ambruk di Karadenan Cibinong Bogor, Terdampak Tanah Longsor Usai Hujan Deras",
+   "summary": "Sebuah rumah ambruk di Karadenan, Cibinong, Kabupaten Bogor akibat terdampak tanah longsor usai hujan deras.",
    "kab_kota": "Kabupaten Bogor",
    "kecamatan": "Cibinong",
    "desa": "Karadenan",
@@ -1135,7 +1450,7 @@
    "lon": 106.83542,
    "location_precision": "kecamatan",
    "event_time": "2026-10-25T20:05:58+07:00",
-   "first_reported": "2026-10-25T14:04:18+07:00",
+   "first_reported": "2026-10-25T20:05:58+07:00",
    "last_reported": "2026-10-25T20:05:58+07:00",
    "victims": {
     "houses": 1
@@ -1148,19 +1463,13 @@
    ],
    "sources": [
     {
-     "name": "Metro Bogor",
-     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQaHh4SGZZXzlsOTFGOWxxVjF1S1hXYUtqQ1VSV3A3Sk1qeFVUOXRueU5qYTNacnFPcGU3RlhyN2RaeUpzRUVwT3ZXZXRmeWJjcmNnVDFySnVoeVdLdGFCdUl5VUljOGVNdkttZ20yTXBobi1VNmhJSWdiRkx5a1RXQUItSG5meXdNYXdsLU5TNV9wX0RwVTVGNEJYOF90YzVxUmRPQnhIaHBMMVVsZXVsZmI0VS1RYUnSAbwBQVVfeXFMTVNxSzI5ZDlnc3ozVkdFVndIU2lObjY1bnAxUC15WG1tNUxHSEtDVWpZNDhQSFhoQVNNN3V1V2s4dzJlYmpNdklaNVV4TXdwY25GTmJfbzJITXRIbUhtcVhUTGZPM1Y4ZEhCc0l5cjNiYUZqV0RTMERlY2pwUm0xVEVQNXVlVDhrNFJPNVdvNVBtRFdBQkxtZW5VeFE2N2hncUp4QXVrdlp6amN6YlRmc014VFhoWVVNM2IxZWw?oc=5",
-     "title": "Rumah di Cibinong Bogor Ambruk Terseret Longsor saat Hujan Deras",
-     "published": "2026-10-25T14:04:18+07:00"
-    },
-    {
      "name": "Tribunnewsbogor.com",
      "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNRFpQeDRQTjY3aUxVQXlUcFduVnBnTTdmX3NkVUhSWU9ndXU3Znl5eDZqMl9qMlN1a2hBMlJveEZMdUtNY3ZlZlRhU1llWDMtTUZQQy1mcGVNV3pVZUR3LXZvOThpQWNGLUhXUUtGWGlSbnNHdGxYOEFBZHR6VjVhSzBZSkxqNE5EX1pLS2xIdjk3TlhCd0hKQTV5TXpNYS02eER1al82RTUydjBpRVlzWWFFSzVFZW9pNnF1WnpzZXctUENZQkZldG9HS3BNLTVBSGYxSXN3?oc=5",
      "title": "Penampakan Rumah Ambruk di Karadenan Cibinong Bogor, Terdampak Tanah Longsor Usai Hujan Deras",
      "published": "2026-10-25T20:05:58+07:00"
     }
    ],
-   "report_count": 2,
+   "report_count": 1,
    "extraction": "llm",
    "confidence": 0.9
   },
@@ -1341,31 +1650,31 @@
   {
    "id": "7fff9d52ab",
    "category": "kebakaran",
-   "subcategory": "kebakaran material kayu",
-   "title": "Berjibaku Hampir 8 Jam! Kebakaran Material Kayu di Weru Cirebon Baru Padam Jam 9 Pagi Tadi",
-   "summary": "Kebakaran yang melanda tumpukan material kayu di Kecamatan Weru, Kabupaten Cirebon, berhasil dipadamkan setelah petugas berjibaku selama hampir 8 jam pada Minggu pagi.",
+   "subcategory": null,
+   "title": "Kebakaran Hebat Hanguskan Bangunan Kayu di Weru Cirebon",
+   "summary": "Kebakaran hebat melanda bangunan kayu di Kecamatan Weru, Kabupaten Cirebon, menyebabkan kerusakan pada struktur bangunan.",
    "kab_kota": "Kabupaten Cirebon",
    "kecamatan": "Weru",
    "desa": null,
    "lat": -6.7147,
    "lon": 108.49653,
    "location_precision": "kecamatan",
-   "event_time": "2026-10-25T09:00:00+07:00",
-   "first_reported": "2026-10-25T11:44:23+07:00",
+   "event_time": null,
+   "first_reported": "2026-10-25T16:16:00+07:00",
    "last_reported": "2026-10-25T18:32:37+07:00",
    "victims": {},
    "affected_entities": [
     {
      "type": "lainnya",
-     "name": "tempat penyimpanan material kayu"
+     "name": "Gudang Produksi Kayu Jati"
     }
    ],
    "sources": [
     {
-     "name": "Tribunjabar.id",
-     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPSG1qTlJ2VENRSVRBLVhJTUpwdUZNM29RaFFVYWxyUnhaZzNHYjFyakV5d3lGTEVpcWdKMElKd3c5VE1sU01lTGRhNmNoVlV4eTNIZHVsZTRqM050SjB3NDl5R2dUcnFwN01hMjNKdkNUeVFCQ1BORTdXQm1Oem9QNDZvOVNxaUtIRGJjTXdQeFJtQnN5Q0IyNDY3Zy0yLUlTeFpJM3pGUDZrX05BU3g1ZmU5T24zOWhMWjF0T2dOYUJXUlYwUTZPeERkTHBzV2FhbWQ3cTR3?oc=5",
-     "title": "Berjibaku Hampir 8 Jam! Kebakaran Material Kayu di Weru Cirebon Baru Padam Jam 9 Pagi Tadi",
-     "published": "2026-10-25T11:44:23+07:00"
+     "name": "Kompas.tv",
+     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOVllBQmNsSXVCTlctMll1LU9WTWVnRUVtMXp4N2R2MVc2dWhITkJvVEppUFZLcEFSLURGU1ltTTkzSHJhLUhJTmptbnh5em9sQnA0UTN6X0MtazlNbEN5Z0ZLYTRiTXV0MWFKbWtUOVhpaUJJQ2prWE9teEdmRVJPdkhHVVhSZWxCdVRhTE5rT2syOFVlTTI5eDdENlRndmVnSGVueXBDQl9qZ3FsbzNlOVIwdkhQWF9sbkFxTGZad25rV2NoMWQ5MzVuaUVJUdIB0wFBVV95cUxNclVQSGVsNjRvZzI4NXl2MjZ3TDhJWlRDTUhhaVJoalZpU1c4U1Z4QW5WYUM0aS1oamJQZ3FnSHgyOWhFU2w3d3AtWlRuY2tEZDNVQWR6SWVIUUhPTUpTMXpuSW1NVkdHUjNDTS0xZ2V5X3BCNGx4azRsZEhJeTZwaEhISnZjOE5GX25JVFBja25pZTVNTUx2ZnRTaWhwNF9TQlV6bjh3UU9iLWNSNDVoV0pZbjVMbk5rQXZPQTRxdFJyMWZ0dzMzZTl6UWZqbzBNcXZ3?oc=5",
+     "title": "Gudang Produksi Kayu Jati di Cirebon Ludes Terbakar, Kerugian Capai Miliaran Rupiah | KOMPAS SIANG",
+     "published": "2026-10-25T16:16:00+07:00"
     },
     {
      "name": "RRI.co.id",
@@ -1417,9 +1726,9 @@
   {
    "id": "9d4796c6b1",
    "category": "kebakaran",
-   "subcategory": "karhutla",
-   "title": "Brimob Jabar Bersama BPBD dan Warga Padamkan Kebakaran Hutan di Gunung Windoe",
-   "summary": "Brigade Mobil (Brimob) Jabar bekerja sama dengan BPBD dan warga berhasil memadamkan kebakaran hutan di Gunung Windoe.",
+   "subcategory": null,
+   "title": "Warga Bojong Rawalumbu Bahu-membahu Padamkan Kebakaran, Dua Rumah Hangus Dilalap Api",
+   "summary": "Warga Bojong Rawalumbu bahu-membahu memadamkan kebakaran yang menghanguskan dua rumah.",
    "kab_kota": "Kabupaten Bekasi",
    "kecamatan": "Bojong",
    "desa": "Rawalumbu",
@@ -1427,28 +1736,18 @@
    "lon": 107.12171,
    "location_precision": "kecamatan",
    "event_time": null,
-   "first_reported": "2026-10-25T10:09:26+07:00",
+   "first_reported": "2026-10-25T15:47:56+07:00",
    "last_reported": "2026-10-25T18:23:02+07:00",
    "victims": {
     "houses": 2
    },
    "affected_entities": [
     {
-     "type": "lahan",
-     "name": "Gunung Windoe"
-    },
-    {
      "type": "permukiman",
      "name": null
     }
    ],
    "sources": [
-    {
-     "name": "jurnalpolisi.co.id",
-     "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQVGQyd3JMdV8yWnozNy14aExva3RVY3duQVpwZHFNRVpYN1VJZEQ2bF8telkwRVgweF9iajVDVE5wcEpyRDEyekJLcjR6SmV4NWdzR1RzQjA1Sk83OHNYcUxXX3VUSzB3NGQ0bEp4c3NRNjBWazVCbVk0a2NEN28zTXdSN0Z2NGY2Y2ZwcktBem1Yd0lvNUdoVlozeUtaOW5GNGJFdWkwRF8?oc=5",
-     "title": "Brimob Jabar Bersama BPBD dan Warga Padamkan Kebakaran Hutan di Gunung Windoe",
-     "published": "2026-10-25T10:09:26+07:00"
-    },
     {
      "name": "Pikiran Rakyat Bekasi",
      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPY1dmUzZRVjFqQWJ4QW1zVGc1VENaZExmMkdQS2RXSFkwcm1wMXVCdGY2QWZJX2I1RHhPVXdwSmJBVGJVd0V4aTFEa29BTHNHNFkzZ3Q0NVc0N3FWT0NNTWNjQjluR3RYMXI1NG43M3B5Tm9VRVgtUFlRVFNUZEMtQ2tKd2JtV3BKcGQwOGxkRFdKUEQxdjllaUMxSEtCMUloZ0VneWVVR0NrcTRydEcyVzl4UmwzSVh6UmhNN2tZZDBiTWtoaFJjWWVhMTRaazTSAdQBQVVfeXFMUFJOS0NtNjdQSmNWaEdfR1FDZ2RIRmMxdlktYXEwMTNWTzNVeV9nQjJzclZHN2J2amx3RnpVYWVNNnZERENZNjcwX1VEUHZwcDNHMkZUT1pxWEJSUzB2Nk1QVmpOX25GdW9oSi1ZbGpRYlc1N002cmtjTkhwNGZSNXFITUF1cFBLbVhqZmpiTG5vN3JUbHVsYlFVYUdoY0p4RGJjVDItQU9EZWVuLUFfTXBjekdHenJpbzNJTW1ldUZHbEVMbHhMOVJCamRpNE1RY2NfZmI?oc=5",
@@ -1462,7 +1761,7 @@
      "published": "2026-10-25T18:23:02+07:00"
     }
    ],
-   "report_count": 3,
+   "report_count": 2,
    "extraction": "llm",
    "confidence": 0.9
   },
@@ -1541,35 +1840,6 @@
    "confidence": 0.9
   },
   {
-   "id": "88c2a21014",
-   "category": "tawuran",
-   "subcategory": null,
-   "title": "Janjian Tawuran Bawa Sajam di Medsos, 9 Remaja di Indramayu Ditangkap Polisi",
-   "summary": "Polisi menangkap 9 remaja yang terlibat tawuran di Indramayu setelah insiden tersebut dipublikasikan di media sosial.",
-   "kab_kota": "Kabupaten Indramayu",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.44749,
-   "lon": 108.16903,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T17:26:00+07:00",
-   "last_reported": "2026-10-25T17:26:00+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "Fajar Cirebon",
-     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOMzNrejFMQVAwdlFOT1NUaXgyTEQ4bGxVQWQxMFluUzlYbDVRR2piMjQ0U3FrSldIaDdCUUdsc3lMclNYbW5pdTYxd1U0eFF6Zm5reWlHU3ZZb25QZU9NN05lRzVrVEFnT0ZwNldlQkJsY3FOVU5tYTZ4ajNIa1k5SjNfRGVvQl82Z3dkbkhQZExSRmFPZzFLS0ktVk51ZWQ0NVdj?oc=5",
-     "title": "Janjian Tawuran Bawa Sajam di Medsos, 9 Remaja di Indramayu Ditangkap Polisi",
-     "published": "2026-10-25T17:26:00+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.97
-  },
-  {
    "id": "8105ee2ae9",
    "category": "kecelakaan",
    "subcategory": "kecelakaan tunggal",
@@ -1640,481 +1910,6 @@
    "confidence": 0.95
   },
   {
-   "id": "6f2a81e5e0",
-   "category": "kebakaran",
-   "subcategory": "karhutla",
-   "title": "Kapolres Majalengka AKBP Aldy Sulaiman Pimpin Backup Pemadaman Karhutla di Ciremai",
-   "summary": "Kapolres Majalengka memimpin langsung upaya pemadaman kebakaran hutan dan lahan (karhutla) di kawasan Gunung Ciremai.",
-   "kab_kota": "Kabupaten Majalengka",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.81508,
-   "lon": 108.25719,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T09:56:57+07:00",
-   "last_reported": "2026-10-25T16:07:00+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "lahan",
-     "name": "Gunung Ciremai"
-    }
-   ],
-   "sources": [
-    {
-     "name": "Tribunjabar.id",
-     "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPZGJsdUdXQkRJUWZjaTBzUGxfUE93Q3RjUXdTMmk1NG1TZjdqWlhuOTBfdVBuQW1Bc1U1bVlvQ2M4QWs1Z3VicWl5QnhfdVBuNW40Vl9Ea3pITW1rdjR2bHI1aG1relF4eTlIWFBRbENJejFUOHZiQlBJNWM2U0VtX2dUX25hWDYyZlhTOU9CSEVLeE10T1pudUVYZmpMTVNmS2lsNTllbDNPd1ZQc1Fkb1JMay1oel9JZ0gtWVpOZTFQeXNocUJQOGMzOW4?oc=5",
-     "title": "Kapolres Majalengka AKBP Aldy Sulaiman Pimpin Backup Pemadaman Karhutla di Ciremai",
-     "published": "2026-10-25T09:56:57+07:00"
-    },
-    {
-     "name": "Fajar Cirebon",
-     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNSTlIS3NHeXpleEIxMUtwamNMN2l5N0FWcEpsRWd6emh2RlNvYVRUNE1QMTN2aGlZbmxIdzl2NE9YRmVTRHA2dHZUZExxS2gyd1YxclNhOU9WT21hZkliLWFTNU03RGJxRmJ2WWxLNF9MQ1Z6SEdXdkNYR2JSRkd2N1VqWTdlLUkyNTRoRlA2bWNGOE85U0pjcF9yT2x2OUFwczVMZWtTaHRDcmpVUjR4WEs5Q2dNUQ?oc=5",
-     "title": "Kapolres Majalengka Turun Langsung Pimpin Pemadaman Karhutla di Gunung Ciremai",
-     "published": "2026-10-25T16:07:00+07:00"
-    }
-   ],
-   "report_count": 2,
-   "extraction": "llm",
-   "confidence": 0.95
-  },
-  {
-   "id": "1610852f4f",
-   "category": "tawuran",
-   "subcategory": null,
-   "title": "Bentrok Maut Pasar Caringin Bandung Tewaskan 2 Orang, Wali Kota Farhan Panggil Pengelola Pasar",
-   "summary": "Terjadi bentrok maut di Pasar Caringin Bandung yang menewaskan dua orang, Wali Kota Bandung Farhan memanggil pengelola pasar untuk klarifikasi.",
-   "kab_kota": "Kota Bandung",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.91924,
-   "lon": 107.6366,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T15:43:42+07:00",
-   "last_reported": "2026-10-25T15:43:42+07:00",
-   "victims": {
-    "dead": 2
-   },
-   "affected_entities": [
-    {
-     "type": "pasar",
-     "name": "Pasar Caringin"
-    }
-   ],
-   "sources": [
-    {
-     "name": "Tribunjabar.id",
-     "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPRGVSVWJkMVJxSVZFUUt6Z0Z3eGR2VkFOQ1lUS1hwMlJHZVlOa0FvNUFnY2ZSZzJuY2JBallQbWEyS2xrVnYtQ25HSVE3eVYyNVNuU0hCcjdPV19Xck93SkwyZDBFQjBGWmFTUmFwWGpERWVzWnBoZ2ZQM1RZMUEtS3hfTFlnTGVsWDZsMld0TE1QdTY1bmlCY1NBalhCSDFOVVdDUjFPaGpoVUhUVWRmd0RJUmFLeWZobXBGTy15OGR3NkZJcXpSeThENzNVWU1Ma2hGTm8wTTF5aHFo?oc=5",
-     "title": "Bentrok Maut Pasar Caringin Bandung Tewaskan 2 Orang, Wali Kota Farhan Panggil Pengelola Pasar",
-     "published": "2026-10-25T15:43:42+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "eb4d02a5bb",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "Api di Ciamis dan Grobogan Berhasil Dipadamkan, Bagaimana Kondisi Kebakaran Gunung Ciremai?",
-   "summary": "Kebakaran terjadi di Kabupaten Ciamis dan Grobogan dan telah berhasil dipadamkan.",
-   "kab_kota": "Kabupaten Ciamis",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -7.29025,
-   "lon": 108.42865,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T15:36:30+07:00",
-   "last_reported": "2026-10-25T15:36:30+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "Ayo Bandung",
-     "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPekMyYmFqSmo1TGF4eTRndjhMbmVJbEk5WEJza2dNLVBUUnBleDc5WG5zYUc5V0xsX1pGcndRS19PUE81T1J4MENfOWxUZTZNRXNSTElfV0VDak0yQ1ptX1B1VF96ZTRVczRUdEhWUGh6MmFKbmUweWxPZlBNYm4xN3REV3VyNl9Gb3JXZTN4MG53bVJuVllRVDg4S1Y4V1ptdmNId1ZHaEVOaWdzS296N0drQ3Bqel94dlhYQTRvTklUYnptN1ZiZ24zRDnSAdIBQVVfeXFMTjRxN0lHZWFsbmZnRWpvLWRZTXlTNXhFeWRMaXZJZW8yam1oT3NuRWxWYl91TEkxTFBnOElJMVNJRXdlZmMwTGZoQjJlMFkxYTRuUk1meEc4dVhtaW9vdnc4LTBVRk9JMl9XT2czSktPWHpYTnY2bEduczFiaVRqcjRjaW9URjhOcHBYX2RoUmV3UTlRdFNDUnJPa0txNDc5eGpnemVpX0x1LTlQWnpNOExHd0pFbVdRb3BJUmJ6WS1uVTk5RjZRQ0Z6MGlQUmo3alZ3?oc=5",
-     "title": "Api di Ciamis dan Grobogan Berhasil Dipadamkan, Bagaimana Kondisi Kebakaran Gunung Ciremai?",
-     "published": "2026-10-25T15:36:30+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "eb73e319fc",
-   "category": "mbg",
-   "subcategory": "keracunan makanan",
-   "title": "Dugaan Keracunan MBG di Cirebon Tembus 432 Korban, Refly Harun hingga Hotman Paris Diajak Tempuh Jalur Hukum",
-   "summary": "Jumlah korban dugaan keracunan program Makan Bergizi Gratis (MBG) di Kabupaten Cirebon mencapai 432 orang, dengan dorongan untuk menempuh jalur hukum.",
-   "kab_kota": "Kabupaten Cirebon",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.74622,
-   "lon": 108.55216,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T13:01:00+07:00",
-   "last_reported": "2026-10-25T15:35:00+07:00",
-   "victims": {
-    "injured": 432
-   },
-   "affected_entities": [
-    {
-     "type": "lainnya",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "PORTAL7",
-     "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOZ1BXOUZuZTc1eWlsSGZycFUySzdwd0VXTWltWHA2OUVwQWM3S09hT241WEwzNVduaEYzMEdYR0tHeXJTTEI3U3BQaEFLRTJJZGZWLTYwRnFZRGFmcUJ4SzlpY1M1QW1pQXVObmZPZXhXR21HWjR1eHp1R21NRl9yX0JZb2pCMldELXRzS0gtWGJ2ZFp3RWxBUnRGNHZBRXk4elNWanhSc2JpVnFQd0F2UThNejhhNkdrbHIwUGZnQXFSZHc?oc=5",
-     "title": "MBG, Karhutla, dan Dugaan Keracunan Cirebon: Uji Tuntutan Penghentian Program dengan Data dan Transparansi",
-     "published": "2026-10-25T13:01:00+07:00"
-    },
-    {
-     "name": "FAJAR",
-     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOdVFHZzh4dE9DekZjVUlrajc4ci0xVUk3TG5DTTFvVjlGNENrZmtCTkJabkdEOXlpS0pZaTd5OW5PNkI3NW94bnRncjNqTG1DX3NUVVlLa1NNSnl5Qm4zbDNWbXZhUm5sbjh4VE5tdHFycTRhTW0zUFhCWDRtVVhLTEs1SkxWcDBTRGdWRHVEa01QQk0yV2pfQkJhR0VLWnBuT0hvRjdWQ3VNS2Q3SWlTYTZ0RlYyWlEtdF9LX21HMzhKeU40OTdMbkVGbWRaRFctRUdjRWhn?oc=5",
-     "title": "Dugaan Keracunan MBG di Cirebon Tembus 432 Korban, Refly Harun hingga Hotman Paris Diajak Tempuh Jalur Hukum",
-     "published": "2026-10-25T13:13:33+07:00"
-    },
-    {
-     "name": "BITV Online",
-     "url": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxOdlo2eERwcEY5UEJHN1ZjNF8tWFRORlJ0cGotUGRpcFY3Y1p6dzd4NmhybGlDaTJrNFlmS3oyR0FmelpoemQ5ZkZaQ0p1MXEtc2dNek1iUUFOUENtTzczM1BfY2JCR0VualYtc0lEV1UzcDgwRUNFQ0VyWmdsOUtwd3dXdGRfZVVSV0FTMWVtcDE1UGpZaXNKT0M2X0tCVzZEM05HRTJpeDJ5bFNsUUZTdTAtZm5GYWZha2hhaDF4OGZtTmUtT1Z5SzZNU2F3R3Fibk9sQWRESnFHN0RtVHdSMFVlR3FTOWxlSldSVlJtaEhpd9IB8gFBVV95cUxOdlo2eERwcEY5UEJHN1ZjNF8tWFRORlJ0cGotUGRpcFY3Y1p6dzd4NmhybGlDaTJrNFlmS3oyR0FmelpoemQ5ZkZaQ0p1MXEtc2dNek1iUUFOUENtTzczM1BfY2JCR0VualYtc0lEV1UzcDgwRUNFQ0VyWmdsOUtwd3dXdGRfZVVSV0FTMWVtcDE1UGpZaXNKT0M2X0tCVzZEM05HRTJpeDJ5bFNsUUZTdTAtZm5GYWZha2hhaDF4OGZtTmUtT1Z5SzZNU2F3R3Fibk9sQWRESnFHN0RtVHdSMFVlR3FTOWxlSldSVlJtaEhpdw?oc=5",
-     "title": "Dugaan Keracunan MBG Cirebon, Heru Suhagia Seru Hotman Paris dan Refly Harun: ‘Bersatu Padu’ Tempuh Jalur Hukum",
-     "published": "2026-10-25T15:35:00+07:00"
-    }
-   ],
-   "report_count": 3,
-   "extraction": "llm",
-   "confidence": 0.95
-  },
-  {
-   "id": "ea85922856",
-   "category": "tppo",
-   "subcategory": null,
-   "title": "Dijanjikan Kerja di Salon, Janda Muda di Garut Diduga Jadi Korban TPPO dan Diancam Saat Menolak",
-   "summary": "Seorang perempuan asal Bandung yang menjadi janda diduga menjadi korban perdagangan orang di Kabupaten Garut setelah dijanjikan kerja di salon, dipaksa melayani pria, dan diancam saat menolak.",
-   "kab_kota": "Kabupaten Garut",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -7.35945,
-   "lon": 107.78794,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T15:15:14.593197+07:00",
-   "last_reported": "2026-10-25T15:15:14.593197+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "iNews Garut",
-     "url": "https://garut.inews.id/read/721849/dijanjikan-kerja-di-salon-janda-muda-di-garut-diduga-jadi-korban-tppo-dan-diancam-saat-menolak",
-     "title": "Dijanjikan Kerja di Salon, Janda Muda di Garut Diduga Jadi Korban TPPO dan Diancam Saat Menolak",
-     "published": "2026-10-25T15:15:14.593197+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.97
-  },
-  {
-   "id": "077209e913",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "Rumah Semipermanen di Limbangan Garut Dilalap Api, Petugas Berhasil Padamkan",
-   "summary": "Kebakaran melanda rumah semipermanen di Kampung Bakom, Desa Dunguswiru, Kecamatan Limbangan, Kabupaten Garut pada Minggu siang, menimbulkan kerusakan pada bagian rumah dan dapur namun tidak ada korban jiwa.",
-   "kab_kota": "Kabupaten Garut",
-   "kecamatan": "Limbangan",
-   "desa": "Dunguswiru",
-   "lat": -7.0054,
-   "lon": 107.95212,
-   "location_precision": "kecamatan",
-   "event_time": null,
-   "first_reported": "2026-10-25T15:15:14.593197+07:00",
-   "last_reported": "2026-10-25T15:15:14.593197+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "lainnya",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "iNews Garut",
-     "url": "https://garut.inews.id/read/722195/rumah-semipermanen-di-limbangan-garut-dilalap-api-petugas-berhasil-padamkan",
-     "title": "Rumah Semipermanen di Limbangan Garut Dilalap Api, Petugas Berhasil Padamkan",
-     "published": "2026-10-25T15:15:14.593197+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.95
-  },
-  {
-   "id": "6a57641b5c",
-   "category": "gempa",
-   "subcategory": null,
-   "title": "Gempa Magnitudo 2,7 Guncang Pangandaran dan Bandung Hari Ini",
-   "summary": "Gempa magnitudo 2,7 terjadi di wilayah Pangandaran dan Bandung pada 25 Oktober 2026.",
-   "kab_kota": "Kota Bandung",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.91924,
-   "lon": 107.6366,
-   "location_precision": "kab_kota",
-   "event_time": "2026-10-25T14:43:40+07:00",
-   "first_reported": "2026-10-25T14:43:40+07:00",
-   "last_reported": "2026-10-25T14:43:40+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "Tribunnews.com",
-     "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNTHd0RDBpQl9tMjVuTUhSWGVCZ1IwMVBFNzJHYWp1LW1WTXUxczhtYUdkZjRGVjJMVkpYYVA1M3d5TkRIa2p4czFyejQ4SG9IS1pONWNJdm5nS1NsWHY2RFdUc1pVc2J0enlZN3VsVHdPUk15UE1vaWVvQ09wSEk0NVhjOEthMnEtRmhwRkpHMlU1Q2ZPWGVBdVktbmtIRmFFR3VQb0FHZGlLajB5ZEZv?oc=5",
-     "title": "Gempa Magnitudo 2,7 Guncang Pangandaran dan Bandung Hari Ini",
-     "published": "2026-10-25T14:43:40+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "baa8878c30",
-   "category": "kekerasan_seksual",
-   "subcategory": null,
-   "title": "Polres Indramayu Ringkus Pelaku Curas dan Kekerasan Seksual",
-   "summary": "Polres Indramayu menangkap pelaku yang diduga melakukan pencurian dengan kekerasan dan pemerkosaan terhadap anak di Kecamatan Bangodua pada 2 Oktober 2026, serta mengungkap kasus serupa di Kecamatan Kertasemaya.",
-   "kab_kota": "Kabupaten Indramayu",
-   "kecamatan": "Bangodua",
-   "desa": null,
-   "lat": -6.51599,
-   "lon": 108.28173,
-   "location_precision": "kecamatan",
-   "event_time": "2026-10-02",
-   "first_reported": "2026-10-25T14:33:57+07:00",
-   "last_reported": "2026-10-25T14:33:57+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "Radar Cirebon",
-     "url": "https://radarcirebon.id/2026/10/25/polres-indramayu-ringkus-pelaku-curas-dan-kekerasan-seksual/",
-     "title": "Polres Indramayu Ringkus Pelaku Curas dan Kekerasan Seksual",
-     "published": "2026-10-25T14:33:57+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.95
-  },
-  {
-   "id": "8ca8902820",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "Rumah di Sagalaherang Kaler Terbakar,Damkar Subang Gercep Padamkan Api yang Diduga Api dari Tungku",
-   "summary": "Rumah di Sagalaherang Kaler, Kabupaten Subang terbakar, Damkar Subang berhasil memadamkan api yang diduga berasal dari tungku.",
-   "kab_kota": "Kabupaten Subang",
-   "kecamatan": "Sagalaherang",
-   "desa": null,
-   "lat": -6.68339,
-   "lon": 107.64368,
-   "location_precision": "kecamatan",
-   "event_time": null,
-   "first_reported": "2026-10-25T13:29:05+07:00",
-   "last_reported": "2026-10-25T13:29:05+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "rumah",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "Penanews.net",
-     "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOUmoxejBqaUF0eUJmTnY3eWRRNUtxakRTa2V2R2QtT0pJZWFEV3pObThnNG4yNmxGaFVfZ1RON2hKNnM3bEozVkxFbUQ2c0l3WFhjRFhjclAxUDVEbjhPUzZuY0JCYXJRVG45TE9pQ0NrQ1ZSZ1ZuRXc2QVlCN3dZYjc4cHByRWdTTG9QTDZHM21lRkQwOUxqbWlvQVJCNzJfdVBoeG9FVlloYzlMZ0NvT25NSE94RHhBMG8w?oc=5",
-     "title": "Rumah di Sagalaherang Kaler Terbakar,Damkar Subang Gercep Padamkan Api yang Diduga Api dari Tungku",
-     "published": "2026-10-25T13:29:05+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "c1cc17c485",
-   "category": "kekeringan",
-   "subcategory": null,
-   "title": "13 Alat Berat Dikerahkan untuk Atasi Kekeringan Sawah di Karawang",
-   "summary": "Pemerintah Kabupaten Karawang mengerahkan 13 alat berat untuk mengatasi kekeringan yang mengancam lahan pertanian di wilayah tersebut.",
-   "kab_kota": "Kabupaten Karawang",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.25228,
-   "lon": 107.35429,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T12:35:04+07:00",
-   "last_reported": "2026-10-25T12:35:04+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "lahan",
-     "name": "sawah"
-    }
-   ],
-   "sources": [
-    {
-     "name": "MetroTVNews.com",
-     "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQZjFrcVltX1FiNHFvenRUYnBKb3NGRjRRcVpyZjhjRFczdFNKcUE5YVFabEdlTU1LUlBWdzNoVnFVbFkwd1dTSUUxa0N2bWM1U1N0X25jZ1d0cFFuUjBpb3lLZG9kT0VhVGdEOHdIMFQxdHpEbTFkd1pONXc0cFhTcHRQaVRsWHZ4RkV4NUxXN3FFb043ZFA1bHZxVy1sZHNlMGpHVk1BaGotb2s?oc=5",
-     "title": "13 Alat Berat Dikerahkan untuk Atasi Kekeringan Sawah di Karawang",
-     "published": "2026-10-25T12:35:04+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "40e3da53fe",
-   "category": "banjir",
-   "subcategory": null,
-   "title": "Banjir Abadi Desa Kuning 1: Saat Pemerintah Aceh Bungkam, Warga Memanggil Gubernur Jawa Barat dan BPJN Aceh Dituding Tutup Mata",
-   "summary": "Banjir terjadi di Desa Kuning 1, Kabupaten Indramayu, Jawa Barat, dengan warga memanggil Gubernur Jawa Barat dan BPJN Aceh karena pemerintah Aceh dianggap bungkam mengenai masalah banjir abadi di daerah tersebut.",
-   "kab_kota": "Kabupaten Indramayu",
-   "kecamatan": null,
-   "desa": "Desa Kuning 1",
-   "lat": -6.44749,
-   "lon": 108.16903,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T12:13:54+07:00",
-   "last_reported": "2026-10-25T12:13:54+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "permukiman",
-     "name": "Desa Kuning 1"
-    }
-   ],
-   "sources": [
-    {
-     "name": "baraNews",
-     "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQMWV1c2wyV3J6S1JvRnRaVjVKcVlfTE1nOU1meUljam9GaWdxLW1mcFlvN0V5U2EyQ1F3V19kaGJnbDFOdE5td1dwblJWUnBkaXJuRDRpSnZxMXB6VU1HZ2c2WGo4QUkwbDhvV3FfTXJUR0dHaUpZTm43Z2lYTVhvQ3BqNmdOMF9RZ0Q3cWFkUWVhaUg2eF8wT2JmOGQ2dk9IUHM0Q2wwWk80d2lNR29hS2UtZTlobHMyZjdyWWVMS3J3WmtmUHYydEMxRUl2X3RrRE9kUmJvZDN0YUFKTHlsVjlmNFo?oc=5",
-     "title": "Banjir Abadi Desa Kuning 1: Saat Pemerintah Aceh Bungkam, Warga Memanggil Gubernur Jawa Barat dan BPJN Aceh Dituding Tutup Mata",
-     "published": "2026-10-25T12:13:54+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.8
-  },
-  {
-   "id": "b4c841732a",
-   "category": "tppo",
-   "subcategory": null,
-   "title": "Polisi Selidiki Dugaan TPPO Remaja 17 Tahun di Sukabumi, Dijanjikan Gaji Jutaan",
-   "summary": "Polisi menyelidiki dugaan TPPO terhadap seorang remaja 17 tahun di Kabupaten Sukabumi yang dijanjikan gaji jutaan rupiah.",
-   "kab_kota": "Kabupaten Sukabumi",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -7.07632,
-   "lon": 106.70757,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T12:05:00+07:00",
-   "last_reported": "2026-10-25T12:05:00+07:00",
-   "victims": {
-    "affected": 1
-   },
-   "affected_entities": [
-    {
-     "type": "lainnya",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "PELITA KARAWANG",
-     "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOMGF5UlhvM3VUM0sybEM5LWxsZHJ2bmNsVUdHRmQxSE9SQ2ctMDBYLUg4bjlQb0V6M2FSZlVOTHJ2NzEtM1JIR1Z0eFFfc0JPU0Z1eW9Wa1I2R2lIdVhvWVpnOHVneUN0Nnh6cE05WlBpa0gwWG9ad1pSZ1FmOHEwa0RETFJhU2hV?oc=5",
-     "title": "Polisi Selidiki Dugaan TPPO Remaja 17 Tahun di Sukabumi, Dijanjikan Gaji Jutaan",
-     "published": "2026-10-25T12:05:00+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "c1c1e0d45b",
-   "category": "tawuran",
-   "subcategory": null,
-   "title": "Polres Indramayu Amankan 9 Remaja Terkait Video Viral Geng Motor Bersenjata Tajam di Indramayu",
-   "summary": "Polres Indramayu mengamankan 9 remaja yang terkait dengan video viral geng motor bersenjata tajam di Indramayu.",
-   "kab_kota": "Kabupaten Indramayu",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.44749,
-   "lon": 108.16903,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T11:44:16+07:00",
-   "last_reported": "2026-10-25T11:44:16+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "Jejak Narasi",
-     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOTXhOT3VFZmtwaEtWaFk0UHdsamhIY0g3TEc0Q3EybW40V2pFQjFoMHg4VFpnOHJDUUJvZFl4MHhSb1RUUkpVb25nZkdYdzU5SDZFeUdhZ2RlN0NOaEViWC1mYkQ2VmgzMlR6MHZBWElJS3ByZ0gwN1FIU1lrbXBRUGdMMUpBVk5mNF82dTNmTTdOczV4OXZMcHRtX2tUZVo5WkVIYTRCejQzLWREeWkxSTlkMkJPaWVNOWJGLWVvYXlxMlJSMFd4eA?oc=5",
-     "title": "Polres Indramayu Amankan 9 Remaja Terkait Video Viral Geng Motor Bersenjata Tajam di Indramayu",
-     "published": "2026-10-25T11:44:16+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.95
-  },
-  {
-   "id": "bfce5fdd6a",
-   "category": "tawuran",
-   "subcategory": null,
-   "title": "Polsek Cibinong Jaga Titik Rawan Bentrok Suporter Jelang Laga Persib Vs Garudayaksa di Stadon Pakansari",
-   "summary": "Polsek Cibinong mengamankan titik rawan bentrok suporter jelang laga Persib Vs Garudayaksa di Stadion Pakansari, Kabupaten Bogor.",
-   "kab_kota": "Kabupaten Bogor",
-   "kecamatan": "Cibinong",
-   "desa": null,
-   "lat": -6.48391,
-   "lon": 106.83542,
-   "location_precision": "kecamatan",
-   "event_time": null,
-   "first_reported": "2026-10-25T11:19:00+07:00",
-   "last_reported": "2026-10-25T11:19:00+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "lainnya",
-     "name": "Stadion Pakansari"
-    }
-   ],
-   "sources": [
-    {
-     "name": "Metro Bogor",
-     "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxPUFN4aWZHb3RYRjM3bXBjaVhnclV2b3dQdWp6RndpN0VVZk1qbS1xcHJFemdlUlh3MFR6aURlWXl1WHVPRkthZHU4YUlvSnM4TUoxWGdsWFoyY1pqZjVnWWhRdFdsYzlCNkhkMkVnNU5ubTlBVUlvLVFLMk9Xb3Y0R0dyRjk2MWFHR0tkODBNNXV1R19NU0pEcnlRdVl3bWItNGJTREtpd25LT0RFTkFxZVpVc2hEeUNHdjNBdjFXb25QSzhsZkp5UE9nYXU0NWgydnhNRDRyOHBBQjhmek85MzRXbDF3Wnd2RVRZ0gHrAUFVX3lxTE9QU3hpZkdvdFhGMzdtcGNpWGdyVXZvd1B1anpGd2k3RVVmTWptLXFwckV6Z2VSWHcwVHppRGVZeXVYdU9GS2FkdThhSW9KczhNSjFYZ2xYWjJjWmpmNWdZaFF0V2xjOUI2SGQyRWc1Tm5tOUFVSW8tUUsyT1dvdjRHR3JGOTYxYUdHS2Q4ME01dXVHX01TSkRyeVF1WXdtYi00YlNES2l3bktPREVOQXFlWlVzaER5Q0d2M0F2MVdvblBLOGxmSnlQT2dhdTQ1aDJ2eE1ENHI4cEFCOGZ6TzkzNFdsMXdad3ZFVFk?oc=5",
-     "title": "Polsek Cibinong Jaga Titik Rawan Bentrok Suporter Jelang Laga Persib Vs Garudayaksa di Stadon Pakansari",
-     "published": "2026-10-25T11:19:00+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
    "id": "e49f80af38",
    "category": "kebakaran",
    "subcategory": "karhutla",
@@ -2142,199 +1937,6 @@
    "report_count": 1,
    "extraction": "llm",
    "confidence": 0.98
-  },
-  {
-   "id": "f951451c3a",
-   "category": "kebakaran",
-   "subcategory": "karhutla",
-   "title": "Update Karhutla Ciremai: Titik Api Sudah Padam, Asap Masih Dipantau",
-   "summary": "Kebakaran hutan dan lahan (karhutla) di Gunung Ciremai, Kabupaten Kuningan, mulai 21 Oktober 2026, hingga 24 Oktober 2026 sudah tidak ditemukan titik api baru namun asap masih dipantau.",
-   "kab_kota": "Kabupaten Kuningan",
-   "kecamatan": "Pasawahan",
-   "desa": "Cibuntu",
-   "lat": -6.82341,
-   "lon": 108.4245,
-   "location_precision": "kecamatan",
-   "event_time": "2026-10-21T20:44:00+07:00",
-   "first_reported": "2026-10-25T08:12:47+07:00",
-   "last_reported": "2026-10-25T10:31:48+00:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "permukiman",
-     "name": null
-    },
-    {
-     "type": "lahan",
-     "name": "Gunung Ciremai"
-    },
-    {
-     "type": "lainnya",
-     "name": "Taman Nasional Gunung Ciremai"
-    }
-   ],
-   "sources": [
-    {
-     "name": "detikJabar",
-     "url": "https://www.detik.com/jabar/berita/d-8722811/update-karhutla-ciremai-titik-api-sudah-padam-asap-masih-dipantau",
-     "title": "Update Karhutla Ciremai: Titik Api Sudah Padam, Asap Masih Dipantau",
-     "published": "2026-10-25T08:12:47+07:00"
-    },
-    {
-     "name": "Radio PRFM",
-     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNMUI5dnhjUFV6NUtjRUMtRERpcnBuNWFXT29ieTV1UzI4TDVPTjVPRTJvQ2JfNUdKTnF5MTJYX3NveEZxTHNaT0o1eE5mVDhVeW1CT2VVUC03S3l6dXQ5Mkl0SW01aUFmRjRzNS1tc1JLT1JDS2hRZU52UXNpRU52dklSNFlhM09uVTEwNWVzVGxFZGNMQWMzb3BaT2FaLXVYWlhsZktfRWJBOG1PampUZDBQZXAxUEQ3S0o4eFpvaEtLYlZKUTliWEo4TVh5YmxuNnRN0gHYAUFVX3lxTE5MQ1UxUEFoN0ZZLUxJbDJCQ2taM2JndndIdjNWRlh2ZUEtdjdOX04ySi05MVRFZlh4Uno1Vm4tY2RwSTE5bDFkbjFaZ1ZzcnZmMGI5WWtoYVU3cWRKdndMMlljdmhjRENORXR0RmFCaTJRX3c3dUJYa3lIZUdxOHlwM0lDZVA0U1NUQ3kyS2NVaHNRc1RBQWdKVW93bVcweURaYk9rUldkTkFiYlBDWW84UHM0aXV5eWZGem1DT0pmdWZnVVVSam10WFhta3J5OWxGLUlFTlN3cQ?oc=5",
-     "title": "Kapolres Kuningan Turun Langsung Pantau Pemadaman Karhutla di Gunung Ciremai",
-     "published": "2026-10-25T11:00:00+07:00"
-    },
-    {
-     "name": "Lintas Priangan",
-     "url": "https://lintaspriangan.com/berita-jabar/berita-kuningan/karhutla-gunung-ciremai-titik-api-tak-terdeteksi/",
-     "title": "Pemadaman Karhutla Gunung Ciremai Berlanjut, OMC Disiapkan",
-     "published": "2026-10-25T10:31:48+00:00"
-    }
-   ],
-   "report_count": 3,
-   "extraction": "llm",
-   "confidence": 0.95
-  },
-  {
-   "id": "c8e8315d55",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "Tokonya di Surken Bogor Selamat dari Kebakaran, Handi Keluarkan Sepedanya ke Pinggir Jalan",
-   "summary": "Sebuah toko di Surken, Kabupaten Bogor selamat dari kebakaran setelah pemiliknya berhasil menyelamatkan barang-barangnya.",
-   "kab_kota": "Kabupaten Bogor",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.5598,
-   "lon": 106.76705,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T10:25:44+07:00",
-   "last_reported": "2026-10-25T10:25:44+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "lainnya",
-     "name": "toko"
-    }
-   ],
-   "sources": [
-    {
-     "name": "Tribunnewsbogor.com",
-     "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPRXhRVFFid3RTcHF6SkdhN2ZoVHBJa2UzSU9xLUhROWZ4NXFsWkNoMXU4dExXRldGd1BhWm5TdUUzejc2N1RuZENadDRwYVhWWnRlQzVrSlBRZ01xS1ktTGd3QmtxUlNacmJnRTdlaUpaRE5IZ09TTzhlZWptZkJHNWFEM1FMaldvSVpMeXFfVWxURVJ6WVBUOTBwSnhJblFMalNILTFldVgyUEpCM3FnMVBlNXhYMUVTRXdvR215RjZGQUJuNU4xUzZiamhsVHJnVlE?oc=5",
-     "title": "Tokonya di Surken Bogor Selamat dari Kebakaran, Handi Keluarkan Sepedanya ke Pinggir Jalan",
-     "published": "2026-10-25T10:25:44+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.8
-  },
-  {
-   "id": "c52c49bc68",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "Gudang Produksi Kayu Jati di Cirebon Ludes Terbakar, Kerugian Capai Miliaran Rupiah | KOMPAS SIANG",
-   "summary": "Sebuah gudang produksi kayu jati di Kabupaten Cirebon ludes terbakar pada Minggu (25/10/2026) dini hari akibat diduga korsleting listrik, dengan kerugian diperkirakan mencapai miliaran rupiah.",
-   "kab_kota": "Kabupaten Cirebon",
-   "kecamatan": "Sumber",
-   "desa": null,
-   "lat": -6.76229,
-   "lon": 108.4779,
-   "location_precision": "kecamatan",
-   "event_time": "2026-10-25T01:00:00+07:00",
-   "first_reported": "2026-10-25T09:16:03+07:00",
-   "last_reported": "2026-10-25T09:16:03+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "gudang",
-     "name": "gudang produksi kayu jati"
-    },
-    {
-     "type": "dapur_mbg",
-     "name": null
-    },
-    {
-     "type": "gudang",
-     "name": "gudang plastik"
-    }
-   ],
-   "sources": [
-    {
-     "name": "Kompas TV Jawa Barat",
-     "url": "https://www.kompas.tv/regional/697868/gudang-produksi-kayu-jati-di-cirebon-ludes-terbakar-kerugian-capai-miliaran-rupiah-kompas-siang",
-     "title": "Gudang Produksi Kayu Jati di Cirebon Ludes Terbakar, Kerugian Capai Miliaran Rupiah | KOMPAS SIANG",
-     "published": "2026-10-25T09:16:03+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "58392d0906",
-   "category": "tawuran",
-   "subcategory": null,
-   "title": "Respons Cepat Layanan 110, Polres Purwakarta Gagalkan Potensi Tawuran Pelajar",
-   "summary": "Polres Purwakarta berhasil menggagalkan potensi tawuran pelajar melalui respons cepat Layanan 110 sebelum kejadian terjadi.",
-   "kab_kota": "Kabupaten Purwakarta",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.59526,
-   "lon": 107.43078,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "first_reported": "2026-10-25T08:43:00+07:00",
-   "last_reported": "2026-10-25T08:43:00+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "Tribratanews Polda Jabar",
-     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQQWkxYzl3ZW5mOUZGMS1UTnZreUhPRWxNbmNSd2xWaGpRa253d0NMRmpkOWhiekk3TWNEOWpLREFmZ0F4MElFM3RZTzhNQnFzdmpPQTQtaWE2RElzZ0ZLb2tLazFld25YUmVXTHc1Rmx5c3Rhbnp2bUVEd3FGdFBDYWtTb0NWVUFEVDY1Ul9GVFRINXdrbTdQLXA1aC12WkthTHlzQnVkRnNlWGcweU9mV0ZJX1NVVkE?oc=5",
-     "title": "Respons Cepat Layanan 110, Polres Purwakarta Gagalkan Potensi Tawuran Pelajar",
-     "published": "2026-10-25T08:43:00+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "640280c6e3",
-   "category": "kebakaran",
-   "subcategory": "karhutla",
-   "title": "Saat Ciremai Terbakar, Siaga Darurat Karhutla Majalengka Berlaku hingga 31 Oktober",
-   "summary": "Kebakaran hutan terjadi di kawasan Gunung Ciremai pada 24 Oktober 2026 yang berada di wilayah Kabupaten Kuningan dan Majalengka. Pemerintah Kabupaten Majalengka telah menetapkan status siaga darurat karhutla sejak Juni hingga 31 Oktober 2026 sebagai antisipasi.",
-   "kab_kota": "Kabupaten Majalengka",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.81508,
-   "lon": 108.25719,
-   "location_precision": "kab_kota",
-   "event_time": "2026-10-24T00:00:00+07:00",
-   "first_reported": "2026-10-25T04:03:05+00:00",
-   "last_reported": "2026-10-25T04:03:05+00:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "lahan",
-     "name": "Gunung Ciremai"
-    }
-   ],
-   "sources": [
-    {
-     "name": "Lintas Priangan",
-     "url": "https://lintaspriangan.com/berita-jabar/berita-majalengka/siaga-darurat-karhutla-majalengka-berita-majalengka-251026/",
-     "title": "Saat Ciremai Terbakar, Siaga Darurat Karhutla Majalengka Berlaku hingga 31 Oktober",
-     "published": "2026-10-25T04:03:05+00:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
   }
  ]
 }
