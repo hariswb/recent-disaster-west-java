@@ -1,12 +1,13 @@
 // L2 Kasus: one incident — metadata on top, one key-value table, then the description.
 import {
-  ENTITY_LABEL, SUPPORT_LINE, catLabel, esc, fmtDateTime, fmtEventDate, groupsAffected, impactText, lensIcon, lensOf,
-  locationText,
+  ENTITY_LABEL, PAST_LABEL, SUPPORT_LINE, catLabel, esc, fmtDateTime, fmtEventDate, groupsAffected, impactText, lensIcon,
+  lensOf, locationText, pastNote,
 } from "../model.js";
-import { contentNote, crumbs, href } from "../ui.js";
+import { contentNote, crumbs, href, pastTag } from "../ui.js";
 
+// `params.incident` comes from the 24-hour data or, for links out of a recap, from the archive.
 export function caseView({ data, params }) {
-  const i = data.incidents.find((x) => x.id === params.id);
+  const i = params.incident;
   if (!i) return null;
   const l = lensOf(i.category);
   const impact = impactText(i);
@@ -22,7 +23,8 @@ export function caseView({ data, params }) {
     ["Topik", `<a href="${href(`/topik/${l.key}`)}">${esc(l.label)}</a>`],
     ["Jenis", esc(catLabel(data, i.category)) + (i.subcategory ? ` (${esc(i.subcategory.replace(/_/g, " "))})` : "")],
     ["Lokasi", esc(locationText(i))],
-    event && ["Waktu kejadian", esc(event)],
+    event && ["Waktu kejadian", esc(event) + (i.past ? ` ${pastTag(i)}` : "")],
+    i.past && !event && ["Waktu kejadian", pastTag(i)],
     ["Dampak", impact ? esc(impact) : `<span class="muted">Belum disebutkan dalam berita</span>`],
     groups.length && ["Kelompok terdampak", esc(groups.join(", "))],
     places.length && ["Tempat/objek", esc([...new Set(places)].join(", "))],
@@ -38,6 +40,7 @@ export function caseView({ data, params }) {
     <ul class="src-btns" aria-labelledby="h-src">${sources}</ul>
   </header>
   ${l.sensitive ? contentNote() : ""}
+  ${i.past ? `<p class="note past-note" role="note"><strong>${PAST_LABEL}.</strong> ${esc(pastNote(i))}</p>` : ""}
 
   <section class="sec" aria-labelledby="h-rincian">
     <h2 id="h-rincian">Rincian</h2>

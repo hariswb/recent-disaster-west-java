@@ -1,9 +1,9 @@
 // Network first, always: the dashboard must show the latest data. The cache is only a fallback
 // so the installed app still opens (with the last loaded data and its timestamp) without signal.
-const CACHE = "kebencanaan-jabar-v1";
+const CACHE = "kebencanaan-jabar-v2";
 const SHELL = ["./", "index.html", "style.css", "manifest.webmanifest", "js/app.js", "js/model.js", "js/ui.js",
   "js/share.js", "js/views/overview.js", "js/views/topic.js", "js/views/cases.js", "js/views/case.js",
-  "js/views/map.js", "../analytics.js", "../fonts/atkinson-next-latin.woff2", "../fonts/jakarta-latin.woff2",
+  "js/views/map.js", "js/views/recap.js", "../analytics.js", "../fonts/atkinson-next-latin.woff2", "../fonts/jakarta-latin.woff2",
   "icons/icon-192.png", "data/incidents.json"];
 
 self.addEventListener("install", (e) => {

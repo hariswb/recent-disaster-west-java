@@ -105,7 +105,8 @@ Hash routes give three levels:
 | `#/` | Ringkasan: totals, psychosocial topics, priority cases, regions |
 | `#/topik/<lens>` | One topic: numbers, kinds of events, case list (`?kat=`, `?wil=`, `?urut=terbaru`) |
 | `#/kasus` | All cases with filters (`?lensa=`, `?kat=`, `?wil=`) |
-| `#/kasus/<id>` | One case: date and sources, a key-value table (location, impact, affected groups), description |
+| `#/kasus/<id>` | One case: date and sources, a key-value table (location, impact, affected groups), description. `?arsip=YYYY-MM` looks it up in the archive (links from a recap) |
+| `#/rekap/7-hari`, `#/rekap/minggu/<date>`, `#/rekap/bulan/<YYYY-MM>` | Recaps from the archive: totals, per-day or per-week trend, topics, kinds, regions, priority cases and every case with filters. `7-hari` is a rolling 7×24 hours up to the latest update; `minggu` is a fixed Monday–Sunday week (without a date, the last finished week); `bulan` is a calendar month (without a key, the current month) |
 | `#/peta` | Map: incident points (sized by count, popups link to cases) on a street basemap or a terrain basemap with elevation contours (`?mode=kontur`), lens chips (`?lensa=`) |
 
 Each topic page has an **Analisis** column beside the "Jenis kejadian" chart (see [Expert analysis](#expert-analysis)). Selecting a jenis narrows it to that jenis.
@@ -124,6 +125,8 @@ The lenses map taxonomy categories to groups. A new category must be added there
 **Bagikan gambar** renders each level as a 1080×1440 (3:4) PNG in the browser with `html-to-image`, then shares it through the Web Share API or offers it as a download. The images are privacy-safe:
 - They never include news headlines.
 - Cases in the violence lens show only kab/kota, omit the summary, and carry the support line (`SUPPORT_LINE` in `model.js`).
+
+**Past incidents.** An incident whose `event_time` is at least `PAST_DAYS` (7) days before its first report is flagged `past` (with `event_age_days`): a follow-up, court case, aid handover or retrospective about an older event. The dashboard labels it "Kejadian lampau", sorts it below current cases in "Dampak terbesar", and explains it on the case page and share image. Recaps list past incidents separately and leave them out of the counts. Month-only dates ("2025-07") count from the 1st; unreadable and future dates are ignored.
 
 For design QA, `?data=sample` loads `docs/kebencanaan-jabar/data/sample-incidents.json`, which adds fictional `[CONTOH]` cases across every lens.
 
@@ -156,6 +159,15 @@ Free-tier model names change often. If `llm-check` fails, it prints the provider
 `data/cache/processed.json` holds per-URL results for 48 hours. An article is only sent to an LLM once, and incidents stay on the dashboard for 24 hours even after the article drops out of its feed. The workflow commits this file together with `docs/kebencanaan-jabar/data/incidents.json`. The same file keeps the LLM's same-event verdicts per cluster pair (`merges`), so a pair is asked once.
 
 Clustering is rule-based (`cluster.py`). A second pass (`merge.py`) shortlists cluster pairs the rules kept apart (same category family, within 48h, sharing a word used in at most two regencies) and asks the LLM, in batches of 10, whether they are one event. It can only merge, never split, and falls back to the rule clusters when no provider is available.
+
+### Archive (recaps)
+
+`docs/kebencanaan-jabar/data/archive/YYYY-MM.json` keeps every published incident after it leaves the 24-hour window, filed by the WIB month of its first report, one incident per line; `index.json` lists the months. Each run folds its incidents in (`archive.py`):
+- An incident is merged with the archived entries that share a source with it, and keeps the oldest entry's id. The ids in `incidents.json` are rewritten to the archive's, so case links stay stable across runs.
+- A run owns the sources inside its window: an archived source in the window that no current incident claims (re-extracted as no incident, or split into another cluster) is removed.
+- `refs` holds every source as a url hash and its time; `sources` keeps at most 8 links to show, publisher links before Google News ones.
+
+An event reported again after a gap of more than a day can be counted twice. `uv run python scripts/backfill_archive.py` rebuilds the archive by replaying every `incidents.json` in git history (data from 29 September 2026 onward).
 
 ### Install as an app
 

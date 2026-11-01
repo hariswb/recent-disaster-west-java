@@ -4,7 +4,7 @@ import hashlib
 import re
 from collections import Counter
 from dataclasses import dataclass, field
-from datetime import timedelta
+from datetime import date, datetime, timedelta
 from functools import cache
 
 from rapidfuzz import fuzz
@@ -295,6 +295,7 @@ def to_incident(reports: list[Report], gaz: Gazetteer) -> dict:
     times = [r.time for r in reports]
     first = min(times)
     category = c.category
+    event_time = next((r.extraction.event_time for r in reports if r.extraction.event_time), None)
     key = f"{category}|{kab}|{kec}|{first.astimezone(WIB).date()}"
     return {
         "id": hashlib.sha1(key.encode()).hexdigest()[:10],
@@ -308,7 +309,8 @@ def to_incident(reports: list[Report], gaz: Gazetteer) -> dict:
         "lat": coords[0] if coords else None,
         "lon": coords[1] if coords else None,
         "location_precision": "kecamatan" if coords and kec else ("kab_kota" if coords else None),
-        "event_time": next((r.extraction.event_time for r in reports if r.extraction.event_time), None),
+        "event_time": event_time,
+        **past_fields(event_time, first),
         "first_reported": first.isoformat(),
         "last_reported": max(times).isoformat(),
         "victims": {k: v for k, v in victims.items() if v},
@@ -322,6 +324,32 @@ def to_incident(reports: list[Report], gaz: Gazetteer) -> dict:
         "extraction": "llm" if any(r.method == "llm" for r in reports) else "rules",
         "confidence": max((r.extraction.confidence or 0 for r in reports), default=None),
     }
+
+
+# An article about an event at least this long before it was first reported is a
+# follow-up or retrospective ("Cerita Oki, rumah tak bisa dihuni usai longsor"), not news.
+PAST_DAYS = 7
+_EVENT_DATE = re.compile(r"^(\d{4})-(\d{2})(?:-(\d{2}))?")
+
+
+def event_age_days(event_time: str | None, first_reported: str | datetime) -> int | None:
+    """Days from the event (as the LLM read it) to the first report. "2025-07" counts
+    from the 1st; garbage ("2024-??-??") and future dates (a misread year) give None."""
+    m = _EVENT_DATE.match(event_time or "")
+    if not m:
+        return None
+    try:
+        when = date(int(m[1]), int(m[2]), int(m[3] or 1))
+    except ValueError:
+        return None
+    reported = first_reported if isinstance(first_reported, datetime) else datetime.fromisoformat(first_reported)
+    age = (reported.astimezone(WIB).date() - when).days
+    return age if age >= 0 else None
+
+
+def past_fields(event_time: str | None, first_reported: str | datetime) -> dict:
+    age = event_age_days(event_time, first_reported)
+    return {"past": age is not None and age >= PAST_DAYS, "event_age_days": age}
 
 
 def unique_ids(incidents: list[dict]) -> list[dict]:

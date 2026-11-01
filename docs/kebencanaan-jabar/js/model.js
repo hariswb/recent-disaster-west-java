@@ -126,11 +126,27 @@ export function byLens(list) {
   });
 }
 
+// Past incidents (follow-ups of an event a week or more before the first report) sink below current ones.
 export function sortCases(list, how) {
   const a = [...list];
   if (how === "terbaru") a.sort((x, y) => y.last_reported.localeCompare(x.last_reported));
-  else a.sort((x, y) => priority(y) - priority(x) || y.last_reported.localeCompare(x.last_reported));
+  else a.sort((x, y) => !!x.past - !!y.past || priority(y) - priority(x) || y.last_reported.localeCompare(x.last_reported));
   return a;
+}
+
+// "28 hari", "3 bulan", "2 tahun": how long before its first report the event happened.
+// Months and years are rounded: the extracted date is often only a month or a year.
+export function pastAge(i) {
+  const d = i.event_age_days;
+  if (!i.past || d == null) return null;
+  if (d < 45) return `${nf.format(d)} hari`;
+  if (d < 365) return `± ${nf.format(Math.round(d / 30))} bulan`;
+  return `± ${nf.format(Math.round(d / 365))} tahun`;
+}
+export const PAST_LABEL = "Kejadian lampau";
+export function pastNote(i) {
+  const age = pastAge(i);
+  return `${age ? `Kejadiannya ${age} sebelum` : "Kejadiannya jauh sebelum"} pertama kali diberitakan. Berita ini kemungkinan tindak lanjut (proses hukum, pemulihan, bantuan) atau kisah ulang.`;
 }
 
 export function shortKab(k) { return String(k || "").replace(/^Kabupaten /, "Kab. "); }
@@ -165,6 +181,14 @@ export function fmtEventDate(s) {
   const time = new Intl.DateTimeFormat("id-ID", { timeZone: TZ, hour: "2-digit", minute: "2-digit" }).format(d);
   return time === "00.00" ? day : `${day}, pukul ${time} WIB`;
 }
+
+// Calendar days in WIB as "YYYY-MM-DD"; date arithmetic runs on UTC midnights of those days.
+const YMD = new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" });
+export const wibDay = (iso) => YMD.format(new Date(iso));
+export const wibMonth = (iso) => wibDay(iso).slice(0, 7);
+export const dayDate = (ymd) => new Date(`${ymd}T00:00:00Z`);
+export const addDays = (ymd, n) => new Date(dayDate(ymd).getTime() + n * 864e5).toISOString().slice(0, 10);
+export const fmtYmd = (ymd, opts) => new Intl.DateTimeFormat("id-ID", { timeZone: "UTC", ...opts }).format(dayDate(ymd));
 
 export function ago(iso, now = new Date()) {
   const m = Math.max(0, Math.round((now - new Date(iso)) / 60000));

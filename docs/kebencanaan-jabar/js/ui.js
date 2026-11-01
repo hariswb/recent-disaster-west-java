@@ -1,5 +1,5 @@
 // Small HTML building blocks shared by the views.
-import { LENSES, TZ, ago, catLabel, esc, impactText, lensIcon, lensOf, nf, shortKab } from "./model.js";
+import { LENSES, PAST_LABEL, TZ, ago, catLabel, esc, impactText, lensIcon, lensOf, nf, shortKab, wibMonth } from "./model.js";
 
 const CHEVRON = '<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
 
@@ -54,22 +54,31 @@ export function lensCard(l, count, t) {
   </a></li>`;
 }
 
+// Link to a case; archived ones (recaps) name their month file.
+export function caseHref(i, archived = false) {
+  return href(`/kasus/${i.id}`, { arsip: archived && wibMonth(i.first_reported) });
+}
+
+export function pastTag(i) {
+  return i.past ? `<span class="tag past">${PAST_LABEL}</span>` : "";
+}
+
 // Case list row. `detail` adds the impact line (topic/list level); the overview keeps rows to title + meta.
-export function caseRow(data, i, { detail = false, now = new Date() } = {}) {
+export function caseRow(data, i, { detail = false, archived = false, now = new Date() } = {}) {
   const l = lensOf(i.category);
   const impact = detail ? impactText(i, ["dead", "injured", "missing", "displaced"]) : "";
-  return `<li><a class="case-row" href="#/kasus/${esc(i.id)}" style="--lc:var(--l-${l.key})">
+  return `<li><a class="case-row" href="${esc(caseHref(i, archived))}" style="--lc:var(--l-${l.key})">
     <span class="case-body">
-      <span class="case-meta">${lensIcon(l, 16)}<span>${esc(catLabel(data, i.category))} · ${esc(shortKab(i.kab_kota) || "Jawa Barat")}</span>${detail ? `<span class="muted">· ${ago(i.last_reported, now)}</span>` : ""}</span>
+      <span class="case-meta">${lensIcon(l, 16)}<span>${esc(catLabel(data, i.category))} · ${esc(shortKab(i.kab_kota) || "Jawa Barat")}</span>${detail ? `<span class="muted">· ${ago(i.last_reported, now)}</span>` : ""}${pastTag(i)}</span>
       <span class="case-title">${esc(i.title)}</span>
       ${impact ? `<span class="case-impact">${esc(impact)}</span>` : ""}
     </span>${CHEVRON}
   </a></li>`;
 }
 
-export function caseList(data, list, { detail = false, empty = "Tidak ada kasus yang cocok." } = {}) {
+export function caseList(data, list, { detail = false, archived = false, empty = "Tidak ada kasus yang cocok." } = {}) {
   const now = new Date();
-  return list.length ? `<ul class="cases">${list.map((i) => caseRow(data, i, { detail, now })).join("")}</ul>`
+  return list.length ? `<ul class="cases">${list.map((i) => caseRow(data, i, { detail, archived, now })).join("")}</ul>`
     : `<p class="empty">${esc(empty)}</p>`;
 }
 

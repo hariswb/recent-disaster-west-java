@@ -1,15 +1,52 @@
-// Entry: load data, route between Ringkasan › Topik › Kasus (and Peta), wire filters, share and theme.
+// Entry: load data, route between Ringkasan › Topik › Kasus (and Peta, Rekap), wire filters, share and theme.
 import { initAnalytics, trackEvent, trackPage } from "../../analytics.js";
-import { esc, lensOf } from "./model.js";
+import { esc, lensOf, wibMonth } from "./model.js";
 import { openShare } from "./share.js";
 import { overview } from "./views/overview.js";
 import { topic } from "./views/topic.js";
 import { cases } from "./views/cases.js";
 import { caseView } from "./views/case.js";
 import { mapView } from "./views/map.js";
+import { recap, recapPeriod } from "./views/recap.js";
 
 const $ = (s) => document.querySelector(s);
-const state = { data: null, view: null, navigated: false };
+const state = { data: null, view: null, navigated: false, sample: false };
+
+// ---------------------------------------------------------------- archive (recaps, older cases)
+// Monthly files, fetched the first time a recap or an archived case needs them.
+const archive = { index: null, months: new Map(), failed: false };
+const getJSON = (u) => fetch(`${u}?t=${Date.now()}`, { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))));
+
+async function loadArchive(months) {
+  if (state.sample) {
+    // Sample mode: the sample incidents are the whole archive.
+    for (const i of state.data.incidents) {
+      const m = wibMonth(i.first_reported);
+      if (!archive.months.has(m)) archive.months.set(m, []);
+      if (!archive.months.get(m).includes(i)) archive.months.get(m).push(i);
+    }
+    archive.index ??= { months: [...archive.months.keys()].sort().map((m) => ({ month: m, first_reported: archive.months.get(m)[0].first_reported })) };
+    for (const m of months) if (!archive.months.has(m)) archive.months.set(m, []);
+    return;
+  }
+  const index = archive.index ? null : getJSON("data/archive/index.json").catch(() => null);
+  const known = async () => (archive.index ??= (await index) || { months: [] });
+  await Promise.all(months.map(async (m) => {
+    const listed = (await known()).months.some((x) => x.month === m);
+    // A month with no file has no incidents; one that is listed but fails to load is reported.
+    const rows = listed ? await getJSON(`data/archive/${m}.json`).then((d) => d.incidents).catch(() => { archive.failed = true; return []; }) : [];
+    archive.months.set(m, rows);
+  }));
+  await known();
+}
+
+function loading(title, months) {
+  return {
+    title,
+    html: `<section class="sec"><h1 tabindex="-1" class="sr-only">${esc(title)}</h1><p class="lede">Memuat arsip…</p></section>`,
+    pending: loadArchive(months),
+  };
+}
 
 function parseHash() {
   const raw = location.hash.replace(/^#/, "") || "/";
@@ -20,7 +57,22 @@ function parseHash() {
 function resolve({ parts, query }) {
   const ctx = { data: state.data, list: state.data.incidents, query, params: {} };
   if (parts[0] === "topik" && parts[1]) return topic({ ...ctx, params: { lens: parts[1] } });
-  if (parts[0] === "kasus" && parts[1]) return caseView({ ...ctx, params: { id: parts[1] } });
+  if (parts[0] === "kasus" && parts[1]) {
+    let incident = state.data.incidents.find((x) => x.id === parts[1]);
+    const m = query.get("arsip");
+    if (!incident && /^\d{4}-\d{2}$/.test(m || "")) {
+      if (!archive.months.has(m)) return loading("Kasus", [m]);
+      incident = archive.months.get(m).find((x) => x.id === parts[1]);
+    }
+    return caseView({ ...ctx, params: { id: parts[1], incident } });
+  }
+  if (parts[0] === "rekap") {
+    const period = recapPeriod(parts[1] || "minggu", parts[2], { asOf: state.data.generated_at });
+    if (!period) return null;
+    const missing = period.months.filter((m) => !archive.months.has(m));
+    if (missing.length || !archive.index) return loading("Rekap", missing);
+    return recap({ ...ctx, archive, period });
+  }
   if (parts[0] === "kasus") return cases(ctx);
   if (parts[0] === "peta") return mapView(ctx);
   if (!parts.length) return overview(ctx);
@@ -50,6 +102,9 @@ function render({ routeChange = true } = {}) {
   $("#btn-back").hidden = !route.parts.length;
   $("#btn-share").hidden = !view.share;
   view.mount?.();
+  // Archive data arrived: draw the real page, unless the reader has moved on.
+  const hash = location.hash;
+  view.pending?.then(() => { if (location.hash === hash) render({ routeChange: false }); });
   if (routeChange) {
     trackView(route, view);
     window.scrollTo({ top: 0 });
@@ -114,7 +169,8 @@ function bind() {
     // Return to where the reader came from inside the app; on a deep link, go one level up the hierarchy.
     if (state.navigated) { history.back(); return; }
     const { parts } = parseHash();
-    location.hash = parts[0] === "kasus" && parts[1] ? "#/kasus" : "#/";
+    const { query } = parseHash();
+    location.hash = parts[0] === "kasus" && parts[1] ? (query.get("arsip") ? "#/rekap" : "#/kasus") : "#/";
   });
   $("#btn-share").addEventListener("click", () => {
     if (!state.view?.share) return;
@@ -200,6 +256,7 @@ async function load() {
   try { saved = localStorage.getItem("theme") || ""; } catch { /* storage unavailable */ }
   applyTheme(saved);
   const sample = new URLSearchParams(location.search).get("data") === "sample";
+  state.sample = sample;
   const url = sample ? "data/sample-incidents.json" : "data/incidents.json";
   // Expert analysis is optional: the dashboard works without it.
   const analysis = fetch(`data/${sample ? "sample-analysis" : "analysis"}.json?t=${Date.now()}`, { cache: "no-store" })

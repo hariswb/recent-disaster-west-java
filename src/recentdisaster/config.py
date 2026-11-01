@@ -26,6 +26,7 @@ CONFIG_DIR = ROOT / "config"
 GAZETTEER_PATH = ROOT / "data" / "gazetteer" / "jabar.json"
 CACHE_PATH = ROOT / "data" / "cache" / "processed.json"
 OUTPUT_PATH = ROOT / "docs" / "kebencanaan-jabar" / "data" / "incidents.json"
+ARCHIVE_DIR = ROOT / "docs" / "kebencanaan-jabar" / "data" / "archive"
 ANALYSIS_CACHE_PATH = ROOT / "data" / "cache" / "analysis.json"
 ANALYSIS_OUTPUT_PATH = ROOT / "docs" / "kebencanaan-jabar" / "data" / "analysis.json"
 

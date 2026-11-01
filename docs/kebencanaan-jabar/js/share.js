@@ -1,7 +1,7 @@
 // Share-as-image: 1080×1440 (3:4) PNGs for each level, rendered client-side with html-to-image.
 import {
-  SUPPORT_LINE, TZ, byLens, catLabel, countBy, esc, fmtEventDate, groupsAffected, impactText, lensIcon,
-  lensOf, locationText, nf, shortKab, sortCases, totals,
+  PAST_LABEL, SUPPORT_LINE, TZ, byLens, catLabel, countBy, esc, fmtEventDate, groupsAffected, headlineParts, impactText,
+  lensIcon, lensOf, locationText, nf, pastAge, shortKab, sortCases, totals,
 } from "./model.js";
 
 const LIB = "https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.js";
@@ -52,11 +52,11 @@ function stamp(data) {
 }
 
 // Every image: a coloured band (brand, date, title) over a light body, then the method line.
-function frame(data, { band, body, lens = null, sensitive = false }) {
+function frame(data, { band, body, lens = null, sensitive = false, when = stamp(data) }) {
   const style = lens ? ` style="--lc:var(--l-${lens.key});--ld:var(--d-${lens.key})"` : "";
   return `<div class="story"${style}>
     <div class="st-band">
-      <div class="st-head"><span class="st-brand"><span class="st-dot"></span>Kebencanaan Jawa Barat</span><span>${esc(stamp(data))}</span></div>
+      <div class="st-head"><span class="st-brand"><span class="st-dot"></span>Kebencanaan Jawa Barat</span><span>${esc(when)}</span></div>
       ${band}
     </div>
     <div class="st-body">${body}</div>
@@ -104,6 +104,24 @@ function overviewCard(data, list) {
   });
 }
 
+function recapCard(data, { period, label, list }) {
+  const groups = byLens(list).filter((g) => g.count || g.lens.key !== "lainnya");
+  const kabs = countBy(list, (i) => i.kab_kota).slice(0, 3);
+  const sensitive = sortCases(list, "dampak").slice(0, 4).some((i) => lensOf(i.category).sensitive);
+  return frame(data, {
+    sensitive, when: period.from ? `7 hari s.d. ${stamp(data).replace(/^\d+ jam s\.d\. /, "")}` : period.current ? `${period.label} (berjalan)` : period.label,
+    band: `<p class="st-eyebrow">${esc(label)} Jawa Barat</p>
+      <p class="st-hero sm"><b>${nf.format(list.length)}</b> insiden</p>
+      ${list.length ? `<p class="st-lede-band">${esc(headlineParts(list).join(" · "))}</p>` : ""}`,
+    body: `${figures(totals(list))}
+      <h2 class="st-h">Jumlah Insiden Berdasarkan Topik</h2>
+      ${bars(groups.map((g) => ({ label: g.lens.label, value: g.count, lens: g.lens.key, icon: lensIcon(g.lens, 28) })))}
+      ${kabs.length ? `<p class="st-kabs"><span>Wilayah terbanyak</span> ${kabs.map(([k, n]) => `${esc(shortKab(k))} <b>${n}</b>`).join('<span class="st-sep">·</span>')}</p>` : ""}
+      <h2 class="st-h">Dampak terbesar</h2>
+      ${list.length ? caseLines(data, list, 4) : `<p class="st-lede">Tidak ada laporan dalam periode ini.</p>`}`,
+  });
+}
+
 function listCard(data, { lens, list, filtered, kat, wil }) {
   const src = filtered ?? list;
   const filt = [kat && catLabel(data, kat), wil && shortKab(wil)].filter(Boolean).join(" · ");
@@ -130,7 +148,8 @@ function caseCard(data, i) {
   const event = fmtEventDate(i.event_time);
   const rows = [
     ["Lokasi", locationText(i, l.sensitive)],
-    event && ["Waktu", event],
+    event && ["Waktu", i.past ? `${event} (${PAST_LABEL.toLowerCase()}${pastAge(i) ? `, ${pastAge(i)} sebelum diberitakan` : ""})` : event],
+    !event && i.past && ["Waktu", PAST_LABEL],
     ["Dampak", impact || "Belum disebutkan dalam berita"],
     groups.length && ["Kelompok terdampak", groups.join(", ")],
   ].filter(Boolean);
@@ -156,11 +175,13 @@ function sourceLines(i) {
 function cardFor(data, spec) {
   if (spec.kind === "overview") return overviewCard(data, spec.list);
   if (spec.kind === "case") return caseCard(data, spec.incident);
+  if (spec.kind === "recap") return recapCard(data, spec);
   return listCard(data, spec);
 }
 
 function fileName(spec, data) {
   const d = data.generated_at.slice(0, 10);
+  if (spec.kind === "recap") return `kebencanaan-jabar-rekap-${spec.period.kind}-${spec.period.key || spec.period.end}.png`;
   const part = spec.kind === "case" ? `kasus-${spec.incident.id}` : spec.kind === "topic" ? `topik-${spec.lens.key}` : spec.kind === "list" ? "kasus" : "ringkasan";
   return `kebencanaan-jabar-${part}-${d}.png`;
 }
@@ -169,6 +190,7 @@ function fileName(spec, data) {
 function captionFor(data, spec) {
   const w = `dalam ${data.window_hours} jam terakhir`;
   if (spec.kind === "overview") return `${nf.format(spec.list.length)} insiden di Jawa Barat ${w}.`;
+  if (spec.kind === "recap") return `${spec.label} ${spec.period.label}: ${nf.format(spec.list.length)} insiden di Jawa Barat.`;
   if (spec.kind === "topic") return `${spec.lens.label}: ${nf.format(spec.list.length)} insiden di Jawa Barat ${w}.`;
   if (spec.kind === "list") return `${nf.format(spec.list.length)} insiden di Jawa Barat ${w}.`;
   const i = spec.incident;

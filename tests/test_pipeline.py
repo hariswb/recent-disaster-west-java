@@ -76,7 +76,8 @@ def isolated(tmp_path, monkeypatch, now):
         monkeypatch.setattr(pipeline, "fetch_all", lambda sources, known: (items, [{"id": "t", "ok": True, "items": len(items)}]))
         monkeypatch.setattr(pipeline, "_fetch_bodies", lambda its: {})
         return pipeline.run(use_llm=False, now=kw.get("now", now), output_path=tmp_path / "out.json",
-                            cache_path=tmp_path / "cache.json", analysis_cache_path=None)
+                            cache_path=tmp_path / "cache.json", analysis_cache_path=None,
+                            archive_dir=tmp_path / "archive")
     return run
 
 
@@ -91,7 +92,10 @@ def test_pipeline_rules_only_end_to_end(isolated, make_item, now, tmp_path):
     assert [i["title"] for i in written["incidents"]] == ["Longsor timbun rumah di Sukajaya Bogor, dua orang tewas"]
     inc = written["incidents"][0]
     assert inc["kab_kota"] == "Kabupaten Bogor" and inc["victims"] == {"dead": 2} and inc["extraction"] == "rules"
+    assert inc["past"] is False
     assert out["stats"]["candidates"] == 1
+    [archived] = json.loads((tmp_path / "archive" / "2026-09.json").read_text())["incidents"]
+    assert archived["id"] == inc["id"]
 
 
 def test_incidents_persist_from_cache_then_expire(isolated, make_item, now, tmp_path):

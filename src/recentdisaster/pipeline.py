@@ -4,10 +4,10 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from recentdisaster import analysis, llm, merge, rules
+from recentdisaster import analysis, archive, llm, merge, rules
 from recentdisaster.article import fetch_article
 from recentdisaster.cluster import cluster, is_advisory, to_incident, unique_ids
-from recentdisaster.config import ANALYSIS_CACHE_PATH, CACHE_PATH, OUTPUT_PATH, WIB, load_yaml
+from recentdisaster.config import ANALYSIS_CACHE_PATH, ARCHIVE_DIR, CACHE_PATH, OUTPUT_PATH, WIB, load_yaml
 from recentdisaster.dedupe import dedupe
 from recentdisaster.models import Extraction, RawItem, Report
 from recentdisaster.net import client
@@ -63,6 +63,7 @@ def run(
     output_path: Path = OUTPUT_PATH,
     cache_path: Path = CACHE_PATH,
     analysis_cache_path: Path | None = ANALYSIS_CACHE_PATH,
+    archive_dir: Path | None = ARCHIVE_DIR,
 ) -> dict:
     now = now or datetime.now(WIB)
     cutoff = now - WINDOW
@@ -147,6 +148,14 @@ def run(
             log.exception("LLM cluster refinement failed; using rule clusters")
     incidents = unique_ids([to_incident(group, gaz) for group in groups])
     incidents.sort(key=lambda i: i["last_reported"], reverse=True)
+    if not dry_run and archive_dir:
+        # Kept for the weekly/monthly recaps; the archive's ids are stable across runs.
+        try:
+            ids = archive.update(incidents, now, cutoff, archive_dir)
+            for inc in incidents:
+                inc["id"] = ids.get(inc["id"], inc["id"])
+        except Exception:  # the 24-hour dashboard must not depend on the archive
+            log.exception("archive update failed")
 
     tax = load_yaml("taxonomy.yaml")
     output = {
