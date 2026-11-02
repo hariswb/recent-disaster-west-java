@@ -1,13 +1,13 @@
 {
- "generated_at": "2026-10-26T14:23:03+07:00",
+ "generated_at": "2026-11-02T15:49:50+07:00",
  "retention_days": 30,
  "stats": {
-  "queued_this_run": 86,
-  "accepted": 1,
-  "rejected": 24,
-  "deferred": 15,
-  "pending": 55,
-  "published": 3
+  "queued_this_run": 85,
+  "accepted": 3,
+  "rejected": 27,
+  "deferred": 10,
+  "pending": 83,
+  "published": 6
  },
  "llm_providers": [
   {
@@ -25,39 +25,29 @@
   {
    "name": "groq",
    "model": "openai/gpt-oss-120b",
-   "calls": 6,
+   "calls": 9,
    "exhausted": null,
    "dead_models": [],
    "errors": []
   },
   {
    "name": "openrouter",
-   "model": "google/gemma-4-26b-a4b-it:free",
-   "calls": 2,
-   "exhausted": "all models unavailable (rate limited: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'google/gemma-4-26b-a4b-it:free is temporarily rate-limited upstream. Please retry shortly, or add y)",
-   "dead_models": [
-    "qwen/qwen3.8-27b:free",
-    "google/gemma-4-31b-it:free",
-    "nvidia/nemotron-3-super-120b-a12b:free",
-    "google/gemma-4-26b-a4b-it:free"
-   ],
-   "errors": [
-    "google/gemma-4-31b-it:free: rate limited: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'google/gemma-4-31b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your ",
-    "nvidia/nemotron-3-super-120b-a12b:free: Error code: 404 - {'error': {'message': 'Provider returned error', 'code': 404, 'metadata': {'raw': '{\"status\":404,\"title\":\"Not Found\",\"detail\":\"Function \\'ac74040f-9fc9-4c5e-ac74-279ba5161d69\\': Not ",
-    "google/gemma-4-26b-a4b-it:free: rate limited: Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'google/gemma-4-26b-a4b-it:free is temporarily rate-limited upstream. Please retry shortly, or add y"
-   ]
+   "model": "qwen/qwen3.8-27b:free",
+   "calls": 1,
+   "exhausted": "auth: Error code: 401 - {'error': {'message': 'API key expired.', 'code': 401, 'metadata': {'headers': {'WWW-Authenticate': 'Bearer error=\"invalid_token\", error_description=\"API key expired\"'}}}}",
+   "dead_models": [],
+   "errors": []
   },
   {
    "name": "glm",
    "model": "glm-4.5-flash",
-   "calls": 5,
+   "calls": 8,
    "exhausted": null,
    "dead_models": [
     "glm-4.7-flash"
    ],
    "errors": [
-    "glm-4.7-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}",
-    "glm-4.5-flash: no response within 60s"
+    "glm-4.7-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}"
    ]
   },
   {
@@ -66,7 +56,9 @@
    "calls": 5,
    "exhausted": null,
    "dead_models": [],
-   "errors": []
+   "errors": [
+    "gemini-flash-latest: no response within 60s"
+   ]
   }
  ],
  "source_status": [
@@ -76,7 +68,7 @@
    "ok": true,
    "items": 50,
    "error": null,
-   "seconds": 0.4
+   "seconds": 0.5
   },
   {
    "id": "ugm",
@@ -84,7 +76,7 @@
    "ok": true,
    "items": 10,
    "error": null,
-   "seconds": 2.1
+   "seconds": 1.9
   },
   {
    "id": "ipb",
@@ -92,7 +84,7 @@
    "ok": true,
    "items": 10,
    "error": null,
-   "seconds": 4.9
+   "seconds": 4.3
   },
   {
    "id": "unpad",
@@ -100,7 +92,7 @@
    "ok": false,
    "items": 0,
    "error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.unpad.ac.id/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
-   "seconds": 0.5
+   "seconds": 0.3
   },
   {
    "id": "mongabay-id",
@@ -108,26 +100,98 @@
    "ok": true,
    "items": 20,
    "error": null,
-   "seconds": 0.4
+   "seconds": 0.7
   },
   {
    "id": "bing-analisis",
    "name": "Bing News",
    "ok": true,
-   "items": 331,
+   "items": 342,
    "error": null,
-   "seconds": 7.4
+   "seconds": 7.9
   },
   {
    "id": "gnews-analisis",
    "name": "Google News",
    "ok": true,
-   "items": 224,
+   "items": 202,
    "error": null,
-   "seconds": 2.5
+   "seconds": 2.8
   }
  ],
  "entries": [
+  {
+   "id": "a0f1d97bc8",
+   "category": "gempa",
+   "kind": "kajian_lembaga",
+   "title": "Gempa Megathrust Bangkitkan Tsunami 8 Meter, Sapu Pesisir Pangandaran",
+   "url": "https://www.cnbcindonesia.com/tech/20261031101137-37-781124/gempa-megathrust-bangkitkan-tsunami-8-meter-sapu-pesisir-pangandaran",
+   "source": "CNBC Indonesia",
+   "published": "2026-10-31T06:14:00+07:00",
+   "experts": [
+    {
+     "name": "Wiko Setyonegoro",
+     "affiliation": "Pusat Riset Laut Dalam (PRLD) BRIN"
+    }
+   ],
+   "kab_kota": [
+    "Kabupaten Pangandaran"
+   ],
+   "finding": "Tsunami Pangandaran 2006 merupakan contoh tsunami earthquake yang kemungkinan dipicu oleh kombinasi gempa bumi dan pergerakan massa bawah laut, yang memperkuat gelombang dan mempercepat waktu kedatangannya.",
+   "evidence": "\"Setelah kami melakukan pengujian berbagai skenario, terdapat kemungkinan bahwa gempa bumi dan pergerakan massa bawah laut bersama-sama berkontribusi membangkitkan tsunami.\"",
+   "verified_by": [
+    "glm/glm-4.5-flash",
+    "groq/openai/gpt-oss-120b"
+   ]
+  },
+  {
+   "id": "e3438d052a",
+   "category": "angin",
+   "kind": "pendapat_pakar",
+   "title": "Ahli Ungkap Proses Terbentuknya Puting Beliung yang 'Sapu' Padalarang",
+   "url": "https://www.cnnindonesia.com/teknologi/20261028165543-641-1420657/ahli-ungkap-proses-terbentuknya-puting-beliung-yang-sapu-padalarang",
+   "source": "CNN Indonesia",
+   "published": "2026-10-28T17:07:48+07:00",
+   "experts": [
+    {
+     "name": "Deni Septiadi",
+     "affiliation": "Ketua Kelompok Kerja Bencana Hidrometeorologi Ikatan Ahli Bencana Indonesia (IABI)"
+    }
+   ],
+   "kab_kota": [
+    "Kabupaten Bandung Barat"
+   ],
+   "finding": "Puting beliung di Padalarang terbentuk karena interaksi cepat antara gerak vertikal, wind shear, dan vortisitas pada skala lokal, dipengaruhi topografi kompleks Bandung Raya.",
+   "evidence": "\"Puting beliung mengajarkan bahwa daya rusak cuaca ekstrem bukan semata ditentukan oleh besarnya awan, melainkan oleh interaksi gerak vertikal, geser angin (wind shear), dan vortisitas yang dapat berkembang sangat cepat pada skala lokal,\"",
+   "verified_by": [
+    "groq/openai/gpt-oss-120b",
+    "glm/glm-4.5-flash"
+   ]
+  },
+  {
+   "id": "cfedb635ff",
+   "category": "angin",
+   "kind": "kajian_lembaga",
+   "title": "BMKG: Cuaca ekstrem di Kabupaten Bandung Barat dipicu dari peralihan musim",
+   "url": "https://jabar.antaranews.com/berita/715587/bmkg-cuaca-ekstrem-di-kabupaten-bandung-barat-dipicu-dari-peralihan-musim",
+   "source": "ANTARA Jawa Barat",
+   "published": "2026-10-28T15:51:43+07:00",
+   "experts": [
+    {
+     "name": "Muhamad Iid Mujtahiddin",
+     "affiliation": "Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) Bandung"
+    }
+   ],
+   "kab_kota": [
+    "Kabupaten Bandung Barat"
+   ],
+   "finding": "BMKG menjelaskan cuaca ekstrem di Kabupaten Bandung Barat yang merusak lebih dari 500 rumah dan fasilitas umum dipicu oleh kondisi atmosfer pada masa peralihan musim kemarau menuju hujan.",
+   "evidence": "Badan Meteorologi, Klimatologi, dan Geofisika (BMKG) mengungkapkan cuaca ekstrem yang merusak lebih dari 500 rumah dan fasilitas umum di Kecamatan Padalarang, Kabupaten Bandung Barat (KBB), Jawa Barat, dipicu kondisi atmosfer pada masa peralihan musim kemarau menuju hujan.",
+   "verified_by": [
+    "glm/glm-4.5-flash",
+    "gemini/gemini-flash-lite-latest"
+   ]
+  },
   {
    "id": "3fef93cb46",
    "category": "mbg",
