@@ -1,4 +1,5 @@
 // L1 Peta: where incidents happened, on a street basemap or a terrain (elevation contour) basemap.
+// `mapSection` is the map with its filters and regency chart; the 24-hour Peta page and the recaps wrap it.
 import { LENS, LENSES, catLabel, countBy, esc, lensOf, nf, shortKab } from "../model.js";
 import { barChart, crumbs, href, lensChips } from "../ui.js";
 
@@ -61,16 +62,16 @@ const css = (name) => getComputedStyle(document.documentElement).getPropertyValu
 const isDark = () => document.documentElement.dataset.theme === "dark"
   || (!document.documentElement.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
 
-function popup(data, pts) {
+function popup(data, pts, { caseLink, listLink }) {
   const place = pts[0].l.sensitive || pts[0].i.location_precision !== "kecamatan" ? shortKab(pts[0].i.kab_kota)
     : `Kec. ${pts[0].i.kecamatan}, ${shortKab(pts[0].i.kab_kota)}`;
   const rows = pts.slice(0, 6).map(({ i }) =>
-    `<li><a href="#/kasus/${esc(i.id)}"><span>${esc(catLabel(data, i.category))}</span>${esc(i.title)}</a></li>`).join("");
-  const more = pts.length > 6 ? `<a class="pop-more" href="${href("/kasus", { wil: pts[0].i.kab_kota })}">Lihat ${nf.format(pts.length)} kasus</a>` : "";
+    `<li><a href="${esc(caseLink(i))}"><span>${esc(catLabel(data, i.category))}</span>${esc(i.title)}</a></li>`).join("");
+  const more = pts.length > 6 ? `<a class="pop-more" href="${esc(listLink(pts[0].i.kab_kota, ""))}">Lihat ${nf.format(pts.length)} kasus</a>` : "";
   return `<div class="pop"><b>${esc(place)}</b><ul>${rows}</ul>${more}</div>`;
 }
 
-function drawPoints(L, data, pts, layer) {
+function drawPoints(L, data, pts, layer, links) {
   const groups = new Map();
   for (const p of pts) {
     const k = `${p.lat.toFixed(4)},${p.lon.toFixed(4)}`;
@@ -82,11 +83,11 @@ function drawPoints(L, data, pts, layer) {
     const color = lenses.size === 1 ? css(`--l-${g[0].l.key}`) : css("--ink-2");
     L.circleMarker([g[0].lat, g[0].lon], {
       radius: 7 + 3 * Math.sqrt(g.length - 1), color: css("--surface"), weight: 2, fillColor: color, fillOpacity: 0.9,
-    }).bindPopup(popup(data, g), { maxWidth: 300 }).bindTooltip(`${nf.format(g.length)} insiden`).addTo(layer);
+    }).bindPopup(popup(data, g, links), { maxWidth: 300 }).bindTooltip(`${nf.format(g.length)} insiden`).addTo(layer);
   }
 }
 
-async function mount(data, pts, mode) {
+async function mount(data, pts, mode, links) {
   const el = document.getElementById("map");
   let L;
   try {
@@ -96,15 +97,17 @@ async function mount(data, pts, mode) {
     return;
   }
   if (!el?.isConnected) return; // navigated away while loading
-  map = L.map(el, { scrollWheelZoom: false, minZoom: 7, maxBounds: [[-9.5, 104.5], [-4.5, 110.5]] });
-  if (saved) map.setView(saved.center, saved.zoom); else map.fitBounds(JABAR_BOUNDS);
-  map.on("moveend", () => { saved = { center: map.getCenter(), zoom: map.getZoom() }; });
+  const m = L.map(el, { scrollWheelZoom: false, minZoom: 7, maxBounds: [[-9.5, 104.5], [-4.5, 110.5]] });
+  map = m;
+  if (saved) m.setView(saved.center, saved.zoom); else m.fitBounds(JABAR_BOUNDS);
+  // Leaflet can fire a last moveend while the map is being removed on navigation.
+  m.on("moveend", () => { if (map === m) saved = { center: m.getCenter(), zoom: m.getZoom() }; });
   const { url, ...opts } = BASEMAPS[mode];
-  L.tileLayer(url, opts).addTo(map);
+  L.tileLayer(url, opts).addTo(m);
   // Dark mode: the street map is inverted; the terrain map is only dimmed so its colours keep their meaning.
   el.classList.toggle("dark-tiles", isDark());
   el.classList.toggle("topo", mode === "kontur");
-  drawPoints(L, data, pts, L.layerGroup().addTo(map));
+  drawPoints(L, data, pts, L.layerGroup().addTo(m), links);
 }
 
 function unmount() {
@@ -112,7 +115,8 @@ function unmount() {
   map = null;
 }
 
-export function mapView({ data, list, query }) {
+// `scope` ends the count line ("dalam 24 jam terakhir"); links point at cases and at a regency's case list.
+export function mapSection({ data, list, query, caseLink, listLink, scope }) {
   const lensKey = LENS[query.get("lensa")] ? query.get("lensa") : "";
   const mode = query.get("mode") === "kontur" ? "kontur" : "jalan";
   const lensCounts = Object.fromEntries(LENSES.map((l) => [l.key, list.filter((i) => lensOf(i.category).key === l.key).length]));
@@ -123,13 +127,10 @@ export function mapView({ data, list, query }) {
   const seg = [["", "Jalan"], ["kontur", "Kontur"]].map(([v, l]) =>
     `<button type="button" id="mode-${v || "jalan"}" data-q="mode" data-v="${v}" aria-pressed="${(v || "jalan") === mode}">${l}</button>`).join("");
 
+  const links = { caseLink, listLink };
   const html = `
-  <header class="band">
-    ${crumbs([["Ringkasan", "#/"], ["Peta"]])}
-    <h1 tabindex="-1">Peta insiden</h1>
-    <p class="lede">${nf.format(pts.length)} insiden berlokasi dalam ${data.window_hours} jam terakhir${unplaced ? ` · ${nf.format(unplaced)} tanpa lokasi` : ""}</p>
-  </header>
   <section class="sec" aria-label="Peta dan saringan">
+    <p class="map-count">${nf.format(pts.length)} insiden berlokasi ${esc(scope)}${unplaced ? ` · ${nf.format(unplaced)} tanpa lokasi` : ""}</p>
     <div class="filters">
       ${lensChips(lensCounts, lensKey)}
       <div class="seg" role="group" aria-label="Peta dasar">${seg}</div>
@@ -142,16 +143,29 @@ export function mapView({ data, list, query }) {
   </section>
   <section class="sec" aria-labelledby="h-wil">
     <h2 id="h-wil">Per kabupaten/kota</h2>
-    ${kabs.length ? barChart(kabs.map(([k, n]) => ({ label: shortKab(k), value: n, link: href("/kasus", { wil: k, lensa: lensKey }) })),
+    ${kabs.length ? barChart(kabs.map(([k, n]) => ({ label: shortKab(k), value: n, link: listLink(k, lensKey) })),
       { label: "Jumlah insiden per kabupaten/kota" }) : `<p class="empty">Belum ada lokasi.</p>`}
   </section>`;
 
+  return { html, mount: () => mount(data, pts, mode, links), unmount };
+}
+
+export function mapView({ data, list, query }) {
+  const section = mapSection({
+    data, list, query, scope: `dalam ${data.window_hours} jam terakhir`,
+    caseLink: (i) => `#/kasus/${i.id}`,
+    listLink: (kab, lensa) => href("/kasus", { wil: kab, lensa }),
+  });
   return {
     title: "Peta",
-    html,
+    html: `
+  <header class="band">
+    ${crumbs([["Ringkasan", "#/"], ["Peta"]])}
+    <h1 tabindex="-1">Peta insiden</h1>
+  </header>${section.html}`,
     filters: { keys: {}, lensParam: "lensa" },
     themed: true,
-    mount: () => mount(data, pts, mode),
-    unmount,
+    mount: section.mount,
+    unmount: section.unmount,
   };
 }

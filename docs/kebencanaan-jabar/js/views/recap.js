@@ -1,43 +1,33 @@
-// L1 Rekap: the last 7 days, one week or one month from the archive — totals, trend, topics, kinds, regions and every case.
+// Rekap: one week (Monday–Sunday) or one calendar month from the archive, read as a report: headline
+// numbers against the previous period, a daily trend, a topic table, regions, highlights, then the
+// cases grouped by topic and folded. A second tab puts the same period on the map.
 // Past incidents (follow-ups of an event a week or more before the first report) are listed apart, not counted.
 import {
-  LENS, LENSES, addDays, byLens, catLabel, countBy, dayDate, esc, fmtDateTime, fmtUpdated, fmtYmd, headlineParts, lensIcon, lensOf,
-  nf, shortKab, sortCases, totals, wibDay,
+  LENS, addDays, byLens, countBy, dayDate, esc, fmtUpdated, fmtYmd, headlineParts, impactText,
+  lensIcon, lensOf, nf, shortKab, sortCases, totals, wibDay,
 } from "../model.js";
-import { barChart, caseList, contentNote, crumbs, figures, href, lensChips, sectionHead, select, sortToggle } from "../ui.js";
+import { caseHref, caseList, columnChart, contentNote, href, select } from "../ui.js";
+import { mapSection } from "./map.js";
 
 export const KIND = {
-  "7-hari": { label: "Rekap 7 hari terakhir", tab: "7 hari", when: "dalam 7 hari terakhir" },
-  minggu: { label: "Rekap mingguan", tab: "Mingguan", prev: "Pekan sebelumnya", next: "Pekan berikutnya", when: "pada pekan ini" },
-  bulan: { label: "Rekap bulanan", tab: "Bulanan", prev: "Bulan sebelumnya", next: "Bulan berikutnya", when: "pada bulan ini" },
+  minggu: { label: "Rekap mingguan", prev: "Pekan sebelumnya", next: "Pekan berikutnya", ago: "pekan lalu", when: "pada pekan ini" },
+  bulan: { label: "Rekap bulanan", prev: "Bulan sebelumnya", next: "Bulan berikutnya", ago: "bulan lalu", when: "pada bulan ini" },
 };
 
 const YMD_RE = /^\d{4}-\d{2}-\d{2}$/;
 const monday = (ymd) => addDays(ymd, -((dayDate(ymd).getUTCDay() + 6) % 7));
 const shiftMonth = (ym, n) => {
   const [y, m] = ym.split("-").map(Number);
-  const d = new Date(Date.UTC(y, m - 1 + n, 1));
-  return d.toISOString().slice(0, 7);
+  return new Date(Date.UTC(y, m - 1 + n, 1)).toISOString().slice(0, 7);
 };
-const short = (ymd) => fmtYmd(ymd, { day: "numeric", month: "short" });
-
 const rangeLabel = (start, end) => {
   const sameYear = start.slice(0, 4) === end.slice(0, 4);
   return `${fmtYmd(start, { day: "numeric", month: "short", ...(sameYear ? {} : { year: "numeric" }) })} – ${fmtYmd(end, { day: "numeric", month: "short", year: "numeric" })}`;
 };
 
-// "#/rekap/7-hari": a rolling 7×24 hours up to the latest update (`asOf`).
-// "#/rekap/minggu/<any day of the week>": Monday–Sunday; without a key, the last finished week.
-// "#/rekap/bulan/<YYYY-MM>": without a key, the current month.
-export function recapPeriod(kind, key, { today = wibDay(new Date()), asOf = new Date().toISOString() } = {}) {
-  if (kind === "7-hari") {
-    if (key) return null;
-    const to = new Date(asOf);
-    const from = new Date(to.getTime() - 7 * 864e5);
-    const start = wibDay(from), end = wibDay(to);
-    return { kind, key: "", start, end, from, to, label: rangeLabel(start, end), prev: null, next: null, current: true,
-      months: [...new Set([start.slice(0, 7), end.slice(0, 7)])] };
-  }
+// "#/rekap/minggu/<any day of the week>": without a date, the last finished week.
+// "#/rekap/bulan/<YYYY-MM>": without a month, the current one.
+export function recapPeriod(kind, key, today = wibDay(new Date())) {
   if (kind === "minggu") {
     if (key && (!YMD_RE.test(key) || isNaN(dayDate(key)))) return null;
     const start = monday(key || addDays(today, -7));
@@ -62,153 +52,207 @@ export function recapPeriod(kind, key, { today = wibDay(new Date()), asOf = new 
   return null;
 }
 
-export const recapPath = (kind, key) => `/rekap/${kind}${key ? `/${key}` : ""}`;
+// Months to load: the period and the one before it (for the comparison).
+export function recapMonths(period) {
+  return [...new Set([...period.months, ...recapPeriod(period.kind, period.prev).months])];
+}
 
-// Weekly and 7 days: one bar per day. Monthly: one bar per week (clipped to the month), linking to that week's recap.
-// The rolling 7 days start and end mid-day, so its first and last days are partial.
-function trend(period, list, today) {
+export const recapPath = (kind, key, tab = "") => `/rekap/${kind}${key ? `/${key}` : ""}${tab ? `/${tab}` : ""}`;
+
+function incidentsIn(archive, period) {
+  const all = period.months.flatMap((m) => archive.months.get(m) || [])
+    .filter((i) => { const d = wibDay(i.first_reported); return period.start <= d && d <= period.end; });
+  return { list: all.filter((i) => !i.past), past: all.filter((i) => i.past) };
+}
+
+const archiveStart = (archive) => (archive.index?.months?.[0] ? wibDay(archive.index.months[0].first_reported) : null);
+
+// "+12" / "−5" / "sama", against the previous period.
+function delta(cur, prev) {
+  const d = cur - prev;
+  return d === 0 ? "sama" : `${d > 0 ? "+" : "−"}${nf.format(Math.abs(d))}`;
+}
+
+const titleOf = (p) => `${KIND[p.kind].label} ${p.label}`;
+
+// Band with the period stepper, then the Laporan / Peta tabs: the same on both tabs.
+function head(data, archive, period, tab) {
+  const k = KIND[period.kind];
+  const since = archiveStart(archive);
+  const prevOk = !since || period.start > since;
+  const step = (key, label, dir) => key
+    ? `<a class="step" href="${href(recapPath(period.kind, key, tab))}" aria-label="${label}" title="${label}">${dir}</a>`
+    : `<span class="step off" aria-hidden="true">${dir}</span>`;
+  const notes = [
+    period.current && `Periode berjalan; data hingga ${esc(fmtUpdated(data.generated_at))}.`,
+    since && period.start < since && `Arsip dimulai ${esc(fmtYmd(since, { day: "numeric", month: "long", year: "numeric" }))}.`,
+    archive.failed && "Sebagian arsip gagal dimuat. Muat ulang halaman untuk mencoba lagi.",
+  ].filter(Boolean);
+  const tabs = [["", "Laporan"], ["peta", "Peta"]].map(([t, l]) =>
+    `<a href="${href(recapPath(period.kind, period.key, t))}"${t === tab ? ' aria-current="page"' : ""}>${l}</a>`).join("");
+  return `
+  <header class="band recap-band">
+    <p class="eyebrow">${k.label}</p>
+    <div class="stepper">
+      ${step(prevOk && period.prev, k.prev, "‹")}
+      <h1 tabindex="-1">${esc(period.label)}</h1>
+      ${step(period.next, k.next, "›")}
+    </div>
+    ${notes.length ? `<p class="meta">${notes.join(" ")}</p>` : ""}
+  </header>
+  <nav class="subtabs" aria-label="Tampilan rekap">${tabs}</nav>`;
+}
+
+// Weekly: seven labelled columns. Monthly: one column per day, Mondays ticked, the peak labelled.
+function trend(period, list) {
+  const today = wibDay(new Date());
   const day = new Map(countBy(list, (i) => wibDay(i.first_reported)));
-  if (period.kind !== "bulan") {
-    const days = [];
-    for (let d = period.start; d <= period.end; d = addDays(d, 1)) days.push(d);
-    return days.map((d) => ({
-      label: fmtYmd(d, { weekday: "short", day: "numeric", month: "short" })
-        + (d > today ? " (belum)" : period.from && (d === period.start || d === period.end) ? " (sebagian)" : ""),
-      value: day.get(d) || 0,
-    }));
-  }
-  const rows = [];
-  for (let s = period.start; s <= period.end; s = addDays(monday(s), 7)) {
-    const e = [addDays(monday(s), 6), period.end].sort()[0];
-    let n = 0;
-    for (let d = s; d <= e; d = addDays(d, 1)) n += day.get(d) || 0;
-    rows.push({ label: (s === e ? short(s) : `${fmtYmd(s, { day: "numeric" })}–${short(e)}`) + (s > today ? " (belum)" : ""), value: n,
-      link: href(recapPath("minggu", monday(s))) });
-  }
-  return rows;
+  const days = [];
+  for (let d = period.start; d <= period.end; d = addDays(d, 1)) days.push(d);
+  const weekly = period.kind === "minggu";
+  const peak = Math.max(0, ...days.map((d) => day.get(d) || 0));
+  return columnChart(days.map((d) => {
+    const n = day.get(d) || 0;
+    return {
+      value: n, future: d > today,
+      full: `${fmtYmd(d, { weekday: "long", day: "numeric", month: "long" })}: ${nf.format(n)} insiden`,
+      tick: weekly ? fmtYmd(d, { weekday: "short" }) : (dayDate(d).getUTCDay() === 1 || d === period.start ? fmtYmd(d, { day: "numeric" }) : ""),
+      showValue: weekly || (n === peak && n > 0),
+    };
+  }), { label: weekly ? "Jumlah insiden per hari" : "Jumlah insiden per hari dalam bulan ini", dense: !weekly });
 }
 
 export function recap({ data, archive, period, query }) {
-  const today = wibDay(new Date());
   const k = KIND[period.kind];
   const self = recapPath(period.kind, period.key);
-  const inPeriod = period.months.flatMap((m) => archive.months.get(m) || [])
-    .filter(period.from
-      ? (i) => { const t = new Date(i.first_reported); return period.from < t && t <= period.to; }
-      : (i) => { const d = wibDay(i.first_reported); return period.start <= d && d <= period.end; });
-  const list = inPeriod.filter((i) => !i.past);
-  const past = sortCases(inPeriod.filter((i) => i.past), "terbaru");
+  const { list, past } = incidentsIn(archive, period);
+  const since = archiveStart(archive);
+  // Compare finished periods only, and only when the archive covers the whole previous one.
+  const prevPeriod = recapPeriod(period.kind, period.prev);
+  const prev = !period.current && since && prevPeriod.start >= since ? incidentsIn(archive, prevPeriod).list : null;
 
-  const lensKey = LENS[query.get("lensa")] ? query.get("lensa") : "";
-  const kat = query.get("kat") || "";
   const wil = query.get("wil") || "";
-  const urut = query.get("urut") || "dampak";
-  const keep = { lensa: lensKey, kat, wil, urut: urut === "dampak" ? "" : urut };
-  const lensCounts = Object.fromEntries(LENSES.map((l) => [l.key, list.filter((i) => lensOf(i.category).key === l.key).length]));
-  const inLens = list.filter((i) => !lensKey || lensOf(i.category).key === lensKey);
-  const shown = sortCases(inLens.filter((i) => (!kat || i.category === kat) && (!wil || i.kab_kota === wil)), urut);
-
-  const groups = byLens(list).filter((g) => g.count || g.lens.key !== "lainnya");
-  const cats = countBy(list, (i) => i.category);
-  const kabs = countBy(list, (i) => i.kab_kota);
+  const open = LENS[query.get("lensa")] ? query.get("lensa") : "";
+  const t = totals(list);
+  const pt = prev && totals(prev);
+  const groups = byLens(list).filter((g) => g.count);
+  const prevBy = prev && Object.fromEntries(byLens(prev).map((g) => [g.lens.key, g.count]));
+  const kabs = countBy(list, (i) => i.kab_kota).slice(0, 6);
   const top = sortCases(list, "dampak").slice(0, 5);
+  const inWil = list.filter((i) => !wil || i.kab_kota === wil);
 
-  const since = archive.index?.months?.[0] ? wibDay(archive.index.months[0].first_reported) : null;
-  const prevOk = period.prev && (!since || period.start > since);
-  // Switching tabs keeps the reader near the same dates; from a current period, go to each tab's default.
-  const tabKey = {
-    "7-hari": "",
-    minggu: period.kind === "bulan" && !period.current ? monday(period.end) : "",
-    bulan: period.kind === "minggu" ? period.start.slice(0, 7) : "",
-  };
-  const tabs = Object.entries(KIND).map(([key, v]) => key === period.kind
-    ? `<a aria-current="page" href="${href(self)}">${v.tab}</a>`
-    : `<a href="${href(recapPath(key, tabKey[key]))}">${v.tab}</a>`).join("");
+  const FIG = [["dead", "meninggal"], ["injured", "luka / dirawat"], ["missing", "hilang"], ["displaced", "mengungsi"]];
+  const figs = `<dl class="figures">${FIG.map(([key, label]) =>
+    `<div class="fig${t[key] ? "" : " zero"}${key === "dead" && t[key] ? " dead" : ""}"><dt>${label}</dt><dd>${nf.format(t[key])}</dd>${
+      pt ? `<dd class="fig-prev">${esc(k.ago)}: ${nf.format(pt[key])}</dd>` : ""}</div>`).join("")}</dl>`;
 
-  const notes = [
-    period.from ? `${esc(fmtDateTime(period.from.toISOString()))} – ${esc(fmtUpdated(period.to.toISOString()))}.`
-      : period.current && `Periode berjalan; data hingga ${esc(fmtUpdated(data.generated_at))}.`,
-    since && period.start < since && `Arsip dimulai ${esc(fmtYmd(since, { day: "numeric", month: "long", year: "numeric" }))}; kejadian sebelumnya tidak tercatat.`,
-    archive.failed && "Sebagian arsip gagal dimuat. Muat ulang halaman untuk mencoba lagi.",
-  ].filter(Boolean);
+  const topicRows = groups.map((g) => `<tr style="--lc:var(--l-${g.lens.key})">
+      <th scope="row"><a href="${href(self, { wil, lensa: g.lens.key })}" data-scroll="grp-${g.lens.key}">${lensIcon(g.lens, 18)}<span>${esc(g.lens.short)}</span></a></th>
+      <td><b>${nf.format(g.count)}</b>${prevBy ? ` <span class="d">${delta(g.count, prevBy[g.lens.key] || 0)}</span>` : ""}</td>
+      <td>${g.totals.dead ? nf.format(g.totals.dead) : "–"}</td>
+      <td>${g.totals.displaced ? nf.format(g.totals.displaced) : "–"}</td>
+    </tr>`).join("");
+
+  const kabRows = kabs.map(([w, n]) => {
+    const l = LENS[countBy(list.filter((i) => i.kab_kota === w), (i) => lensOf(i.category).key)[0][0]];
+    return `<tr>
+      <th scope="row"><a href="${href(self, { wil: w })}" data-scroll="h-kasus">${esc(shortKab(w))}</a></th>
+      <td><b>${nf.format(n)}</b></td>
+      <td><span class="tl" style="--lc:var(--l-${l.key})">${lensIcon(l, 16)}${esc(l.short)}</span></td>
+    </tr>`;
+  }).join("");
+
+  const SHOWN = 8;
+  const groupBlocks = byLens(inWil).filter((g) => g.count).map((g) => {
+    const cases = sortCases(g.items, "dampak");
+    const impact = impactText({ victims: g.totals }, ["dead", "injured", "missing", "displaced"]);
+    return `<details class="grp" id="grp-${g.lens.key}" style="--lc:var(--l-${g.lens.key})"${open === g.lens.key ? " open" : ""}>
+      <summary>${lensIcon(g.lens, 20)}<span class="grp-name">${esc(g.lens.label)}</span><span class="grp-n">${nf.format(g.count)}</span>
+        ${impact ? `<span class="grp-impact">${esc(impact)}</span>` : ""}</summary>
+      ${g.lens.sensitive ? contentNote() : ""}
+      ${caseList(data, cases.slice(0, SHOWN), { detail: true, archived: true })}
+      ${cases.length > SHOWN ? `<details class="grp-more"><summary>Tampilkan ${nf.format(cases.length - SHOWN)} kasus lainnya</summary>
+        ${caseList(data, cases.slice(SHOWN), { detail: true, archived: true })}</details>` : ""}
+    </details>`;
+  }).join("");
 
   const html = `
-  <header class="band">
-    ${crumbs([["Ringkasan", "#/"], [k.label]])}
-    <p class="eyebrow">${k.label}</p>
-    <h1 tabindex="-1">${esc(period.label)}</h1>
-    ${notes.length ? `<p class="meta">${notes.join(" ")}</p>` : ""}
-  </header>
-  <nav class="period" aria-label="Pilih periode rekap">
-    <div class="seg" role="group" aria-label="Jenis rekap">${tabs}</div>
-    <div class="period-step"${period.prev || period.next ? "" : " hidden"}>
-      ${prevOk ? `<a class="pill" href="${href(recapPath(period.kind, period.prev))}">← ${k.prev}</a>` : ""}
-      ${period.next ? `<a class="pill" href="${href(recapPath(period.kind, period.next))}">${k.next} →</a>` : ""}
-    </div>
-  </nav>
+  ${head(data, archive, period, "")}
 
   <section class="sec stats" aria-labelledby="h-total">
-    <h2 id="h-total" class="count-head"><b>${nf.format(list.length)}</b> insiden</h2>
+    <div class="kpi">
+      <h2 id="h-total" class="count-head"><b>${nf.format(list.length)}</b> insiden</h2>
+      ${prev ? `<p class="kpi-delta">${esc(delta(list.length, prev.length))} dibanding ${esc(k.ago)} (${nf.format(prev.length)})</p>` : ""}
+    </div>
     ${list.length ? `<p class="lede">${esc(headlineParts(list).join(" · "))}</p>` : ""}
-    ${figures(totals(list))}
+    ${figs}
+    <h2 class="sub">Insiden per hari</h2>
+    ${trend(period, list)}
+  </section>
+
+  ${list.length ? `<section class="sec" aria-label="Topik dan wilayah">
     <div class="split">
-      <div>
-        <h2 class="sub">${period.kind === "bulan" ? "Per pekan" : "Per hari"}</h2>
-        ${barChart(trend(period, list, today), { label: period.kind === "bulan" ? "Jumlah insiden per pekan" : "Jumlah insiden per hari" })}
+      <div class="tbl">
+        <h2 id="h-topik">Per topik</h2>
+        <table class="rtable" aria-labelledby="h-topik">
+          <thead><tr><th scope="col">Topik</th><th scope="col">Insiden${prev ? ` <span class="d">vs ${esc(k.ago)}</span>` : ""}</th><th scope="col">Meninggal</th><th scope="col">Mengungsi</th></tr></thead>
+          <tbody>${topicRows}</tbody>
+        </table>
       </div>
-      <div>
-        <h2 class="sub">Berdasarkan topik</h2>
-        ${barChart(groups.map((g) => ({ label: g.lens.label, value: g.count, lens: g.lens.key, icon: lensIcon(g.lens, 18),
-          pressed: lensKey === g.lens.key, scroll: "h-kasus", link: href(self, { ...keep, lensa: lensKey === g.lens.key ? "" : g.lens.key, kat: "" }) })),
-          { label: "Jumlah insiden menurut topik" })}
+      <div class="tbl">
+        <h2 id="h-wil">Wilayah terbanyak</h2>
+        <table class="rtable" aria-labelledby="h-wil">
+          <thead><tr><th scope="col">Kab/kota</th><th scope="col">Insiden</th><th scope="col">Topik terbanyak</th></tr></thead>
+          <tbody>${kabRows}</tbody>
+        </table>
       </div>
     </div>
   </section>
 
   <section class="sec" aria-labelledby="h-prio">
-    ${sectionHead("h-prio", "Perlu perhatian")}
-    ${caseList(data, top, { archived: true, empty: `Belum ada insiden tercatat ${k.when}.` })}
-  </section>
-
-  <section class="sec" aria-labelledby="h-jenis">
-    <div class="split">
-      <div>
-        <h2 class="sub" id="h-jenis">Jenis kejadian terbanyak</h2>
-        ${cats.length ? barChart(cats.slice(0, 8).map(([c, n]) => ({ label: catLabel(data, c), value: n, lens: lensOf(c).key,
-          pressed: kat === c, scroll: "h-kasus", link: href(self, { ...keep, lensa: "", kat: kat === c ? "" : c }) })),
-          { label: "Jenis kejadian dengan insiden terbanyak" }) : `<p class="empty">Belum ada data.</p>`}
-      </div>
-      <div>
-        <h2 class="sub" id="h-wil">Wilayah terbanyak</h2>
-        ${kabs.length ? barChart(kabs.slice(0, 8).map(([w, n]) => ({ label: shortKab(w), value: n, pressed: wil === w, scroll: "h-kasus",
-          link: href(self, { ...keep, wil: wil === w ? "" : w }) })), { label: "Kabupaten/kota dengan insiden terbanyak" })
-          : `<p class="empty">Belum ada lokasi.</p>`}
-      </div>
-    </div>
-  </section>
+    <h2 id="h-prio">Sorotan</h2>
+    <p class="muted">Lima kasus dengan dampak terbesar.</p>
+    ${caseList(data, top, { archived: true })}
+  </section>` : ""}
 
   <section class="sec" aria-labelledby="h-kasus">
-    ${sectionHead("h-kasus", `Semua kasus <span class="count">${nf.format(shown.length)}</span>`)}
-    <div class="filters">
-      ${lensChips(lensCounts, lensKey)}
-      ${select("f-kat", "Jenis", [["", "Semua jenis"], ...countBy(inLens, (i) => i.category).map(([c]) => [c, catLabel(data, c)])], kat)}
-      ${select("f-wil", "Wilayah", [["", "Semua wilayah"], ...countBy(inLens, (i) => i.kab_kota).map(([w]) => [w, shortKab(w)])], wil)}
-      ${sortToggle(urut)}
-    </div>
-    ${shown.some((i) => lensOf(i.category).sensitive) ? contentNote() : ""}
-    ${caseList(data, shown, { detail: true, archived: true, empty: list.length ? "Tidak ada kasus yang cocok dengan saringan." : `Belum ada insiden tercatat ${k.when}.` })}
-    ${past.length ? `<details class="past-list">
-      <summary>${nf.format(past.length)} berita tentang kejadian lampau, tidak dihitung</summary>
+    <h2 id="h-kasus">Kasus per topik</h2>
+    ${list.length ? `<div class="filters">
+      ${select("f-wil", "Wilayah", [["", "Semua wilayah"], ...countBy(list, (i) => i.kab_kota).map(([w, n]) => [w, `${shortKab(w)} (${n})`])], wil)}
+    </div>` : ""}
+    ${groupBlocks || `<p class="empty">${list.length ? "Tidak ada kasus di wilayah ini." : `Belum ada insiden tercatat ${k.when}.`}</p>`}
+    ${past.length ? `<details class="grp past-list">
+      <summary><span class="grp-name">Kejadian lampau, tidak dihitung</span><span class="grp-n">${nf.format(past.length)}</span></summary>
       <p class="muted">Kejadiannya seminggu atau lebih sebelum pertama kali diberitakan: tindak lanjut, proses hukum, atau kisah ulang.</p>
-      ${caseList(data, past, { archived: true })}
+      ${caseList(data, sortCases(past, "terbaru"), { archived: true })}
     </details>` : ""}
     <p class="method-note">Insiden dihitung pada tanggal pertama kali diberitakan (WIB). Kejadian yang diberitakan lagi setelah jeda lebih dari sehari dapat tercatat dua kali.</p>
   </section>`;
 
   return {
-    title: `${k.label} ${period.label}`,
+    title: titleOf(period),
     html,
     share: { kind: "recap", period, label: k.label, list },
-    filters: { keys: { "f-kat": "kat", "f-wil": "wil" }, lensParam: "lensa" },
+    filters: { keys: { "f-wil": "wil" } },
+  };
+}
+
+export function recapMap({ data, archive, period, query }) {
+  const report = recapPath(period.kind, period.key);
+  const { list } = incidentsIn(archive, period);
+  const map = mapSection({
+    data, list, query,
+    caseLink: (i) => caseHref(i, true),
+    listLink: (kab, lensa) => href(report, { wil: kab, lensa }),
+    scope: period.current ? `${KIND[period.kind].when} (sejauh ini)` : KIND[period.kind].when,
+  });
+  return {
+    title: `${titleOf(period)} · Peta`,
+    html: `${head(data, archive, period, "peta")}${map.html}`,
+    share: { kind: "recap", period, label: KIND[period.kind].label, list },
+    filters: { keys: {}, lensParam: "lensa" },
+    themed: true,
+    mount: map.mount,
+    unmount: map.unmount,
   };
 }

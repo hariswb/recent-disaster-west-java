@@ -7,7 +7,7 @@ import { topic } from "./views/topic.js";
 import { cases } from "./views/cases.js";
 import { caseView } from "./views/case.js";
 import { mapView } from "./views/map.js";
-import { recap, recapPeriod } from "./views/recap.js";
+import { recap, recapMap, recapMonths, recapPeriod } from "./views/recap.js";
 
 const $ = (s) => document.querySelector(s);
 const state = { data: null, view: null, navigated: false, sample: false };
@@ -67,11 +67,14 @@ function resolve({ parts, query }) {
     return caseView({ ...ctx, params: { id: parts[1], incident } });
   }
   if (parts[0] === "rekap") {
-    const period = recapPeriod(parts[1] || "minggu", parts[2], { asOf: state.data.generated_at });
-    if (!period) return null;
-    const missing = period.months.filter((m) => !archive.months.has(m));
+    // /rekap/<minggu|bulan>[/<key>][/peta]
+    const tab = parts[parts.length - 1] === "peta" ? "peta" : "";
+    const key = parts[2] === "peta" ? undefined : parts[2];
+    const period = recapPeriod(parts[1] || "minggu", key);
+    if (!period || parts.length > (tab ? 4 : 3)) return null;
+    const missing = recapMonths(period).filter((m) => !archive.months.has(m));
     if (missing.length || !archive.index) return loading("Rekap", missing);
-    return recap({ ...ctx, archive, period });
+    return (tab ? recapMap : recap)({ ...ctx, archive, period });
   }
   if (parts[0] === "kasus") return cases(ctx);
   if (parts[0] === "peta") return mapView(ctx);
@@ -99,7 +102,8 @@ function render({ routeChange = true } = {}) {
   main.innerHTML = view.html;
   document.title = `${view.title} · Kebencanaan Jawa Barat`;
   $("#live").textContent = `Halaman: ${view.title}`;
-  $("#btn-back").hidden = !route.parts.length;
+  $("#btn-back").hidden = !route.parts.length || route.parts[0] === "rekap";
+  markMode(route);
   $("#btn-share").hidden = !view.share;
   view.mount?.();
   // Archive data arrived: draw the real page, unless the reader has moved on.
@@ -111,6 +115,17 @@ function render({ routeChange = true } = {}) {
     main.querySelector("h1")?.focus({ preventScroll: true });
   } else if (focusKey) {
     document.getElementById(focusKey)?.focus({ preventScroll: true });
+  }
+}
+
+// Header menu: Harian (everything about the last 24 hours) · Mingguan · Bulanan.
+function markMode({ parts, query }) {
+  const mode = parts[0] === "rekap" ? (parts[1] || "minggu") : query.get("arsip") ? "" : "harian";
+  for (const a of document.querySelectorAll(".modes a")) {
+    const on = a.dataset.mode === mode;
+    a.classList.toggle("on", on);
+    if (on && (parts.length <= 1 || (parts[0] === "rekap" && parts.length === 2))) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
   }
 }
 

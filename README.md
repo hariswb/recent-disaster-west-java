@@ -98,7 +98,7 @@ python -m http.server -d docs                  # preview at localhost:8000/keben
 
 `docs/` is a static site with no build step, served at [kondisi.id](https://kondisi.id). The root `docs/index.html` lists the channels; each channel lives in its own folder. This one is `docs/kebencanaan-jabar/` (kondisi.id/kebencanaan-jabar): plain ES modules under `docs/kebencanaan-jabar/js/`, with self-hosted fonts shared by all channels in `docs/fonts/` (Plus Jakarta Sans + Atkinson Hyperlegible Next, SIL OFL). It is written for the West Java clinical psychologists' association and is mobile-first.
 
-Hash routes give three levels:
+The header menu switches between **Harian** (the 24-hour dashboard: Ringkasan, topics, cases, map) and the **Mingguan** and **Bulanan** recaps. Hash routes give three levels:
 
 | Route | Level |
 |---|---|
@@ -106,7 +106,8 @@ Hash routes give three levels:
 | `#/topik/<lens>` | One topic: numbers, kinds of events, case list (`?kat=`, `?wil=`, `?urut=terbaru`) |
 | `#/kasus` | All cases with filters (`?lensa=`, `?kat=`, `?wil=`) |
 | `#/kasus/<id>` | One case: date and sources, a key-value table (location, impact, affected groups), description. `?arsip=YYYY-MM` looks it up in the archive (links from a recap) |
-| `#/rekap/7-hari`, `#/rekap/minggu/<date>`, `#/rekap/bulan/<YYYY-MM>` | Recaps from the archive: totals, per-day or per-week trend, topics, kinds, regions, priority cases and every case with filters. `7-hari` is a rolling 7×24 hours up to the latest update; `minggu` is a fixed Monday–Sunday week (without a date, the last finished week); `bulan` is a calendar month (without a key, the current month) |
+| `#/rekap/minggu/<date>`, `#/rekap/bulan/<YYYY-MM>` | Weekly (Monday–Sunday; without a date, the last finished week) or monthly (without a month, the current one) report from the archive: totals against the previous period, incidents per day, a topic table and a region table, five highlights, then the cases folded by topic (`?lensa=` opens one, `?wil=` filters by regency) |
+| `…/peta` after a recap route | The same period on the map |
 | `#/peta` | Map: incident points (sized by count, popups link to cases) on a street basemap or a terrain basemap with elevation contours (`?mode=kontur`), lens chips (`?lensa=`) |
 
 Each topic page has an **Analisis** column beside the "Jenis kejadian" chart (see [Expert analysis](#expert-analysis)). Selecting a jenis narrows it to that jenis.
@@ -167,7 +168,7 @@ Clustering is rule-based (`cluster.py`). A second pass (`merge.py`) shortlists c
 - A run owns the sources inside its window: an archived source in the window that no current incident claims (re-extracted as no incident, or split into another cluster) is removed.
 - `refs` holds every source as a url hash and its time; `sources` keeps at most 8 links to show, publisher links before Google News ones.
 
-An event reported again after a gap of more than a day can be counted twice. `uv run python scripts/backfill_archive.py` rebuilds the archive by replaying every `incidents.json` in git history (data from 29 September 2026 onward).
+An event reported again after a gap of more than a day can be counted twice. `uv run python scripts/backfill_archive.py` rebuilds the archive by replaying the `incidents.json` snapshots in git history. It starts at 24 October 2026 (`SINCE`), the first day clustered with the duplicate-report fixes; earlier snapshots are skipped.
 
 ### Install as an app
 

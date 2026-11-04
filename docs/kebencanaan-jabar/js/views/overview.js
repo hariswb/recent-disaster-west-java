@@ -15,11 +15,6 @@ export function overview({ data, list }) {
     ${figures(totals(list))}
     <h2 class="sub">Jumlah Insiden Berdasarkan Topik</h2>
     ${barChart(groups.map((g) => ({ label: g.lens.label, value: g.count, lens: g.lens.key, icon: lensIcon(g.lens, 18) })), { label: "Jumlah insiden menurut topik" })}
-    <nav class="recap-links" aria-label="Rekap">
-      <a class="btn" href="${href("/rekap/7-hari")}">7 hari terakhir</a>
-      <a class="btn" href="${href("/rekap/minggu")}">Rekap mingguan</a>
-      <a class="btn" href="${href("/rekap/bulan")}">Rekap bulanan</a>
-    </nav>
   </section>
 
   <section class="sec" aria-labelledby="h-topik">

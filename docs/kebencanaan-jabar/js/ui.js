@@ -41,6 +41,19 @@ export function barChart(rows, { label, unit = "insiden" } = {}) {
   }).join("")}</ul>`;
 }
 
+// Column chart for a daily count: one accent series, so no legend. Columns carry their full value in a
+// hover title and in screen-reader text; only `showValue` columns print it. rows = [{value, tick, full, showValue, future}].
+export function columnChart(rows, { label, dense = false } = {}) {
+  const max = Math.max(1, ...rows.map((r) => r.value));
+  return `<ol class="cols${dense ? " dense" : ""}" aria-label="${esc(label || "")}" style="--n:${rows.length}">${rows.map((r) =>
+    `<li class="col${r.future ? " future" : ""}" title="${esc(r.full)}">
+      <span class="col-v"${r.showValue ? "" : " hidden"} aria-hidden="true">${r.future ? "" : nf.format(r.value)}</span>
+      <span class="col-bar" style="height:${r.value ? Math.max(3, (r.value / max) * 100) : 0}%" aria-hidden="true"></span>
+      <span class="col-t" aria-hidden="true">${esc(r.tick || "")}</span>
+      <span class="sr-only">${esc(r.full)}</span>
+    </li>`).join("")}</ol>`;
+}
+
 // Solid topic card: icon, name, and its two largest victim figures. Nothing else.
 const CARD_LABEL = { dead: "meninggal", injured: "luka", missing: "hilang", displaced: "mengungsi" };
 export function lensCard(l, count, t) {

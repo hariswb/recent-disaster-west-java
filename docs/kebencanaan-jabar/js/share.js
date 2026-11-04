@@ -109,7 +109,7 @@ function recapCard(data, { period, label, list }) {
   const kabs = countBy(list, (i) => i.kab_kota).slice(0, 3);
   const sensitive = sortCases(list, "dampak").slice(0, 4).some((i) => lensOf(i.category).sensitive);
   return frame(data, {
-    sensitive, when: period.from ? `7 hari s.d. ${stamp(data).replace(/^\d+ jam s\.d\. /, "")}` : period.current ? `${period.label} (berjalan)` : period.label,
+    sensitive, when: period.current ? `${period.label} (berjalan)` : period.label,
     band: `<p class="st-eyebrow">${esc(label)} Jawa Barat</p>
       <p class="st-hero sm"><b>${nf.format(list.length)}</b> insiden</p>
       ${list.length ? `<p class="st-lede-band">${esc(headlineParts(list).join(" · "))}</p>` : ""}`,
@@ -181,7 +181,7 @@ function cardFor(data, spec) {
 
 function fileName(spec, data) {
   const d = data.generated_at.slice(0, 10);
-  if (spec.kind === "recap") return `kebencanaan-jabar-rekap-${spec.period.kind}-${spec.period.key || spec.period.end}.png`;
+  if (spec.kind === "recap") return `kebencanaan-jabar-rekap-${spec.period.kind}-${spec.period.key}.png`;
   const part = spec.kind === "case" ? `kasus-${spec.incident.id}` : spec.kind === "topic" ? `topik-${spec.lens.key}` : spec.kind === "list" ? "kasus" : "ringkasan";
   return `kebencanaan-jabar-${part}-${d}.png`;
 }
