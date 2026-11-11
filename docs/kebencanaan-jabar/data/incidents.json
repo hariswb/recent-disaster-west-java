@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-10T22:29:27+07:00",
+ "generated_at": "2026-11-11T09:38:12+07:00",
  "window_hours": 24,
  "categories": {
   "banjir": {
@@ -76,23 +76,23 @@
   }
  },
  "stats": {
-  "items_fetched": 406,
-  "items_in_window": 349,
-  "candidates": 108,
+  "items_fetched": 398,
+  "items_in_window": 345,
+  "candidates": 106,
   "extracted_this_run": {
-   "llm": 62,
-   "rules": 20,
-   "llm_failed": 1
+   "llm": 44,
+   "rules": 1,
+   "llm_failed": 0
   },
-  "reports_in_window": 83,
-  "incidents": 33,
+  "reports_in_window": 81,
+  "incidents": 31,
   "llm_merge": {
-   "pairs": 3,
-   "asked": 3,
+   "pairs": 7,
+   "asked": 7,
    "merged": 0,
    "failed": 0
   },
-  "analysis_queued": 1
+  "analysis_queued": 4
  },
  "llm_providers": [
   {
@@ -110,7 +110,7 @@
   {
    "name": "groq",
    "model": "openai/gpt-oss-120b",
-   "calls": 54,
+   "calls": 24,
    "exhausted": null,
    "dead_models": [],
    "errors": []
@@ -126,25 +126,26 @@
   {
    "name": "glm",
    "model": "glm-4.5-flash",
-   "calls": 1,
-   "exhausted": "all models unavailable (rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}})",
+   "calls": 16,
+   "exhausted": null,
    "dead_models": [
-    "glm-4.7-flash",
-    "glm-4.5-flash"
+    "glm-4.7-flash"
    ],
    "errors": [
     "glm-4.7-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}",
-    "glm-4.5-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}"
+    "glm-4.5-flash: no response within 60s"
    ]
   },
   {
    "name": "gemini",
    "model": "gemini-flash-latest",
-   "calls": 18,
-   "exhausted": null,
+   "calls": 11,
+   "exhausted": "repeated failures: gemini-flash-latest: HTTP 503: Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]",
    "dead_models": [],
    "errors": [
-    "gemini-flash-latest: no response within 60s"
+    "gemini-flash-latest: no response within 60s",
+    "gemini-flash-latest: no response within 60s",
+    "gemini-flash-latest: HTTP 503: Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]"
    ]
   }
  ],
@@ -187,7 +188,7 @@
    "ok": true,
    "items": 100,
    "error": null,
-   "seconds": 0.9
+   "seconds": 1.6
   },
   {
    "id": "tribun-jabar",
@@ -195,7 +196,7 @@
    "ok": false,
    "items": 0,
    "error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://jabar.tribunnews.com/rss'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
-   "seconds": 0.2
+   "seconds": 0.1
   },
   {
    "id": "radar-sukabumi",
@@ -203,7 +204,7 @@
    "ok": true,
    "items": 30,
    "error": null,
-   "seconds": 2.2
+   "seconds": 2.1
   },
   {
    "id": "radar-bandung",
@@ -211,7 +212,7 @@
    "ok": false,
    "items": 0,
    "error": "HTTPStatusError: Client error '429 Too Many Requests' for url 'https://www.radarbandung.id/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429",
-   "seconds": 0.4
+   "seconds": 0.8
   },
   {
    "id": "lintas-priangan",
@@ -219,15 +220,15 @@
    "ok": true,
    "items": 50,
    "error": null,
-   "seconds": 15.1
+   "seconds": 2.2
   },
   {
    "id": "gnews",
    "name": "Google News",
    "ok": true,
-   "items": 227,
+   "items": 225,
    "error": null,
-   "seconds": 2.5
+   "seconds": 2.7
   },
   {
    "id": "radar-cirebon",
@@ -235,23 +236,23 @@
    "ok": true,
    "items": 0,
    "error": null,
-   "seconds": 8.3
+   "seconds": 9.0
   },
   {
    "id": "radar-cirebon-disway",
    "name": "Radar Cirebon (Disway)",
    "ok": true,
-   "items": 1,
+   "items": 0,
    "error": null,
-   "seconds": 1.8
+   "seconds": 0.7
   },
   {
    "id": "radar-tasik",
    "name": "Radar Tasikmalaya",
    "ok": true,
-   "items": 1,
+   "items": 0,
    "error": null,
-   "seconds": 3.6
+   "seconds": 2.2
   },
   {
    "id": "inews-garut",
@@ -259,7 +260,7 @@
    "ok": true,
    "items": 1,
    "error": null,
-   "seconds": 0.8
+   "seconds": 0.9
   },
   {
    "id": "tribun-jabar-sections",
@@ -273,9 +274,9 @@
    "id": "kompas-jabar",
    "name": "Kompas.com Jawa Barat",
    "ok": true,
-   "items": 3,
+   "items": 2,
    "error": null,
-   "seconds": 5.1
+   "seconds": 1.8
   },
   {
    "id": "kompas-tv-jabar",
@@ -283,7 +284,7 @@
    "ok": true,
    "items": 0,
    "error": null,
-   "seconds": 0.4
+   "seconds": 0.5
   },
   {
    "id": "pikiran-rakyat",
@@ -291,7 +292,7 @@
    "ok": false,
    "items": 0,
    "error": "RuntimeError: https://www.pikiran-rakyat.com/: Client error '403 Forbidden' for url 'https://www.pikiran-rakyat.com/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403; https://prfmnews.pikiran-rakyat.com: Client error '403 Forbidden' for url 'https://prfmnews.",
-   "seconds": 0.1
+   "seconds": 0.2
   },
   {
    "id": "jabarprov",
@@ -307,18 +308,772 @@
    "ok": false,
    "items": 0,
    "error": "RuntimeError: https://www.bandung.go.id/news/berita/: timed out",
-   "seconds": 40.8
+   "seconds": 40.9
   },
   {
    "id": "jabar-ekspres",
    "name": "Jabar Ekspres",
    "ok": true,
-   "items": 3,
+   "items": 0,
    "error": null,
-   "seconds": 9.5
+   "seconds": 5.0
   }
  ],
  "incidents": [
+  {
+   "id": "f41b4f0351",
+   "category": "tppo",
+   "subcategory": null,
+   "title": "Polisi Selidiki Dugaan Penculikan Balita 2 Tahun di Garut, Mobil Silver Jadi Petunjuk Awal",
+   "summary": "Dugaan penculikan balita 2 tahun terjadi di Perumahan Bumi Malayu Asri, Kecamatan Tarogong Kaler, Kabupaten Garut pada Kamis (5/11/2026) sekitar pukul 12.00 WIB.",
+   "kab_kota": "Kabupaten Garut",
+   "kecamatan": "Tarogong Kaler",
+   "desa": "Simajaya",
+   "lat": -7.17404,
+   "lon": 107.8631,
+   "location_precision": "kecamatan",
+   "event_time": "2026-11-05T12:00:00+07:00",
+   "past": false,
+   "event_age_days": 6,
+   "first_reported": "2026-11-11T09:38:12.066826+07:00",
+   "last_reported": "2026-11-11T09:38:12.066826+07:00",
+   "victims": {
+    "missing": 1,
+    "affected": 1
+   },
+   "affected_entities": [
+    {
+     "type": "permukiman",
+     "name": "Perumahan Bumi Malayu Asri"
+    }
+   ],
+   "sources": [
+    {
+     "name": "iNews Garut",
+     "url": "https://garut.inews.id/read/728755/polisi-selidiki-dugaan-penculikan-balita-2-tahun-di-garut-mobil-silver-jadi-petunjuk-awal",
+     "title": "Polisi Selidiki Dugaan Penculikan Balita 2 Tahun di Garut, Mobil Silver Jadi Petunjuk Awal",
+     "published": "2026-11-11T09:38:12.066826+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.9
+  },
+  {
+   "id": "8dd5461f05",
+   "category": "kebakaran",
+   "subcategory": null,
+   "title": "Pemkot Bandung Siapkan Relokasi Warga Terdampak Kebakaran Pool DAMRI",
+   "summary": "Kebakaran di Pool DAMRI Jalan Kebon Kawung, Cicendo, Kota Bandung pada malam 8 November 2026 menghanguskan 11 bangunan dan memaksa 91 orang mengungsi.",
+   "kab_kota": "Kota Bandung",
+   "kecamatan": "Cicendo",
+   "desa": "Kelurahan Pasir Kaliki",
+   "lat": -6.90175,
+   "lon": 107.58402,
+   "location_precision": "kecamatan",
+   "event_time": "2026-11-10T12:26:41+07:00",
+   "past": false,
+   "event_age_days": 0,
+   "first_reported": "2026-11-10T11:00:00+07:00",
+   "last_reported": "2026-11-11T09:35:13+07:00",
+   "victims": {
+    "dead": 91,
+    "displaced": 91,
+    "affected": 91,
+    "houses": 13
+   },
+   "affected_entities": [
+    {
+     "type": "rumah_ibadah",
+     "name": null
+    },
+    {
+     "type": "rumah",
+     "name": null
+    },
+    {
+     "type": "lainnya",
+     "name": "Posko Darurat Korban Kebakaran Pool Damri"
+    },
+    {
+     "type": "lainnya",
+     "name": "Pool Damri"
+    },
+    {
+     "type": "lainnya",
+     "name": "Pul DAMRI"
+    },
+    {
+     "type": "permukiman",
+     "name": "Rumah warga di Jalan Kebon Kawung"
+    },
+    {
+     "type": "lainnya",
+     "name": "Bus Damri"
+    },
+    {
+     "type": "lainnya",
+     "name": "Pool Damari"
+    },
+    {
+     "type": "permukiman",
+     "name": "Pul Damri"
+    },
+    {
+     "type": "permukiman",
+     "name": "Kos-kan Kebakaran Damri"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Radio PRFM",
+     "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOOFRVSUR1SDVfTjhzdFdzd1g4WVFNUGRkTXBGby1zaDBpT05uN0o2ZzQtZlUtWmdoalozMnpMYmh4R3c3UFI2VmFJOFROQ2VXR0JQQ0x5SThOYXBNa0tnUjlTYUxqTTJXNFl0YkdaeHdzQjRFOWdPZUlxaXA3QjN5MjNpVzJ5aUhweTh6eWdnZFlPaXRKVGZDSWZoN2NEYXktTXRIVFZtaHVQLWl3UVBJbmJQUWphcmZFQ0h2RTBZSThWQXBLWVNNVHdVZDNIY05wSXpLb183cF9TakxMbnfSAeMBQVVfeXFMUFFKRG9HQ01BSm1DYmdNYXN0TEt4MXRaUEVnNTN1ZGV6b0tKT2xPUk5hQ0tfelh3N0d4WkdzaUJrejNqNTdvRlk2QWJUbE5FRmdUd3Y1WUxDaFppd1ZEOW9vbkhfY0VWOHRIbzJhampGVlNEenJ2Mldxdjc1N28xTnNZTUZILVpNU0E5QVZMeEdBcHJaV3hEbktYVm9UaXpkS1BqNWlVVGwyLUtoUXdkWERzRXNaWWtGWmlMd1ozNXRhUEQ4WFRKaEhzeExLTlBLenptOUlLeW42d1ZZdHktdkVJNEk?oc=5",
+     "title": "90 Warga Korban Kebakaran Garasi Damri Bandung Mengungsi, Ini Kebutuhan Mendesaknya",
+     "published": "2026-11-10T11:00:00+07:00"
+    },
+    {
+     "name": "BeritaTKP.Com",
+     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQanJTVnpvM1hkNVhDdFZBVWIxZ0xtcG9sNGVReEQ4YXNfYUZFTGRJOE1ZOGUzS2E0NVhvdFVLYnB4ZU5MS1NCc3d5cEtVVWFkS0NRTFBaT3pmNXVzRS1vMGNGODV4aXpsWGgzQnQzYV9lQXhCY2QtMzQxRVYySkZIWEd6MkhDR3Z3UzVwdEd0MXplMVIxOElMbjdOLS1pb1JS?oc=5",
+     "title": "Kebakaran Pool DAMRI Bandung Hanguskan 10 Bus dan Merembet ke 13 Rumah Warga",
+     "published": "2026-11-10T12:26:41+07:00"
+    },
+    {
+     "name": "Hasanah.id",
+     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQZXZieFpEdWtMcjZka0xCTV9TeUxiNTdCZVV6Q1ZGWk5tc3FVck9DNFk1N3gxNXdRQ2xyX0hnb0pjbkU1M1ZIWlBZZ1NtVjU1OXdoUDJGRndlLXFVT1Z4V1kteEpzclhIbC12LVJPdjZNTXZUd3g1aU5FTHlKUml2SGt1cGZzb0JxT2tfSGxIU3VsVThsbk1vWVhZZjQ5ZkM2SGtZUjk1dUFBa1BTYmphOG02X2UyOC1raEIxLVhGU2NZOVFERXNQa25nSkV2N3M5R2JOLUxR?oc=5",
+     "title": "Pemkot Bandung Dirikan Posko Darurat Korban Kebakaran Pool Damri, Siapkan Dapur Umum dan Layanan Kesehatan",
+     "published": "2026-11-10T12:52:00+07:00"
+    },
+    {
+     "name": "tugubandung.id",
+     "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxObmdqN0lpVTFlU1JQQjFydGdfc1NUdktEeVBpRVlwTGpObXBORy1QWjVQaWhkMWJwNXVHSXRLN29USlFaNE42TmNZel9oczhCVGRfOEE1VGVkVDBZVXdZeXN1QUQzOTBpbDZIRFkzSTVaSEVKNnNuUExiUmNIajlkUlhYMXBNd25iei1lbUppVGpRRmtsYW1rLWVjNVR4M3o0UFE?oc=5",
+     "title": "Pemkot Bandung Fokus Pulihkan 14 KK Korban Kebakaran di Kawasan Kebon Kawung",
+     "published": "2026-11-10T14:30:18+07:00"
+    },
+    {
+     "name": "Tribunjabar.id",
+     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPaVVLTWdOSXI2cEx5aGVweEdiZ1ltRjNnVjAtUVQ4UjVJbHpxSjBIS1dyWHZ1UEpGUUMxVlc5VTl0ZV9HN1pQWUpjcUZncXBJa256OHU0Sms1aTJ6LXNtcTBkLTFpVkthcDRuRG1NXzFYWlNfMEp2MDRfV2ItbGM3UklBb3RpT2FCTnRQQXUwTmI3cTl3aDhwWkt2WEZiTklPTllRSElmZ1AxcmMtLXdNcFpiVEJCQzU1Rm1leWJ0SmVNMUl4YlRHQ2JJb1JKckRP?oc=5",
+     "title": "SAKSI KATA: Korban Kebakaran Pool Damri di Bandung Minta Rumah Warga Dibangun Kembali",
+     "published": "2026-11-10T14:31:30+07:00"
+    },
+    {
+     "name": "detikJabar",
+     "url": "https://www.detik.com/jabar/berita/d-8746692/pemkot-bandung-siapkan-relokasi-warga-terdampak-kebakaran-pool-damri",
+     "title": "Pemkot Bandung Siapkan Relokasi Warga Terdampak Kebakaran Pool DAMRI",
+     "published": "2026-11-10T15:05:54+07:00"
+    },
+    {
+     "name": "Kompas.com Jawa Barat",
+     "url": "https://bandung.kompas.com/read/2026/11/10/150634778/korban-kebakaran-pul-damri-bandung-minta-rumahnya-dibangun-kembali",
+     "title": "Korban Kebakaran Pul DAMRI Bandung Minta Rumahnya Dibangun Kembali",
+     "published": "2026-11-10T15:06:34+07:00"
+    },
+    {
+     "name": "Tribunjabar.id",
+     "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNdl83dEJ6aGF1SWtrNkhaVUZqRmFhZndBUTJyRG9Tc3Z6V29wTVVDSDBjQWRkeGpsZG1wd0V3SzVzUmE5a25LaFl6MEYxODg4Qy1EMGdWU3NPOXJGcWRVUTNQRXQwQy1RQkgtNUo4N2w0ZG0zTGpXd2tmLWZtdU4wUHA0OWNUUW92YmdFMFRCMzk1VXRla2FkeVJ4MlhiSXN0QkVlWGRxdEZGNEh3OUVLTU1Ra2JwLXpKcGhIOXZleWszTGt2dzdqR1hSZWMzengyZW82bVFHZ2UtdTg?oc=5",
+     "title": "Diberi Waktu 3 Hari di Basement Hotel, Korban Kebakaran Pool Damri Bandung Segera Dipindahkan",
+     "published": "2026-11-10T15:47:35+07:00"
+    },
+    {
+     "name": "pasjabar",
+     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQSXN3cGtOdkVrNHVORDFXQ1NEbVFGQ0FTWlMzSnlUR0FCVXF6dC1CRzhHTlFPc2I4Z28tTXpKT09xaTU3QkZ3R1VsV095SFJDRVRFcUF0TVFocUs1aVd2TXZrQWs5R09HVnZQaHR3My1ZclM5TjlKQ2dNbU1JZ2pOUXhTZHhyOTFVUUVjTDVR?oc=5",
+     "title": "Kebakaran Bus Damri Bandung, Polisi Selidiki Penyebabnya",
+     "published": "2026-11-10T15:57:13+07:00"
+    },
+    {
+     "name": "Tribunjabar.id",
+     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOMlMyN1BCc21oYWh5RmFsV2VEMTJWZ2RLTHd1N1pBeERuVkhrYWRRd3ZZQjlaUlk1M0lGbnpXdUxSdFlZQXM2c1BxYmZwNkRXak85eEJaQzNQcFVJcE1zV0Z3M3hueDJPXzlqanpFSEo0dENDZEkxM2oxaTZTekVBQU42QzB3THkyQTZCc3JKbFBJeVJHRkxFLWRMSklLczBMRGhrNGI4XzN4TTV6ZFBzSUdvSF9KemliTGl0ZkwyRzRyN0JEa0tPWDIzejhvUQ?oc=5",
+     "title": "Pemkot Bandung Siapkan Tempat Pengungsian Nyaman Bagi Korban Kebakaran Pool Damari",
+     "published": "2026-11-10T17:04:07+07:00"
+    },
+    {
+     "name": "Pojoksatu",
+     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPQUdocVFrU1pIZFVkSjNJVW1VRUdhQUQycVkwbi1VT2IyQ2JoRHVXTk5JV0JZSmZiVWI3dHFYUTdtTEFzZ2N0VkdVQ19zQ1pvV1dGUFBvZHdZMXBId2xmdXpkb0VqcE9xUHZ2SXpYWU9kZWxPMG1iOHNhWkp1Zlp3ZGM4WlhvQUx2cUVZcEpHcEN3eGJJcmlKTUtLaXFObVk5aEtqTklDV0pOaDNfZnFQNlZJY1RPVlBQT0tIQktjRQ?oc=5",
+     "title": "91 Korban Kebakaran Pool Damri Bandung Segera Dipindahkan, Farhan Prioritaskan Kelompok Rentan",
+     "published": "2026-11-10T17:14:00+07:00"
+    },
+    {
+     "name": "Radio PRFM",
+     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPUjBXNnN0YkNnWnJWT2JXVVhIQnJ4azdrWEpROW5XckwxWnB6X2x5WHhUM2xCNlk4dGFTc1h0SFVyWmRZOWFMUmc4cHloQlpHckZFMW1KYkVManZiVmU3RDVva0Z1bm8zcTdadGg2cWdaSGM1VWlqS2g2TnAyZHN1UFVGTFFnX2Q2X1RYSHFLUmY5MmRfNFZiWEh3SlMtcFR4MU1mdERVZThnUHBBZEJIZV9ueWpIeEdlclJmQTNmX0xGenFUMG4tQUh6dTRkUdIB0wFBVV95cUxPTjdXb1lCaHloRVh5RTJoTHFVc3A3RHFwdVRMSVc1V19Wd1lHaVBDSHAxZDNfRXVUYlNfemFzaV9YT2EzOEYwNWo2UDVHTTdQSmdsQXkxcEZZOVd4cU9pdnUtdDF2OUQ3WjFCbmtQTUJXRWI3azV6elZXcldpenNxRWUzeUlZRnJFdHBFVzFIMVNRcXcyTThMMkN1b1hEX2czX2kzbU5qNFh3NmotbUNKSHdYTll3a2Y1ZC15Y1FhUFpnTUpKWnJhbEtOWUVhdzhTUzlz?oc=5",
+     "title": "Pemkot Bandung Dirikan Posko Darurat untuk Korban Kebakaran Pool Damri",
+     "published": "2026-11-10T18:00:00+07:00"
+    },
+    {
+     "name": "Fokus Jabar",
+     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPcW5GY2JzeFNUelh2ampSWUpEVEJRS1VYWU0yWExCQzFiREg4NkFrMWY3VjhZNnRrOThJb0xxZ3V4UE81RkxZbkE5Slc4eUdmb2EzN29zYUkwWW9kbGZzdEFhNTdCN1FLRlh1X1l4UDRPYURwVnJtcmtvT1p0MzJEejVNLXdnR1Z1QmFDU1J5YURJQTVHV0FRU3dwYS1HVUhYcXZ6RXlETDB1NDFFT0dTQS1HTXBua3hCOVQ1LUpMNA?oc=5",
+     "title": "91 Korban Kebakaran Pool Damri Bandung Segera Pindah, Farhan Prioritaskan 25 Warga Rentan",
+     "published": "2026-11-10T18:39:59+07:00"
+    },
+    {
+     "name": "Pikiran-Rakyat.com",
+     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOc0N1SWppQkp2MzNyOEh6eXk0X0NyV1lxMkhqVEpwS21XVUs3RHIyS0dTcEpTOHUxaVg0ZFdZeDZvYmI5NEJEeHdwazFKbllGZDNDczBqbmUwREVhM1RzNjFudjRGVVBYWXQwUDB3ZEZSRGNsQzJzekxSV0pCX1NLV3hPYnZEc3lfYzNKMXpYeHZOX01DeHVIU3hGVk1ZcFFucmUtRUQtR3k2VVpFNHBRQ0I1SWlYVUx4NEFKaU1SM1JSandiSGlPZNIBzgFBVV95cUxOV1AybmNIMEFGb19IdUI3VzctSDZMUHFlTUpqUlpmSlFVNXRoQXIzdzB2dTlGekJGSFZHQXpFMVMwNjJHSVQxcU91LVIyUUhVUFg5X1VTNlZMY2JLZzJwb2FQamFGa2JnOEs0dV9ZNnVCbHdwdWZ3a3RnbmdFb0VTLW9VbzVaQ01oaVJPc2dpZ3lGaThKeEVJSjBIRVplRl9UdEpVMzhwUFpWejBQdWlFSHc3NnBfQlZVN3ktWUJIZmdxRzEzYjN5Z2xPbUFsQQ?oc=5",
+     "title": "Pemkot Bandung Cari Tempat Penampungan Layak bagi Korban Kebakaran di Pul Damri",
+     "published": "2026-11-10T20:08:00+07:00"
+    },
+    {
+     "name": "Tribunjabar.id",
+     "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNQnI3WE9DXzdGTFlQX25ZZl9ZTnVrQzlVdGM1Mld0elU3Z2gtbmNyT05FREQxWnQxX3RwdTNFcVhLc09wTl93NEs3R3pIal8zLVIyUTMxRERWM0VmanMzU05hYkd1NTdweERZQkxjSTFERnlfN213RURsOVlKNDB6aDNJakYxMEc3a0djUlpLRFNiQ2VYSDJEOTZsVEVZOE5EdEc2WUNsM2FBdG9iSnBYNDlNcW9FZFo3bnUyMmcxMWs5b1ZXSTBobDE0NmFOd0FDT1RQMXFaWW90T0U?oc=5",
+     "title": "Pemkot Bandung Cari Donatur Buat Kos-kan 91 Korban Kebakaran Damri, Tenggat Hotel Sisa 3 Hari",
+     "published": "2026-11-10T20:16:25+07:00"
+    },
+    {
+     "name": "Kompas.com Jawa Barat",
+     "url": "https://bandung.kompas.com/read/2026/11/10/210812878/91-korban-kebakaran-pul-damri-di-bandung-masih-tinggal-di-basement-hotel",
+     "title": "91 Korban Kebakaran Pul DAMRI di Bandung Masih Tinggal di Basement Hotel, Pemkot Cari Penampungan Layak",
+     "published": "2026-11-10T21:08:12+07:00"
+    },
+    {
+     "name": "Pikiran Rakyat Koran",
+     "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPWEFSbmNtRWtlUTAwbVVNbWp1Yjh3VG1seTNpcHA3blFldnJKVUxYemFxdGpFSVYxdXJ6RXE1dkJkYjZzdE01WGRIazhJVEVfN216MENhZ2ZNcXlIQ0xya1VKYlgxVlAzYUU1RHNRV1Z1TDIxNC1UZkFkMjUtU2Y3YXdOTkpPVG9TSUVZN1hiTDlDNmtERmlvdVRWNWFVdmpPdFRwSDR0VWE2M0VBaHBVYk5MNlZKTXhKWVpaNlRlWXVtQQ?oc=5",
+     "title": "Pengungsi Kebakaran Bandung Menanti Tempat Penampungan yang Lebih Layak",
+     "published": "2026-11-11T05:00:00+07:00"
+    },
+    {
+     "name": "Sekitar Bandung",
+     "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE03Z3hTTXBoR1FwUXhTTURxWlk1bWY4aGJybG9hMG9LZWxab0ZIUVR5c0dBY0FzcnlYZ3JWd1BadUU0MHNwa3RfdUFVSHlHTVJob0JoQjNYNXdOcTBvSm1maVFsNkoybUg3dnQ1N3FBUQ?oc=5",
+     "title": "Kebakaran Pool DAMRI Bandung, 11 Rumah Warga Ludes dan 91 Jiwa Terdampak",
+     "published": "2026-11-11T09:35:13+07:00"
+    }
+   ],
+   "report_count": 18,
+   "extraction": "llm",
+   "confidence": 0.98
+  },
+  {
+   "id": "ede725d987",
+   "category": "banjir",
+   "subcategory": "banjir lumpur",
+   "title": "Banjir Lumpur dan Batu Terjang Akses Warga dan SDN 2 Cimanggu Cikembar, Aktivitas Tiga Perusahaan Disorot",
+   "summary": "Banjir lumpur dan batu menerjang akses warga serta SDN 2 Cimanggu di Cikembar, Kabupaten Sukabumi, dengan aktivitas tiga perusahaan turut disorot sebagai dugaan penyebab.",
+   "kab_kota": "Kabupaten Sukabumi",
+   "kecamatan": "Cikembar",
+   "desa": "Cimanggu",
+   "lat": -6.9741,
+   "lon": 106.79797,
+   "location_precision": "kecamatan",
+   "event_time": null,
+   "past": false,
+   "event_age_days": null,
+   "first_reported": "2026-11-10T19:30:00+07:00",
+   "last_reported": "2026-11-11T08:28:21+07:00",
+   "victims": {},
+   "affected_entities": [
+    {
+     "type": "sekolah",
+     "name": "SDN 2 Cimanggu"
+    },
+    {
+     "type": "jalan_jembatan",
+     "name": "Akses Warga"
+    }
+   ],
+   "sources": [
+    {
+     "name": "MediaAksara.id",
+     "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNS0l0SHEzNlUwM2oyaC1DX2UwNV9ybGh5S0E4MXJFcmh6R2w3MlZ4MzlwU3h6Y1BiN3ZJYy1WVWVWeFNUNEFJQlZPa2lrZEN3Ym51VFJUVy1mTWJKVkJXeEFUcWdVamVRS3FScEdMRDVmbmh1STN4ajF1c0h4a2p0MDJmdUNGb1FIVVBWLW5RZGxkWXdnV25mRDBmOGFaZ3FrWFpSeDlzdkFqTTlWcFRzZFNBQWV4VTZjaEplNWFiMnlxeVd0dXJn?oc=5",
+     "title": "Banjir Lumpur dan Batu Terjang Akses Warga dan SDN 2 Cimanggu Cikembar, Aktivitas Tiga Perusahaan Disorot",
+     "published": "2026-11-10T19:30:00+07:00"
+    },
+    {
+     "name": "Sukabumi Update",
+     "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPMVBnM2FrYmRiXzJxYTBjM3Q2RTEwOVp3VXdOdS1WczdJVTVNMmJOWWg0TUduSHcxQ0hlRlM4RVJOeExYbzZUZU9mVjd2N2hZTC1yUjJpWHhTdXNrZ0FLT3J1TmtBUTY4aFRzVWdSNlIwVlBGc0pLcTk3YVhNSnJqa0NCa3hYLU4za3BIdlRnQURha2ZJeWxWVFNmYmhCeTdsaGpwZmM1REN0WTltTURfYlRkLXk0eDI1RlhMUU5GSXQ1NWwwanRURmJmTXp6TXo2VDlTcWlqbkhaQVR2Q1HSAd4BQVVfeXFMTlRObjlpUncxTXFxZFlBNjNwbGhKNHBob0VabWI0cXd5c0hPd25FVmw5bEx4UGtfTE41a0JsS09NU3VGcldqYWlEc25aZjJCZ1BKZGdPNjRVb3diVnl2alRPY2ZpdEpySG1hV0EzdTR3dU8xalNUY25LT2Z6UThjck5jaUlIQWpGN2VuWnpIaVc5WkU2WG9YMG9kZGR2RVJaTVpUaldsdmp3Xy1OZ0lTYzZkQmpJNk5YdkN1ZWJ1MHNJZlpIbWpwMk1VNnEwb3BDMXBDay1KZWNhdzlQb0tB?oc=5",
+     "title": "Banjir Lumpur Rendam Sekolah-Lumpuhkan Jalan di Sukamulya Sukabumi, Warga Sebut Dampak Proyek Lahan",
+     "published": "2026-11-10T20:05:00+07:00"
+    },
+    {
+     "name": "Merdeka",
+     "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQS3pKZV9XRDZfRlZzNHlzb3c3R1MxZUlBRkdRMDNzY0dmV09uRXNSVXI0eFBjcVJtZ0taTmhsZl9uTmJYOVZ3bnp0X2d1WmRick1HaWJXU1ZSTXlzZ1RMUW5MN0RWUlZPRFRNczRYUkcySkJac2tzQzhST3EzNkk3ekRFRGJRaG0wYXBPanRXSm5pdTZjRzVyS3JuQ29UWnNEbnpZRjRNWDVKR0hxTFcyYw?oc=5",
+     "title": "Sekolah dan Jalan Banjir Lumpur di Sukabumi, Ini Dugaan Pemicunya",
+     "published": "2026-11-11T08:28:21+07:00"
+    }
+   ],
+   "report_count": 3,
+   "extraction": "llm",
+   "confidence": 0.95
+  },
+  {
+   "id": "12ea7a7e51",
+   "category": "tawuran",
+   "subcategory": "kericuhan pertandingan",
+   "title": "Final Kick Boxing Porprov Jabar 2026 Kota Bekasi vs Sukabumi Ricuh — Beyond Your Local News",
+   "summary": "Terjadi kericuhan dalam pertandingan final Kick Boxing Porprov Jabar 2026 antara kontingen Kota Bekasi melawan Sukabumi.",
+   "kab_kota": "Kota Bekasi",
+   "kecamatan": null,
+   "desa": null,
+   "lat": -6.28083,
+   "lon": 106.97537,
+   "location_precision": "kab_kota",
+   "event_time": null,
+   "past": false,
+   "event_age_days": null,
+   "first_reported": "2026-11-10T20:13:00+07:00",
+   "last_reported": "2026-11-11T08:27:00+07:00",
+   "victims": {},
+   "affected_entities": [],
+   "sources": [
+    {
+     "name": "Rakyat Bekasi",
+     "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNTzZnSDRPLS01XzRjSVFBd0paM1hNaDdwLTJNTWhSdVg5Y3RkOWZXZkRZZ2Z0YVhRcUlVUHdaenpBaTBuekdXOUFoWHRWM21ZNGY4bGoxZVZCcllUWXpsTEdoMzI1aTBCNF9RT2xFS0VIdlV3c1VsSHNVT0RMMlJoMmw1aUdLdGdkdFhMSUNnY0J5d3hBZkV0UENGbXBVTTlXT0tRV21jWDNFVDNFQUd0UGdYOGdJb3BJeHJreHRUdlg2X0I3S3Q4Ty1qRXBCaUJvTm5ObHFuNGU4YTgtSHZ3bFZxcUxMZEROMlpQVFR1bjFBUVE?oc=5",
+     "title": "Final Kick Boxing Porprov Jabar 2026 Kota Bekasi vs Sukabumi Ricuh — Beyond Your Local News",
+     "published": "2026-11-10T20:13:00+07:00"
+    },
+    {
+     "name": "inijabar.com",
+     "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPMktRaTE0RHdsSVVOVllZbUY5bE1WNWRwOXA5WTBPa21OTmd4UmJWREt2V2c5T0tlY3g0OUt5N0hFNmpsc0g4Z1p0Z09xYUpjbWphMHIyRU5fUWk2cTMzUnQ3R0duWlp2ZEpPU1IzT1hqSnVPR2xFT2NaOVcxRVhCaWw3aw?oc=5",
+     "title": "Asrama Haji Bekasi Dijadikan Arena Kick Boxing Porprov, Ricuh Tim Kab.Sukabumi Ngamuk",
+     "published": "2026-11-11T08:27:00+07:00"
+    }
+   ],
+   "report_count": 2,
+   "extraction": "llm",
+   "confidence": 0.9
+  },
+  {
+   "id": "d212aa445e",
+   "category": "kecelakaan",
+   "subcategory": null,
+   "title": "Dua Bocah Tewas Tenggelam di Kolam Renang Bandung Barat, CCTV Ungkap Detik-detik Sebelum Kejadian",
+   "summary": "Dua bocah SD tewas tenggelam di Kolam Renang Tirtamulya, Desa Tanimulya, Kecamatan Ngamprah, Kabupaten Bandung Barat pada Selasa (10/11/2026) sekitar pukul 10.37 WIB.",
+   "kab_kota": "Kabupaten Bandung Barat",
+   "kecamatan": "Ngamprah",
+   "desa": "Tanimulya",
+   "lat": -6.8357,
+   "lon": 107.51133,
+   "location_precision": "kecamatan",
+   "event_time": "2026-11-10T10:37:00+07:00",
+   "past": false,
+   "event_age_days": 1,
+   "first_reported": "2026-11-11T07:53:05+07:00",
+   "last_reported": "2026-11-11T08:13:38+07:00",
+   "victims": {
+    "dead": 2
+   },
+   "affected_entities": [
+    {
+     "type": "fasilitas_kesehatan",
+     "name": "Kolam Renang Tirtamulya"
+    },
+    {
+     "type": "lainnya",
+     "name": "Kolam Renang Tanimulya"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Kompas.com Jawa Barat",
+     "url": "https://bandung.kompas.com/read/2026/11/11/075305878/dua-bocah-tewas-tenggelam-di-kolam-renang-bandung-barat-cctv-ungkap-detik",
+     "title": "Dua Bocah Tewas Tenggelam di Kolam Renang Bandung Barat, CCTV Ungkap Detik-detik Sebelum Kejadian",
+     "published": "2026-11-11T07:53:05+07:00"
+    },
+    {
+     "name": "detikJabar",
+     "url": "https://www.detik.com/jabar/berita/d-8747560/nahas-2-bocah-sd-tewas-tenggelam-di-kolam-renang-bandung-barat",
+     "title": "Nahas 2 Bocah SD Tewas Tenggelam di Kolam Renang Bandung Barat",
+     "published": "2026-11-11T08:13:38+07:00"
+    }
+   ],
+   "report_count": 2,
+   "extraction": "llm",
+   "confidence": 1.0
+  },
+  {
+   "id": "9fa8f97e0f",
+   "category": "longsor",
+   "subcategory": null,
+   "title": "Ruas Jalan Provinsi Di Cikotok Kab Sukabumi, Longsor Arus Lalu Lintas Sempat Buka-Tutup",
+   "summary": "Longsor terjadi di ruas jalan provinsi di Cikotok, Kabupaten Sukabumi, mengakibatkan arus lalu lintas sempat terhambat.",
+   "kab_kota": "Kabupaten Sukabumi",
+   "kecamatan": null,
+   "desa": null,
+   "lat": -7.07632,
+   "lon": 106.70757,
+   "location_precision": "kab_kota",
+   "event_time": null,
+   "past": false,
+   "event_age_days": null,
+   "first_reported": "2026-11-11T06:15:00+07:00",
+   "last_reported": "2026-11-11T07:37:34+07:00",
+   "victims": {},
+   "affected_entities": [
+    {
+     "type": "jalan_jembatan",
+     "name": null
+    }
+   ],
+   "sources": [
+    {
+     "name": "MediaAksara.id",
+     "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQS3FsVkY3bmNma3RzYjlWb2d6NmZjNHRSbUNINWR6alJSZEhySTNrZjIyS0xQNU56Nm1EeUM1ZjkwSU5rUWswYjYxZVNJLUZtT2NjU1lQaEJkaExlaHptMUtRMy1Wc2NQbl9Ka09uLVkzVms4RDFmY2NYM0VxU1k0dTZ3Zm8xSVlCX1AtWUwtVFVrNjBadWwzOE1oX3ZVVjFCS3c?oc=5",
+     "title": "Longsor Tutup Jalan Raya Cikotok Sukabumi, Arus Lalu Lintas Sempat Buka-Tutup ‎",
+     "published": "2026-11-11T06:15:00+07:00"
+    },
+    {
+     "name": "PATROLI SUKABUMI",
+     "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxON2pSUGxmRjNvckc2ejd3VFA1TUl1blN6ZGQ2a3dwaHBPOVFpaFZqQ0pTaEZxSkZNLTc4VDNaRFhLZVd6WUtNMjNjbjcybm54RmRuYmFwcU5sM1c1QW1wVWhZTWppa0FnWmlDRU12OU9uWEVPRzBnUlB3Um5TcGxySzFtbHlReTd3?oc=5",
+     "title": "Ruas Jalan Provinsi Di Cikotok Kab Sukabumi, Longsor Arus Lalu Lintas Sempat Buka-Tutup",
+     "published": "2026-11-11T07:37:34+07:00"
+    }
+   ],
+   "report_count": 2,
+   "extraction": "llm",
+   "confidence": 0.9
+  },
+  {
+   "id": "6ed12c611a",
+   "category": "gempa",
+   "subcategory": null,
+   "title": "Gempa M 4,0 Guncang Sukabumi, Getaran Terasa hingga Bandung",
+   "summary": "Gempa magnitude 4,0 mengguncang Kabupaten Sukabumi pada 10 November 2026, getarannya terasa hingga Kota Bandung.",
+   "kab_kota": "Kabupaten Sukabumi",
+   "kecamatan": "Kebonpedes",
+   "desa": null,
+   "lat": -6.94409,
+   "lon": 106.96989,
+   "location_precision": "kecamatan",
+   "event_time": "2026-11-10T21:31:00+07:00",
+   "past": false,
+   "event_age_days": 0,
+   "first_reported": "2026-11-10T21:37:11+07:00",
+   "last_reported": "2026-11-11T06:17:05+07:00",
+   "victims": {},
+   "affected_entities": [],
+   "sources": [
+    {
+     "name": "Volcano Discovery",
+     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOdlZHTEhfaDdFR1BWY2FYcWNmcGN3dmloYUFRZ2trVHNaaGpGTnRZMHdOM1A5VHl5alpUQ3B5ckQtT1lZYy1KdUU4c1pQTUg0d0xoVllqY24xdFQ2Rlg5bDNXd1hRNXN1TnhrVy1CLTNDNUw0aGtaWFN3UWJMRVJQdzNmNzhaYWNNNlRYX2N3S2JSWEtRVEUtbU9idFpCaVNCeS1FZHJwRmppYUwz?oc=5",
+     "title": "Gempa sedang magnitudo 4.5 - Kabupaten Sukabumi, 8 km di selatan dari Kota Sukabumi, Indonesia, on 10 Nov 2026 pukul 21:31 (GMT +7)",
+     "published": "2026-11-10T21:37:11+07:00"
+    },
+    {
+     "name": "TOPIK.ID",
+     "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBLbVpnOXpzcGdTc2hGMVNyY09ZTC1Qc2doeU00MmF0R3RmYk1lbHk4SzhtN3JhVVJWZDhYOG1PLU5VdXZXR0xDbXBhaXNEYkNRM0I1SVg4MW9IVEZzQjJrbFAzT29EUVZBdjBHZUFHaklEUHl3UjZlMWlJS0Y?oc=5",
+     "title": "Gempa M 4,0 Guncang Selatan Kota Sukabumi, Jawa Barat",
+     "published": "2026-11-10T21:55:03+07:00"
+    },
+    {
+     "name": "MediaAksara.id",
+     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxORGw4aUlWTnU5VDl6VFRabjZEQVc2MUJRNDRwQ0tsNGliOHZWcnVQbDhJaEpTSDBHa2JkdUthOHhic05vdmI2VlhXRmlzOURaZlViU19TNXl4Ulg1SGVjZXp4T1MzMkVIWHk4Njhja0M2M1NVT3NBTy1BSHJJMDNlc1dmUjl0emllTV9mZlhJZUZBMmFsdlRHRWVn?oc=5",
+     "title": "Gempa M 4,4 Guncang Sukabumi dan Cianjur, Pakar Ungkap Sumber Getarannya",
+     "published": "2026-11-10T22:05:00+07:00"
+    },
+    {
+     "name": "Akurat Jateng",
+     "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxQc3RaOUlPd1kySjdob1hUb1VxbWg3MFV2S2YtTFJsSnNKZ1lacTktM2lqa3F1aFJ0R1I2RGxVNUQ2SXJfcmtnaWZaUFpOUUlJUG9obUJqMzN4R0twU1FENmNWWVd2QzBJUmp1N0xwY2VfanRwSFY2YllqUl9Vd0I3WlExTHVIbUxhSEdnUTBwVm9td3F3YUl0a0dSTzdyd185WExMRHZUTVhzLXlYZDdrS29yLTFhZl9EZ0c0RVd2cUxmMHNJb1JDU25vRzVPVG9NOXlOdjd2dnN6a0I0NEtFVm84b3NUR1dtOUE?oc=5",
+     "title": "UPDATE! Awas Gempa Susulan! Gempa 4 Magnitudo Guncang Sukabumi, Getaran Dirasakan hingga Cianjur Bandung sampai Karawang",
+     "published": "2026-11-10T22:19:01+07:00"
+    },
+    {
+     "name": "BeritaSatu.com",
+     "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPQklkakg4LTA4Znpic2c2Y1ZUcUdsT1d0VF84RXlOaG9hNklWbXRiS1IyV045dDM4emZUbkJVSW1Od0daUE9weHpnTnJhVW1ULWdMM3JzZ3hoaHhZMmV6SWdjdENoSnRmTmhGSmwtVzM0eHRzcWpRRHlCdzFCOWlvaVBnUnJhaThoRmhwbW9LazRKVldUQm9iZERac092a28?oc=5",
+     "title": "Gempa M 4,0 Guncang Sukabumi, Getaran Terasa hingga Bandung",
+     "published": "2026-11-10T22:29:00+07:00"
+    },
+    {
+     "name": "Tribunnews.com",
+     "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNcXoxTC1WcDViby1zZjlxc3VETWo3RVYzdVpSaVF5azJEXzl5X09jZlV6WjI4Ul9aSUZ2RUxuWFRzNGEtTVJ3d010WHc0dERFUDlwTVFGd3Brc3dPWVkyS0NCd0U0RlM0RzZra1BNWnAxY3FMcEFpVndDMHZpWWtkc29CbVg2SDBUdVFHMEw3eU1qWHJPMVlTQjJqWTBVZVZDQUhjRVQzRWpPSm1GLWZ3YVlGQ3pFZmgxQWwyeA?oc=5",
+     "title": "Gempa Magnitudo 4,0 Guncang Sukabumi Terasa di Cianjur hingga Karawang",
+     "published": "2026-11-10T22:37:16+07:00"
+    },
+    {
+     "name": "Kompas.com Jawa Barat",
+     "url": "https://bandung.kompas.com/read/2026/11/11/061705678/gempa-sukabumi-m-40-berpusat-di-darat-terasa-hingga-bandung-dan-karawang-ini",
+     "title": "Gempa Sukabumi M 4,0 Berpusat di Darat Terasa hingga Bandung dan Karawang, Ini Penyebabnya",
+     "published": "2026-11-11T06:17:05+07:00"
+    }
+   ],
+   "report_count": 7,
+   "extraction": "llm",
+   "confidence": 0.98
+  },
+  {
+   "id": "49f9675ac7",
+   "category": "mbg",
+   "subcategory": null,
+   "title": "Keracunan MBG Kembali Terjadi di Cirebon, 25 Siswa Terdampak meski Baru Lima Hari Sepakat Perbaiki Pengawasan",
+   "summary": "Keracunan MBG terjadi di Kabupaten Cirebon, menimpa 25 siswa.",
+   "kab_kota": "Kota Cirebon",
+   "kecamatan": "Harjamukti",
+   "desa": "Kalitanjung",
+   "lat": -6.76136,
+   "lon": 108.54798,
+   "location_precision": "kecamatan",
+   "event_time": "2026-11-10T12:50:00+07:00",
+   "past": false,
+   "event_age_days": 0,
+   "first_reported": "2026-11-10T09:51:18+07:00",
+   "last_reported": "2026-11-11T05:50:04+07:00",
+   "victims": {
+    "injured": 14,
+    "affected": 25
+   },
+   "affected_entities": [
+    {
+     "type": "sekolah",
+     "name": "PGRI Kota Cirebon"
+    },
+    {
+     "type": "dapur_mbg",
+     "name": "SPPG"
+    },
+    {
+     "type": "dapur_mbg",
+     "name": "SPPG Harjamukti I"
+    },
+    {
+     "type": "sekolah",
+     "name": "SDN Kalitanjung 1"
+    },
+    {
+     "type": "dapur_mbg",
+     "name": "SPPG Kota Cirebon"
+    },
+    {
+     "type": "dapur_mbg",
+     "name": "Dapur SPPG Harjamukti 01"
+    },
+    {
+     "type": "sekolah",
+     "name": "SDN Kalitanjung I Cirebon"
+    }
+   ],
+   "sources": [
+    {
+     "name": "About Cirebon",
+     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPbW45VmhQQXhaLVdzYWxHTVRpekdETUdWR2ZycGhJX0dLRUVBdkJuMTNEMWFLbGZiMm5YY3VkLWZzVjdDV21iaDVFdVp1YnNUSDVtNzRIcncwNERiSExtclR4QnY5dVRMUXdsdzIzWjdmcF9aS0tzd0xqU1dfTlU3QUd3NEZOZDM2TkhvTjFjbm1fMUZHUk01Ylp4X21xSmVDSGQwVkRmWjgxN2Yx?oc=5",
+     "title": "Kasus Dugaan Keracunan MBG Terulang, PGRI Kota Cirebon Desak SPPG Bermasalah Ditutup",
+     "published": "2026-11-10T09:51:18+07:00"
+    },
+    {
+     "name": "Arah Pantura",
+     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPTGdyZThHVW5SU1l1ZHhsSUpxT2VZTlRNREdfc0VBekxVOXJQZV9qV0xYenNnMXNQSW4ydFZiek5QclVuNE9TQkJXa1E1bHdkZzBHMTJwQV9kRjYyZjVhVlp6b3JjX2FZN1h1UV9VUGNWV2JuS2Vocm9YZi1MSG9Ya3ptZGVseVVnRHg5aDlhcDlCQ2JOdmxaX0NyamRJTEplSmhrSk1EUmpvVWpIcUFZSmlKZVpYZw?oc=5",
+     "title": "Siswa dan Guru Kembali Diduga Keracunan MBG, PGRI Kota Cirebon Minta SPPG Bermasalah Ditutup",
+     "published": "2026-11-10T10:33:47+07:00"
+    },
+    {
+     "name": "Arah Pantura",
+     "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPcDcwUWhUVkRtY18zRXktVzZRX3hFNXB4Z3FFZnpFWnhUZFVKUHhBV3lDZW5ycTZ4UGpKVDh0ci12TzNSVUQ2ZDdGV0dEOHpHWTRXZ0N4eTRYSVlic3VyNjhUeW9rYUh3dWwtYWh6LVJBSzhxbzlMTVh2R1U0U0pKYmtTb1F5V3MzYWRaUDBqNFdNbkpHcTJBeWtHREN4TkhzMzN5bThDNVZ4RDY4bUE0YXZDSlQ4ejNXNUhldw?oc=5",
+     "title": "Kronologi Puluhan Siswa di Cirebon Mual dan Muntah Usai Santap MBG, Ayam Tepung Diduga Bermasalah",
+     "published": "2026-11-10T10:59:15+07:00"
+    },
+    {
+     "name": "IDN Times Jabar",
+     "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQRUpRTVhwUGtFQWdIdWp1aWxjVVBGUzZpdmttYWZhZ3Jld1hfOVZUWS1PdjlqaDhIMWRaVkF1ZWZBYktMcDhWUVEtVmx4aEJMQWlpNzhjUEt1SG5OTjNuSWRqWWwtc04yZEJqQkJnZGlWNWc2cUFlbngzdW5ndDgxbGlpX0k1RWY5VWpPMGNOcmVrQmRYSU1HNTJULTVBdVZ0WVlueDFKS0VwazBueDRIdFcwbURBSGszeVJF0gHAAUFVX3lxTE1iTFJSSXdKV2hDZURScENEVlMyZHlCMEdGNjNuQnQ2R1kwYndTU2hRRktyNXlzU0I1SG11SS1fckdVZ1N1bUU0Q3BWd0lOb1BNX0RCRnJMSTE2NnhmT3VrRFVyTnRKbktmbF9CREk3R1VuSjV0aGdXQ3dVenh4MjBocmhlZXN3Zzh4VFRfaVZjRWZJTG9sYU51MWRxRjJwRGNNN0xWdVZoLWVnZWU2czJJOWVSTWRlZFAyTmNkdjBPaw?oc=5",
+     "title": "18 Siswa Cirebon Diduga Keracunan MBG, Dapur Langsung Disetop!",
+     "published": "2026-11-10T11:06:10+07:00"
+    },
+    {
+     "name": "republika.co.id",
+     "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNdE1mSlhEaTNQX2o4dGduTGJLTkFTdjc4LWk0cFZXTmNEdUtRMWd3QV9CS2xUSC1taVVwNmlxejIwWGdyb1pydnliam9lNWRWellnNlNDcWtVNm5CLXBsYjhpVWJyaE9PMUJIWWdaQzRkR3RxeXhtMTd3VUdHMllLbWUwNE5GTnpFUjVwdWtZZWh6c3Z2UlJiUUlhN0VRVktfeU5HOGJERFdUVEdvbUVfYlhnR3R2dGtzWmFwRXNCM2l2MDNFVk9nS2ZRNk0?oc=5",
+     "title": "Kembali Berulang, Siswa SD di Cirebon Keracunan Usai Santap Ayam Tepung Bau dari MBG",
+     "published": "2026-11-10T12:18:42+07:00"
+    },
+    {
+     "name": "Fajar Cirebon",
+     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNM280bkJRWHd4TWkyb05qLVpiVTkzRllCeXRUQ0wxZWFtSjNuNEkzc3Q1MTNfRkxfVFR2bEFucmlob0gtLUc5Zkl5Y0MyamloWnAyMkdYSGlaamhRT2ZiTFF4Nl9VQVRsVzEwOXNEdmtWRC10ZUNJVmJ3ZGxZWnpZdG1PN01GS2Zvd2FYSFRkMmRHenVaWWhFNjZlYUhhZVh2Y3RUS1JERi16Y09MaUNub19RQnk3Zm1B?oc=5",
+     "title": "SPPG Harjamukti I Dinonaktifkan, Biaya Perawatan Korban Dugaan Keracunan MBG Ditanggung SPPG",
+     "published": "2026-11-10T12:50:00+07:00"
+    },
+    {
+     "name": "detikJabar",
+     "url": "https://www.detik.com/jabar/berita/d-8746580/sumber-keracunan-mbg-di-kalitanjung-dkpp-temukan-daging-busuk",
+     "title": "Sumber Keracunan MBG di Kalitanjung, DKPP Temukan Daging Busuk",
+     "published": "2026-11-10T14:01:27+07:00"
+    },
+    {
+     "name": "Alonesia",
+     "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOV1Vhc1UtamZzZ0JpdGZmVEN4TjVTTmNMSmhvckxDdl9zX3Jma2tuNmE2MVV4SnNUdHppUnZHOHVndWZuSS1IZ2pRa2s1S1VBcm1wNDMtNWlDUzE3Z1VHMjZpT0ZCZ1R3dmNlVElUdXItLVBZSEJwZUlGS1NLTzM1eDh6SVFXTDBKODVWdWgwRldUZVNlM3BMN2RUVEVad2JzekVCR1JCUVExU1RKcnhqUnFwY0dNUXFFeHVTNHlOY0tyR1JxMkhSMnpR0gHPAUFVX3lxTE85c0plWllLUE9ENDhxYjRYTlIwN3RWY2FBTllieGtCNWZQOHV4TWJIZFhRaEo1QXpPcW80LVFqN1NuX1REYUtuTTdhQ2FxOVJfaDlTNy1TVnZjbGJUeFMxZGJ0eWswdEZPd0xOdElaeS14U3JzSHFtOWdsYVMySFlZQlZwMzBNQ2IxSFRYWTYxSHFYeHoxN3Vyc09vOWpKSklXMFFyeG10b0lqbVdrM1FqVmxpZHNaQzlqbjl0UkFtMWo5MzJqVE1ZMFJrNk1rOA?oc=5",
+     "title": "25 Siswa Diduga Keracunan MBG di Cirebon, DPRD Desak Dapur SPPG Harjamukti 01 Ditutup",
+     "published": "2026-11-10T14:40:00+07:00"
+    },
+    {
+     "name": "Catatan Bandung",
+     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQZ0thN3pTWTRuQ0NUaXB5S1I0MmJIUHdURHZBS05hRzNkY28wb01SREtnYTMxWWlYR3NEanlBZy02M09NOVlpaVRZcXZzeDlzdXA1OVVKS0xnYWpSeXRBc1NGNmtKZXN6UWhoTjlYdEg0QnZnMjlXODY5N3BlVDdRSjFPR0wxYXQ1Rk5SOGNHNkVMZE4tc1hfaTc4NzM2d2Q2dGJFVk15OUo5V0F5OHZzZmlMVUJwOFpNZ0ltYVRnekhoSXVtOUxCbWdGZ2xYeDhPREhn0gHYAUFVX3lxTE96TzBjREVYVTROUGdCU28zQ05Oa1Y2QnM2a0NPa1VhUW1hZUZBS2hNT1k3ZEMyME9sNWlyNHJGQXQ0U2RQVE91N0R1X05XTDMyaU9jUllnYy1TYmN1anMweThWemg1NzNwaTVFZDczUl9zTzR6Wm8yR3NZZ2dEM0xObFZQV24tbXkzNEhjdkVGOFVyaTRoTy1YTFZJdDc2R1NaRHg2NDJQU1B1WEo1RUgwdFluUTVBTk1HbDh3QkVNcHZtQmRhQkRKZzQ2VlkwbmFGRVZHYmJZZQ?oc=5",
+     "title": "Baru Lima Hari Sepakat Jaga Kualitas Makanan, Siswa Cirebon Kembali Diduga Keracunan MBG",
+     "published": "2026-11-10T16:05:53+07:00"
+    },
+    {
+     "name": "SuaraGlobal.id",
+     "url": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxObWstX0hxNl9vNk5fOHNuYWtuTlV6ZEQ2eE9ZSjd6TmNZX2J6UEhPak5GYldoQ0Rid2JLTTIzQmVzT3B6V1dwWmVka3d1Z21tbldHUWJNSG01ZmZ1YkNyWnhoMEY3MVRiRWRVMGZYTVE5QWVSZ0VhWkFoZDV2Q0htdEs5UF9UX1lfUWxjNndPcWhYczZXUGhKSzRCTlNrcXpIRWlwWXUwNUdlbmw4VmV1a1YtYWNtczZfampBUTJ5bmF4amdiTFpfS3BydE9BQmlJNzBkeU9CSFBIZ3Y5YXJEaTkwTEpNa3o1OTY00gHwAUFVX3lxTE9pYzktZFBBWlhlTS1zU3E2cng2c0p6T1VRMVJKUm9SejZELXJnNEh4SGxvbWZrTThWcG8yUkh0YklCSHVTbTZMR2hJbXFnUmg5UTlMWl9HMXRqdE80NlZjNkdfalBqTERDck9mLVo0VGRsWEw5SUZuMVViYk9TWS11VjEzRy1vQ3FiR2t1VEVEamJlSElEaWE5OUZvRkVKN2FrbXpISjBoVzlkNHBFU05ZUENZbDFxZVFrbU1ERF9LZUJWbm8tY0p1UFI0U0hFcHJJWDhsWHEwbk5SQXlYR05nZHpCT25pSGhBdkxod01DMQ?oc=5",
+     "title": "Keracunan MBG Kembali Terjadi di Cirebon, 25 Siswa Terdampak meski Baru Lima Hari Sepakat Perbaiki Pengawasan",
+     "published": "2026-11-10T16:26:09+07:00"
+    },
+    {
+     "name": "Suara Merdeka",
+     "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQMHpUcFdkaW9JWGdTTTRCdnZSZlVoR2ZMMDhPXzJ1LXhwTFlDTHd0Tk9LX1htQS1wVl9aOEJpTlRLcWNXcVpmNHhBRlp4WEVrUEJ4UXJzYVZ3VEtUY3VBcEdzZTdxMTNjbXcxZER1bF9oVzJPa0kzN0NkRElIQjRiRWJUdDBsT0tIVHNaZ1E1WG9EQVk1WDl3U0ZVazhfVXh5ZFhTMHl2RVBoX2UyVGtLWkpLQWdmTzlFa01fLTNpTmRtSWVSUEUwMXNIOGFjN0ZSMnFUN29xdWdBTVM0VDktSUxR0gHnAUFVX3lxTE5JZklMSERUZzkxb3RpMENhcUN5aE1NVGpmbkdlZm8tckQya0dXRGtEcF9BT3AyZ1NPaXdOeUdjenJDdWc4TGsyUVRfamh2cUhuUHdieWNkLUNJSEdEMERBTWl6eVlDVUd3WEVGUW80WVZsNGJCYUVQeG9HdlhiRGxYeURsWWRCX2hhRkRkRFJHRTFsYWdFM1N5ZjF3M2Vfb1RKOThmWlRoRDFMaVFZT28xcUM2WHBxaFJpRktSenpNS0VmdlpTNTZPaklaY2ZFM3BlVlBSdXVfNUFLczJGOEJ4M2RaUU9GRQ?oc=5",
+     "title": "Baru Lima Hari Teken Komitmen Keamanan Pangan, Kasus Dugaan Keracunan MBG Kembali Terjadi di Cirebon",
+     "published": "2026-11-10T16:47:14+07:00"
+    },
+    {
+     "name": "Hallo Bogor",
+     "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQZEh5WEFOUGtISUszWjEwcjFGRkw1Y0QtQ1Jiam9SNmNaVW1TSkFoNENXd0xabzZjV1FEVmVGOWNINDRzc0dHVzV3MXRjUmxMUFI3UnFNeFJiMlZkV3l3eWhITXFfLVdOOGZaZkNfXzVkNDJoblhldG0tdHRYR29Scm5iLUFCV0lYQlVNcFdiM3JWWmxSbHdBZnc2YlRXeFV6cTJRNEx3NkJuWUFmQkVoWTdyRWt1MFo1MlBDS3ZRNV9LTlZ6SGFWRkxFTW05OXJHMEdkd3NFR2XSAdgBQVVfeXFMUGRIeVhBTlBrSElLM1oxMHIxRkZMNWNELUNSYmpvUjZjWlVtU0pBaDRDV3dMWm82Y1dRRFZlRjljSDQ0c3NHR1c1dzF0Y1JsTFBSN1JxTXhSYjJWZFd5d3loSE1xXy1XTjhmWmZDX181ZDQyaG5YZXRtLXR0WEdvUnJuYi1BQldJWEJVTXBXYjNyVlpsUmx3QWZ3NmJUV3hVenEyUTRMdzZCbllBZkJFaFk3ckVrdTBaNTJQQ0t2UTVfS05WekhhVkZMRU1tOTlyRzBHZHdzRUdl?oc=5",
+     "title": "Baru Lima Hari Sepakat Perketat Pengawasan, 25 Siswa di Cirebon Kembali Diduga Keracunan MBG",
+     "published": "2026-11-10T17:38:00+07:00"
+    },
+    {
+     "name": "Era Baru Media",
+     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxONFNpRk5hWGNhaXQzLWJXOFJsNGhyMGtyY1pzUENQVU1YdU1Pc0VpNFU0Z1VSbksyWkRSMkM2bkRtUEJ3SzBxZ3liVjk1SDRpbGc2cWhXbDQ1R1BtT0xDbFN3RzE1WUg4RjdtalIyM1V4cjBYMmJCUjJMNndaUVVPM2ZIUGZ3RzJEQ0NPQ1d0TngwN1dSdnMtZlBVX25wb05TTXZZZngxZzdkX2pUaHRibjl1Szdnem1DbHpwVVNlWkl3Wm9xU3VkdWRWZW11QdIB0wFBVV95cUxQNzlUWm43VURwcmczNGV0M1NCNnR4TGt2cjZBVXhOYWs0NVlvTnZ1b21xUlhEbzJ6Q0hQNGNKQzBHYkdOWlJvRS12Q0JQRVFxWGpjaUJmb3A2NjlLM3J5VnJ1LUxaQUlvWTdab09uVjVoMTJnczM4azRDMTMyUEs1clRBank1ZmVpdTFNcVVsV1d0eEE0TEY3Q3ExZlhuUlJKNVdWU25yZUJKc1E5aWU5TGJBUnNoWC1WYkFmTDA4d0FDZEoxaGFDTGpsbDdwa05vQVZF?oc=5",
+     "title": "25 Siswa Terdampak Dugaan Keracunan MBG di Cirebon, DPRD Minta SPPG Harjamukti 01 Disetop - Erabaru Media",
+     "published": "2026-11-10T17:45:38+07:00"
+    },
+    {
+     "name": "NTT Hits",
+     "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPYk5BNmNxQ3hING93dGpKZDhyV2NZWnNFVzN3OEk0RmdUUjNSU3RHYmxVOUVNdlo2MFN2b1RVd18zeXFXUms4d1VKdVpNT1d0UlNWN2puSmFhNG9ETEhMTWtYM2NuMXp4RHp4YUl2am1Oa25KcldrUUFxRmNJWS1YWnFmRGJXbHNGNWQxUG0zQWxBMGgwUDBraGZ2b2QzVFBDM1BTVkRyRXRjN01RWlJNZmo5NmtiSVZLZHpfeEZTclRPa01NVEdUY0J1VdIB0AFBVV95cUxPZXhKRFpmcl9rQ0VFSEFyOXhzMGhJaE5iUC1fNTJPeEFLTnA4aW9CWE43OU55X3MzcEZwMDJHWDNYMTZzRXp5akk0Q0l6R3RyQzlzVFpwNzVaNWJlM19TMkpHSHlrLUJHbi04QW5reWk5LUR3alFnOTFUVkpPZlV2RGJTbDA2RDYwM0psUmpIaVYzX0pCb1BacGxMUS1PY2VJWkt0TjR4aG9OV1AzTGVZRzBuMjF4bmlfcnJWU3Bub1RyN3QxcjB0Wi1MOTZ0WUZ1?oc=5",
+     "title": "Baru Lima Hari Janji Perbaiki Kualitas MBG, 25 Siswa di Cirebon Kembali Diduga Keracunan",
+     "published": "2026-11-10T18:23:04+07:00"
+    },
+    {
+     "name": "Tribuncirebon.com",
+     "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxPT0tJVThzc2QyWnpOMUZuVGFtMlhFcW03WU1TUmNiak1QcGxkaFp0Tlo5RU5pWThmN0NqYXpfODJRaGtNOFF0UmY3b1JRRVdackdpWHpSc3Q5QkZSWXBBbmU4cVBlcjI3WDJHd0RrNWJzTzVmVXpMTks4X2JqRmdKVnNUTDhCaUlVbGJpMExyYzZabmhnYUJ3eDB6SF9ybkpITUdnVWNQTnJmbmR0U0tLVl9hcXdCZlBhWUNabGxMN016a0xVTTE5aWJrOU5PVEUwc1dOWTJlVHFkXzktTEJSWXJyMlQ?oc=5",
+     "title": "Kondisi Terkini SDN Kalitanjung I Cirebon Usai 25 Murid Keracunan MBG, 3 Anak Masih di Rumah Sakit",
+     "published": "2026-11-10T18:47:35+07:00"
+    },
+    {
+     "name": "Tribunjabar.id",
+     "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQSWp2OHJJbXR3YlAyZUNZQUF5WnNmWFdud0hOSFVRNjVjTTJNRkZ1UjRhVjJwc2NfRm00bUVraGdSQ3c5UlVGUGlyNnY5cGZnVVRSbTRUWE1WMzBMV3hQazhHamgzX0lYMjFPV2gyR2Y3NDhFYVRLNGZNWHJSdUM0bVg3V1hMczJhV2ZSQVIzVmNZSWNESFluX241Q3ZUOU1IUGJRYlNQVUVIemg1b0x1OVJyeGNuQXRhUTA0TkpELVkzeERGVE9ySWZTSE8zLXVyX0Y4d3VoTVB3Q0tuN2VxSTJn?oc=5",
+     "title": "Update Keracunan MBG di SDN Kalitanjung I Cirebon: Dapur Disuspend, 14 Siswa Diistirahatkan di Rumah",
+     "published": "2026-11-10T19:19:15+07:00"
+    },
+    {
+     "name": "Nawacita Post",
+     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNTXY5RmdyaWVORHo5Z2tvYkhzdVBFbWZ6YVBnM3hhd1Y4d3VDZEZtUWFfQ2toNlRBZkpURzhtaVZILW93cVpxMFQxaEt2anl3QkJIX0ZBTXN1SXZ5cG1wYkpQZ25VZ01QUWRpUnd4QlY4N1VleHlJbHE4bjRLdDdEYmN5RGRsTThoUjlvMWp3SWM0eXJIR2hVQ1J5OGJjblJaMEptQU4xNFlyZWZHeUFxWlBPVW9uZlpkUjl6ODd30gHDAUFVX3lxTE1ndGZyU2ZuUWhPYlpkTEg0ek0xMTVwWEdQTUtVUWhFSnlOXzA1czFHTlNOTG5JWFE2djJrTFptWU1HdHpjMWJyUGJmYTRWZU8xNmtRamM2T044TUR5MU5MbWVSUk43WnFiU3lqWUszYTA0bTFIdWNwSEh5UnFueEFiLUJlZnQ2U2t0bF9acndZNXhmVmRPOUpCWlFORkM3MTFOTXlFOWoyV3dIb0Q2OHhfOGNpUU1uOUM0czVDUEdwZENYOA?oc=5",
+     "title": "Baru 5 Hari Sepakat, 25 Siswa Cirebon Kembali Diduga Keracunan MBG",
+     "published": "2026-11-10T20:30:38+07:00"
+    },
+    {
+     "name": "Tirto.id",
+     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNSHR4X0NYWm5GVm5QTU9Rd1VQVUltdFhrTGNGVHczRG5VUUU3eWdCcXpZTE5rV015MlpUREUyWnMxMXBVRG9ZUDFUZk5TckxGOWhOZ1ZBbUNENnk3VHdmdTNZOU1sbEFjek4tTEFERk1wU1FuVndBY3F6YjZQbWdmN1c4b2Q1SmhMMm8tTw?oc=5",
+     "title": "DKPPP soal Dugaan Penyebab Keracunan MBG di Cirebon: Ayam Busuk",
+     "published": "2026-11-10T23:06:00+07:00"
+    },
+    {
+     "name": "Harian Aceh Indonesia",
+     "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNMFk2S3VLc3AtU2Y0YTV0ei1WbEVsdHJselpnNXVOZ2JLMzI0TUFYbzBSRENPUTF6RXEwNExPckFzX0ZOSXAwbVRNdmlnUmZuTGJ6dkdVWWNRcEdEQ19tWVlyUFRiaW1TR083YnBpM2YyOTZCM092UzhEOE9rckZxYm81TGNmckRhUkU2VjF2dkRKSlh0c3VJeHVuR3ZXMHpicW9Sd19hX2JUMnlPU0RWSHpSNi00T3NoN2FYS00ycjBocEct?oc=5",
+     "title": "25 Siswa Cirebon Keracunan MBG, DPRD Minta Sanksi Tegas",
+     "published": "2026-11-10T23:26:42+07:00"
+    },
+    {
+     "name": "Zonautara.com",
+     "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQTENTMVU4LVBFZkF2TmxmYmdqdGo1clM2RjdFSXI1NnZlVE5yR242eThRZEFPY0w4YzlNRm5DUGpySjZHb2l2RGR5WGJvQTBhRDZvbnNtZUVZcW5RV1haUjd0bHU3VEJEeUl1MlRzX010aE5PbENyM1ZNaUhDMXV4U29KMGxmYWlkVzF3?oc=5",
+     "title": "Keracunan MBG di Cirebon Diduga Akibat Ayam Busuk",
+     "published": "2026-11-11T05:50:04+07:00"
+    }
+   ],
+   "report_count": 20,
+   "extraction": "llm",
+   "confidence": 0.97
+  },
+  {
+   "id": "2ff383a158",
+   "category": "tppo",
+   "subcategory": null,
+   "title": "TPPO Subang Jadi Perhatian, 8 Desa Masuk Binaan Imigrasi",
+   "summary": "TPPO di Kabupaten Subang menjadi perhatian dengan 8 desa masuk binaan Imigrasi.",
+   "kab_kota": "Kabupaten Subang",
+   "kecamatan": null,
+   "desa": "Masuk Binaan",
+   "lat": -6.48464,
+   "lon": 107.73183,
+   "location_precision": "kab_kota",
+   "event_time": null,
+   "past": false,
+   "event_age_days": null,
+   "first_reported": "2026-11-11T05:00:00+07:00",
+   "last_reported": "2026-11-11T05:00:00+07:00",
+   "victims": {},
+   "affected_entities": [
+    {
+     "type": "lainnya",
+     "name": "8 Desa"
+    }
+   ],
+   "sources": [
+    {
+     "name": "Pikiran Rakyat Koran",
+     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNdDlGNlROWngwVnp1c29Sb0VlUlctT21UeExkNFNBaW81anprUG0wWDJicFBFZ3oxeE1Za1hyS2NHREZWRXBYX2s2cWhrQUVQZURGUVVoUE9IaWg4anF6bV92OHdsZHRnRllyWDBFT1VXX0RJdGowcW00S1pXZHhtQ0MtU0NIMlZwUE9BQVQ1aWFHSWphbjhiMGJDZ29kYmMwWTl1ODk1OE9mUlcx?oc=5",
+     "title": "TPPO Subang Jadi Perhatian, 8 Desa Masuk Binaan Imigrasi",
+     "published": "2026-11-11T05:00:00+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.9
+  },
+  {
+   "id": "7da2a266c6",
+   "category": "kebakaran",
+   "subcategory": null,
+   "title": "Kebakaran Diduga dari Gas 3 Kg Bocor Hanguskan 4 Rumah di Cidadap Bandung, 1 Orang Luka Bakar",
+   "summary": "Kebakaran yang diduga berasal dari kebocoran tabung gas 3 kg menghanguskan 4 rumah di Cidadap, Kota Bandung, dan menyebabkan 1 orang mengalami luka bakar.",
+   "kab_kota": "Kota Bandung",
+   "kecamatan": "Cidadap",
+   "desa": null,
+   "lat": -6.86362,
+   "lon": 107.60619,
+   "location_precision": "kecamatan",
+   "event_time": null,
+   "past": false,
+   "event_age_days": null,
+   "first_reported": "2026-11-11T00:47:42+07:00",
+   "last_reported": "2026-11-11T00:47:42+07:00",
+   "victims": {
+    "injured": 1,
+    "houses": 4
+   },
+   "affected_entities": [
+    {
+     "type": "permukiman",
+     "name": null
+    }
+   ],
+   "sources": [
+    {
+     "name": "| kejakimpolnews.com",
+     "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOMnVCbFpHVUNkSkI5Sl9HZkRENk9fR1pvX2MzOTYwQ1d6QXJCaEZoOU1Udk92VVNRUlFrV3p3aVcwclFMTFU2c1lzeEV6S3k2QmNGNnE5TW91Nmx5RkVRSzZ4TkU2NjRMZzhrVy0xRnNhdU1OMHVCaC1OSFZFalVFUWI1elBRTXlYM0ptY21XWDRlVFRsTGlSVEdiYjROZHBJZDRna25vMmtteVdQand3NERFa0ZCWDZlWlM5TkNEdWNxRzhvdE1fcFJwTloxclZPdE00SnZBTQ?oc=5",
+     "title": "Kebakaran Diduga dari Gas 3 Kg Bocor Hanguskan 4 Rumah di Cidadap Bandung, 1 Orang Luka Bakar",
+     "published": "2026-11-11T00:47:42+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.95
+  },
+  {
+   "id": "40d24707e2",
+   "category": "kekerasan_anak",
+   "subcategory": null,
+   "title": "Pembunuhan bermodus begal di Cirebon terungkap: 5 anggota geng motor ditangkap, 1 buron!",
+   "summary": "Pengeroyokan terjadi di Desa Wanakaya, Kecamatan Gunung Jati, Kabupaten Cirebon pada 25 September 2026, menyebabkan korban AD meninggal dunia.",
+   "kab_kota": "Kabupaten Cirebon",
+   "kecamatan": "Gunung Jati",
+   "desa": "Wanakaya",
+   "lat": -6.66528,
+   "lon": 108.53556,
+   "location_precision": "kecamatan",
+   "event_time": "2026-09-25T04:30:00+07:00",
+   "past": true,
+   "event_age_days": 46,
+   "first_reported": "2026-11-10T23:46:37+07:00",
+   "last_reported": "2026-11-10T23:46:37+07:00",
+   "victims": {
+    "dead": 1
+   },
+   "affected_entities": [
+    {
+     "type": "fasilitas_kesehatan",
+     "name": "RSD Gunung Jati"
+    }
+   ],
+   "sources": [
+    {
+     "name": "ANTARA Jawa Barat",
+     "url": "https://jabar.antaranews.com/berita/718307/pembunuhan-bermodus-begal-di-cirebon-terungkap-5-anggota-geng-motor-ditangkap-1-buron",
+     "title": "Pembunuhan bermodus begal di Cirebon terungkap: 5 anggota geng motor ditangkap, 1 buron!",
+     "published": "2026-11-10T23:46:37+07:00"
+    }
+   ],
+   "report_count": 1,
+   "extraction": "llm",
+   "confidence": 0.9
+  },
   {
    "id": "aa0a24b6cf",
    "category": "tppo",
@@ -349,49 +1104,6 @@
    "report_count": 1,
    "extraction": "llm",
    "confidence": 0.9
-  },
-  {
-   "id": "6ed12c611a",
-   "category": "gempa",
-   "subcategory": null,
-   "title": "Gempa sedang magnitudo 4.5 - Kabupaten Sukabumi, 8 km di selatan dari Kota Sukabumi, Indonesia, on 10 Nov 2026 pukul 21:31 (GMT +7)",
-   "summary": "Gempa magnitude 4.5 terjadi pada 10 November 2026 pukul 21:31 WIB di Kabupaten Sukabumi, berpusat 8 km selatan Kota Sukabumi.",
-   "kab_kota": "Kabupaten Sukabumi",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -7.07632,
-   "lon": 106.70757,
-   "location_precision": "kab_kota",
-   "event_time": "2026-11-10T21:31:00+07:00",
-   "past": false,
-   "event_age_days": 0,
-   "first_reported": "2026-11-10T21:37:11+07:00",
-   "last_reported": "2026-11-10T22:19:01+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "Volcano Discovery",
-     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOdlZHTEhfaDdFR1BWY2FYcWNmcGN3dmloYUFRZ2trVHNaaGpGTnRZMHdOM1A5VHl5alpUQ3B5ckQtT1lZYy1KdUU4c1pQTUg0d0xoVllqY24xdFQ2Rlg5bDNXd1hRNXN1TnhrVy1CLTNDNUw0aGtaWFN3UWJMRVJQdzNmNzhaYWNNNlRYX2N3S2JSWEtRVEUtbU9idFpCaVNCeS1FZHJwRmppYUwz?oc=5",
-     "title": "Gempa sedang magnitudo 4.5 - Kabupaten Sukabumi, 8 km di selatan dari Kota Sukabumi, Indonesia, on 10 Nov 2026 pukul 21:31 (GMT +7)",
-     "published": "2026-11-10T21:37:11+07:00"
-    },
-    {
-     "name": "TOPIK.ID",
-     "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBLbVpnOXpzcGdTc2hGMVNyY09ZTC1Qc2doeU00MmF0R3RmYk1lbHk4SzhtN3JhVVJWZDhYOG1PLU5VdXZXR0xDbXBhaXNEYkNRM0I1SVg4MW9IVEZzQjJrbFAzT29EUVZBdjBHZUFHaklEUHl3UjZlMWlJS0Y?oc=5",
-     "title": "Gempa M 4,0 Guncang Selatan Kota Sukabumi, Jawa Barat",
-     "published": "2026-11-10T21:55:03+07:00"
-    },
-    {
-     "name": "Akurat Jateng",
-     "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxQc3RaOUlPd1kySjdob1hUb1VxbWg3MFV2S2YtTFJsSnNKZ1lacTktM2lqa3F1aFJ0R1I2RGxVNUQ2SXJfcmtnaWZaUFpOUUlJUG9obUJqMzN4R0twU1FENmNWWVd2QzBJUmp1N0xwY2VfanRwSFY2YllqUl9Vd0I3WlExTHVIbUxhSEdnUTBwVm9td3F3YUl0a0dSTzdyd185WExMRHZUTVhzLXlYZDdrS29yLTFhZl9EZ0c0RVd2cUxmMHNJb1JDU25vRzVPVG9NOXlOdjd2dnN6a0I0NEtFVm84b3NUR1dtOUE?oc=5",
-     "title": "UPDATE! Awas Gempa Susulan! Gempa 4 Magnitudo Guncang Sukabumi, Getaran Dirasakan hingga Cianjur Bandung sampai Karawang",
-     "published": "2026-11-10T22:19:01+07:00"
-    }
-   ],
-   "report_count": 3,
-   "extraction": "llm",
-   "confidence": 0.96
   },
   {
    "id": "1281d8480c",
@@ -496,472 +1208,6 @@
     }
    ],
    "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.95
-  },
-  {
-   "id": "8dd5461f05",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "Kebakaran Pool Damri Bandung Hanguskan 11 Rumah, 91 Warga Terdampak",
-   "summary": "Kebakaran di pool Damri Bandung menghanguskan 11 rumah dan menimpa 91 warga.",
-   "kab_kota": "Kota Bandung",
-   "kecamatan": "Cidadap",
-   "desa": "Kelurahan Pasir Kaliki",
-   "lat": -6.86362,
-   "lon": 107.60619,
-   "location_precision": "kecamatan",
-   "event_time": "2026-11-08T00:00:00+07:00",
-   "past": false,
-   "event_age_days": 2,
-   "first_reported": "2026-11-10T00:31:51+07:00",
-   "last_reported": "2026-11-10T21:08:12+07:00",
-   "victims": {
-    "dead": 91,
-    "injured": 1,
-    "displaced": 91,
-    "affected": 91,
-    "houses": 13
-   },
-   "affected_entities": [
-    {
-     "type": "lainnya",
-     "name": "Pool Damri Bandung"
-    },
-    {
-     "type": "desa",
-     "name": null
-    },
-    {
-     "type": "rumah",
-     "name": null
-    },
-    {
-     "type": "lainnya",
-     "name": "Pool Bus DAMRI"
-    },
-    {
-     "type": "rumah_ibadah",
-     "name": null
-    },
-    {
-     "type": "lainnya",
-     "name": "Pool Damri"
-    },
-    {
-     "type": "lainnya",
-     "name": "Pul DAMRI"
-    },
-    {
-     "type": "permukiman",
-     "name": "Rumah warga di Jalan Kebon Kawung"
-    },
-    {
-     "type": "lainnya",
-     "name": "Pool Damari"
-    },
-    {
-     "type": "permukiman",
-     "name": "Pul Damri"
-    }
-   ],
-   "sources": [
-    {
-     "name": "rmoljabar.id",
-     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPMUEyYzdDdzVQVUFmYzE2RHlNRUlHQ255WnY5Y0RudG9GM3ZhUE9WUDNETE9PNThTeHFpTFpWai1nS01pMUJGM2pWbGd2S0phaHBiRlBYRFprMTM3Z29WQVY2akRkUFBxVWZsaHMxMjhDWW5WcGduX3E2dlNXX254R0JVLU9yRXhDWUNRZlpR?oc=5",
-     "title": "Kebakaran Pool Damri Bandung, 14 KK Kehilangan Tempat Tinggal",
-     "published": "2026-11-10T00:31:51+07:00"
-    },
-    {
-     "name": "rmoljabar.id",
-     "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPRElwdnBXSVRocTlKTXAtT2dEMFctSU81NGNQaWZxdUdraExnWm9jSzlJc1FZd1B1SUlQc1E4Sk1PWTczMjY2YmlnVW9aU2RCNzg1RlYxSzRPamlfemR0S1dLaHhUQXNPM2sxdlBEV082eElKU3d4RW1vVWpwZ1NuZElmRXZ3V2ZEVDZsc2dlVmVoT0hUQnFGc00zRUF3X2lGc2M2cjY0cG96dkM5NHpFOGxIOVZiRDYwRGpuREhyaHJ6VGM?oc=5",
-     "title": "Kehilangan Rumah dan Harta Benda, Korban Kebakaran Pool Damri Bandung Berharap Ada Pertanggungjawaban",
-     "published": "2026-11-10T00:41:42+07:00"
-    },
-    {
-     "name": "Merdeka",
-     "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQVlZHMElfa3FwRFZsNlVVMEk0bEIxZHIxaTN6aURjYkZXMUVzNEJyY1pQV21tUEs5Z0dkdTBMNzZHYUdGMGtNd0lWSUlrVEVOUjNVTFdGa1V3UVN1V1dvYjNhd2tjY3JiU2lFUjl2X250OUxfbzRpaThZMVhxcVZMX01JeWZOTTZhS1p1QVg0eG93VER1MHFKbmtGZmdhdGVqb2N6ZG9jbWNfdlZqMlNjRjZpTQ?oc=5",
-     "title": "Puslabfor Usut Kebakaran Pool DAMRI Bandung Merembet ke Permukiman",
-     "published": "2026-11-10T07:29:51+07:00"
-    },
-    {
-     "name": "Sekitar Bandung",
-     "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBCZy12V0MwaksxSXVUTFhCS3NkMmhhSkVPbzFRWUdlLTA0bV9TMzVpWF9OMmxRNHdaaXVJYjBQZ0t1RXcxUjV0dnpjSHczaDdFRGpOdGFIQ1d5ZzVPaFNGcGxnSVdUOHBLR1ZxdQ?oc=5",
-     "title": "Kebakaran Pool Damri Bandung Hanguskan 11 Rumah, 91 Warga Terdampak",
-     "published": "2026-11-10T08:40:18+07:00"
-    },
-    {
-     "name": "Tribratanews Polda Jabar",
-     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQMjhyUWlQYVhkc0NleUdNVW9Oc1ZjdzJRWFB6NUNZa1poSWx5R19jTkcwdFdsZGFVRXAxREltRi0ydEVkdnBFZFFpVHUtRlZ0eVJMcXRRa3NSS0hUeG92VnBhVnZxdEhaRnEtekVnbUJxb2g1NUtINTJlR2ozN1RLSzQ1bmFwaDN1TWpEdzFFN0s5emQ3N3haZ20xM3g1TWtaeUhNWXVCMWJfUkJzQUROc0kyWHoteThUejBHaG8ybXh1bk9hR081OFYtV3JfSDR0?oc=5",
-     "title": "Polrestabes Bandung Terjunkan Tim Psikologi Beri Trauma Healing Korban Kebakaran Pool Bus DAMRI",
-     "published": "2026-11-10T09:29:00+07:00"
-    },
-    {
-     "name": "Radio PRFM",
-     "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOOFRVSUR1SDVfTjhzdFdzd1g4WVFNUGRkTXBGby1zaDBpT05uN0o2ZzQtZlUtWmdoalozMnpMYmh4R3c3UFI2VmFJOFROQ2VXR0JQQ0x5SThOYXBNa0tnUjlTYUxqTTJXNFl0YkdaeHdzQjRFOWdPZUlxaXA3QjN5MjNpVzJ5aUhweTh6eWdnZFlPaXRKVGZDSWZoN2NEYXktTXRIVFZtaHVQLWl3UVBJbmJQUWphcmZFQ0h2RTBZSThWQXBLWVNNVHdVZDNIY05wSXpLb183cF9TakxMbnfSAeMBQVVfeXFMUFFKRG9HQ01BSm1DYmdNYXN0TEt4MXRaUEVnNTN1ZGV6b0tKT2xPUk5hQ0tfelh3N0d4WkdzaUJrejNqNTdvRlk2QWJUbE5FRmdUd3Y1WUxDaFppd1ZEOW9vbkhfY0VWOHRIbzJhampGVlNEenJ2Mldxdjc1N28xTnNZTUZILVpNU0E5QVZMeEdBcHJaV3hEbktYVm9UaXpkS1BqNWlVVGwyLUtoUXdkWERzRXNaWWtGWmlMd1ozNXRhUEQ4WFRKaEhzeExLTlBLenptOUlLeW42d1ZZdHktdkVJNEk?oc=5",
-     "title": "90 Warga Korban Kebakaran Garasi Damri Bandung Mengungsi, Ini Kebutuhan Mendesaknya",
-     "published": "2026-11-10T11:00:00+07:00"
-    },
-    {
-     "name": "BeritaTKP.Com",
-     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQanJTVnpvM1hkNVhDdFZBVWIxZ0xtcG9sNGVReEQ4YXNfYUZFTGRJOE1ZOGUzS2E0NVhvdFVLYnB4ZU5MS1NCc3d5cEtVVWFkS0NRTFBaT3pmNXVzRS1vMGNGODV4aXpsWGgzQnQzYV9lQXhCY2QtMzQxRVYySkZIWEd6MkhDR3Z3UzVwdEd0MXplMVIxOElMbjdOLS1pb1JS?oc=5",
-     "title": "Kebakaran Pool DAMRI Bandung Hanguskan 10 Bus dan Merembet ke 13 Rumah Warga",
-     "published": "2026-11-10T12:26:41+07:00"
-    },
-    {
-     "name": "| kejakimpolnews.com",
-     "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOMnVCbFpHVUNkSkI5Sl9HZkRENk9fR1pvX2MzOTYwQ1d6QXJCaEZoOU1Udk92VVNRUlFrV3p3aVcwclFMTFU2c1lzeEV6S3k2QmNGNnE5TW91Nmx5RkVRSzZ4TkU2NjRMZzhrVy0xRnNhdU1OMHVCaC1OSFZFalVFUWI1elBRTXlYM0ptY21XWDRlVFRsTGlSVEdiYjROZHBJZDRna25vMmtteVdQand3NERFa0ZCWDZlWlM5TkNEdWNxRzhvdE1fcFJwTloxclZPdE00SnZBTQ?oc=5",
-     "title": "Kebakaran Diduga dari Gas 3 Kg Bocor Hanguskan 4 Rumah di Cidadap Bandung, 1 Orang Luka Bakar",
-     "published": "2026-11-10T12:33:50+07:00"
-    },
-    {
-     "name": "Hasanah.id",
-     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQZXZieFpEdWtMcjZka0xCTV9TeUxiNTdCZVV6Q1ZGWk5tc3FVck9DNFk1N3gxNXdRQ2xyX0hnb0pjbkU1M1ZIWlBZZ1NtVjU1OXdoUDJGRndlLXFVT1Z4V1kteEpzclhIbC12LVJPdjZNTXZUd3g1aU5FTHlKUml2SGt1cGZzb0JxT2tfSGxIU3VsVThsbk1vWVhZZjQ5ZkM2SGtZUjk1dUFBa1BTYmphOG02X2UyOC1raEIxLVhGU2NZOVFERXNQa25nSkV2N3M5R2JOLUxR?oc=5",
-     "title": "Pemkot Bandung Dirikan Posko Darurat Korban Kebakaran Pool Damri, Siapkan Dapur Umum dan Layanan Kesehatan",
-     "published": "2026-11-10T12:52:00+07:00"
-    },
-    {
-     "name": "tugubandung.id",
-     "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxObmdqN0lpVTFlU1JQQjFydGdfc1NUdktEeVBpRVlwTGpObXBORy1QWjVQaWhkMWJwNXVHSXRLN29USlFaNE42TmNZel9oczhCVGRfOEE1VGVkVDBZVXdZeXN1QUQzOTBpbDZIRFkzSTVaSEVKNnNuUExiUmNIajlkUlhYMXBNd25iei1lbUppVGpRRmtsYW1rLWVjNVR4M3o0UFE?oc=5",
-     "title": "Pemkot Bandung Fokus Pulihkan 14 KK Korban Kebakaran di Kawasan Kebon Kawung",
-     "published": "2026-11-10T14:30:18+07:00"
-    },
-    {
-     "name": "Tribunjabar.id",
-     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPaVVLTWdOSXI2cEx5aGVweEdiZ1ltRjNnVjAtUVQ4UjVJbHpxSjBIS1dyWHZ1UEpGUUMxVlc5VTl0ZV9HN1pQWUpjcUZncXBJa256OHU0Sms1aTJ6LXNtcTBkLTFpVkthcDRuRG1NXzFYWlNfMEp2MDRfV2ItbGM3UklBb3RpT2FCTnRQQXUwTmI3cTl3aDhwWkt2WEZiTklPTllRSElmZ1AxcmMtLXdNcFpiVEJCQzU1Rm1leWJ0SmVNMUl4YlRHQ2JJb1JKckRP?oc=5",
-     "title": "SAKSI KATA: Korban Kebakaran Pool Damri di Bandung Minta Rumah Warga Dibangun Kembali",
-     "published": "2026-11-10T14:31:30+07:00"
-    },
-    {
-     "name": "Kompas.com Jawa Barat",
-     "url": "https://bandung.kompas.com/read/2026/11/10/150634778/korban-kebakaran-pul-damri-bandung-minta-rumahnya-dibangun-kembali",
-     "title": "Korban Kebakaran Pul DAMRI Bandung Minta Rumahnya Dibangun Kembali",
-     "published": "2026-11-10T15:06:34+07:00"
-    },
-    {
-     "name": "Tribunjabar.id",
-     "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNdl83dEJ6aGF1SWtrNkhaVUZqRmFhZndBUTJyRG9Tc3Z6V29wTVVDSDBjQWRkeGpsZG1wd0V3SzVzUmE5a25LaFl6MEYxODg4Qy1EMGdWU3NPOXJGcWRVUTNQRXQwQy1RQkgtNUo4N2w0ZG0zTGpXd2tmLWZtdU4wUHA0OWNUUW92YmdFMFRCMzk1VXRla2FkeVJ4MlhiSXN0QkVlWGRxdEZGNEh3OUVLTU1Ra2JwLXpKcGhIOXZleWszTGt2dzdqR1hSZWMzengyZW82bVFHZ2UtdTg?oc=5",
-     "title": "Diberi Waktu 3 Hari di Basement Hotel, Korban Kebakaran Pool Damri Bandung Segera Dipindahkan",
-     "published": "2026-11-10T15:47:35+07:00"
-    },
-    {
-     "name": "Tribunjabar.id",
-     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOMlMyN1BCc21oYWh5RmFsV2VEMTJWZ2RLTHd1N1pBeERuVkhrYWRRd3ZZQjlaUlk1M0lGbnpXdUxSdFlZQXM2c1BxYmZwNkRXak85eEJaQzNQcFVJcE1zV0Z3M3hueDJPXzlqanpFSEo0dENDZEkxM2oxaTZTekVBQU42QzB3THkyQTZCc3JKbFBJeVJHRkxFLWRMSklLczBMRGhrNGI4XzN4TTV6ZFBzSUdvSF9KemliTGl0ZkwyRzRyN0JEa0tPWDIzejhvUQ?oc=5",
-     "title": "Pemkot Bandung Siapkan Tempat Pengungsian Nyaman Bagi Korban Kebakaran Pool Damari",
-     "published": "2026-11-10T17:04:07+07:00"
-    },
-    {
-     "name": "Pojoksatu",
-     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPQUdocVFrU1pIZFVkSjNJVW1VRUdhQUQycVkwbi1VT2IyQ2JoRHVXTk5JV0JZSmZiVWI3dHFYUTdtTEFzZ2N0VkdVQ19zQ1pvV1dGUFBvZHdZMXBId2xmdXpkb0VqcE9xUHZ2SXpYWU9kZWxPMG1iOHNhWkp1Zlp3ZGM4WlhvQUx2cUVZcEpHcEN3eGJJcmlKTUtLaXFObVk5aEtqTklDV0pOaDNfZnFQNlZJY1RPVlBQT0tIQktjRQ?oc=5",
-     "title": "91 Korban Kebakaran Pool Damri Bandung Segera Dipindahkan, Farhan Prioritaskan Kelompok Rentan",
-     "published": "2026-11-10T17:14:00+07:00"
-    },
-    {
-     "name": "Radio PRFM",
-     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPUjBXNnN0YkNnWnJWT2JXVVhIQnJ4azdrWEpROW5XckwxWnB6X2x5WHhUM2xCNlk4dGFTc1h0SFVyWmRZOWFMUmc4cHloQlpHckZFMW1KYkVManZiVmU3RDVva0Z1bm8zcTdadGg2cWdaSGM1VWlqS2g2TnAyZHN1UFVGTFFnX2Q2X1RYSHFLUmY5MmRfNFZiWEh3SlMtcFR4MU1mdERVZThnUHBBZEJIZV9ueWpIeEdlclJmQTNmX0xGenFUMG4tQUh6dTRkUdIB0wFBVV95cUxPTjdXb1lCaHloRVh5RTJoTHFVc3A3RHFwdVRMSVc1V19Wd1lHaVBDSHAxZDNfRXVUYlNfemFzaV9YT2EzOEYwNWo2UDVHTTdQSmdsQXkxcEZZOVd4cU9pdnUtdDF2OUQ3WjFCbmtQTUJXRWI3azV6elZXcldpenNxRWUzeUlZRnJFdHBFVzFIMVNRcXcyTThMMkN1b1hEX2czX2kzbU5qNFh3NmotbUNKSHdYTll3a2Y1ZC15Y1FhUFpnTUpKWnJhbEtOWUVhdzhTUzlz?oc=5",
-     "title": "Pemkot Bandung Dirikan Posko Darurat untuk Korban Kebakaran Pool Damri",
-     "published": "2026-11-10T18:00:00+07:00"
-    },
-    {
-     "name": "Fokus Jabar",
-     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPcW5GY2JzeFNUelh2ampSWUpEVEJRS1VYWU0yWExCQzFiREg4NkFrMWY3VjhZNnRrOThJb0xxZ3V4UE81RkxZbkE5Slc4eUdmb2EzN29zYUkwWW9kbGZzdEFhNTdCN1FLRlh1X1l4UDRPYURwVnJtcmtvT1p0MzJEejVNLXdnR1Z1QmFDU1J5YURJQTVHV0FRU3dwYS1HVUhYcXZ6RXlETDB1NDFFT0dTQS1HTXBua3hCOVQ1LUpMNA?oc=5",
-     "title": "91 Korban Kebakaran Pool Damri Bandung Segera Pindah, Farhan Prioritaskan 25 Warga Rentan",
-     "published": "2026-11-10T18:39:59+07:00"
-    },
-    {
-     "name": "Pikiran-Rakyat.com",
-     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOc0N1SWppQkp2MzNyOEh6eXk0X0NyV1lxMkhqVEpwS21XVUs3RHIyS0dTcEpTOHUxaVg0ZFdZeDZvYmI5NEJEeHdwazFKbllGZDNDczBqbmUwREVhM1RzNjFudjRGVVBYWXQwUDB3ZEZSRGNsQzJzekxSV0pCX1NLV3hPYnZEc3lfYzNKMXpYeHZOX01DeHVIU3hGVk1ZcFFucmUtRUQtR3k2VVpFNHBRQ0I1SWlYVUx4NEFKaU1SM1JSandiSGlPZNIBzgFBVV95cUxOV1AybmNIMEFGb19IdUI3VzctSDZMUHFlTUpqUlpmSlFVNXRoQXIzdzB2dTlGekJGSFZHQXpFMVMwNjJHSVQxcU91LVIyUUhVUFg5X1VTNlZMY2JLZzJwb2FQamFGa2JnOEs0dV9ZNnVCbHdwdWZ3a3RnbmdFb0VTLW9VbzVaQ01oaVJPc2dpZ3lGaThKeEVJSjBIRVplRl9UdEpVMzhwUFpWejBQdWlFSHc3NnBfQlZVN3ktWUJIZmdxRzEzYjN5Z2xPbUFsQQ?oc=5",
-     "title": "Pemkot Bandung Cari Tempat Penampungan Layak bagi Korban Kebakaran di Pul Damri",
-     "published": "2026-11-10T20:08:00+07:00"
-    },
-    {
-     "name": "Tribunjabar.id",
-     "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNQnI3WE9DXzdGTFlQX25ZZl9ZTnVrQzlVdGM1Mld0elU3Z2gtbmNyT05FREQxWnQxX3RwdTNFcVhLc09wTl93NEs3R3pIal8zLVIyUTMxRERWM0VmanMzU05hYkd1NTdweERZQkxjSTFERnlfN213RURsOVlKNDB6aDNJakYxMEc3a0djUlpLRFNiQ2VYSDJEOTZsVEVZOE5EdEc2WUNsM2FBdG9iSnBYNDlNcW9FZFo3bnUyMmcxMWs5b1ZXSTBobDE0NmFOd0FDT1RQMXFaWW90T0U?oc=5",
-     "title": "Pemkot Bandung Cari Donatur Buat Kos-kan 91 Korban Kebakaran Damri, Tenggat Hotel Sisa 3 Hari",
-     "published": "2026-11-10T20:16:25+07:00"
-    },
-    {
-     "name": "Kompas.com Jawa Barat",
-     "url": "https://bandung.kompas.com/read/2026/11/10/210812878/91-korban-kebakaran-pul-damri-di-bandung-masih-tinggal-di-basement-hotel",
-     "title": "91 Korban Kebakaran Pul DAMRI di Bandung Masih Tinggal di Basement Hotel, Pemkot Cari Penampungan Layak",
-     "published": "2026-11-10T21:08:12+07:00"
-    }
-   ],
-   "report_count": 20,
-   "extraction": "llm",
-   "confidence": 0.98
-  },
-  {
-   "id": "49f9675ac7",
-   "category": "mbg",
-   "subcategory": null,
-   "title": "Keracunan MBG Terjadi Lagi, Wali Kota Geram, Korwil BGN Sebut Dapur Langsung Suspend",
-   "summary": "Siswa SDN Kalitanjung 1 di Kelurahan Harjamukti, Kota Cirebon mengalami keracunan setelah mengonsumsi MBG pada 9 November 2026, menyebabkan keluhan mual dan pusing serta penanganan medis.",
-   "kab_kota": "Kota Cirebon",
-   "kecamatan": "Harjamukti",
-   "desa": "Kalitanjung",
-   "lat": -6.76136,
-   "lon": 108.54798,
-   "location_precision": "kecamatan",
-   "event_time": "2026-11-09",
-   "past": false,
-   "event_age_days": 0,
-   "first_reported": "2026-11-09T23:09:55+07:00",
-   "last_reported": "2026-11-10T20:30:38+07:00",
-   "victims": {
-    "injured": 19,
-    "affected": 25
-   },
-   "affected_entities": [
-    {
-     "type": "sekolah",
-     "name": "SDN Kalitanjung"
-    },
-    {
-     "type": "dapur_mbg",
-     "name": "SPPG Harjamukti 1"
-    },
-    {
-     "type": "dapur_mbg",
-     "name": "Dapur SPPG Kota Cirebon"
-    },
-    {
-     "type": "sekolah",
-     "name": "SDN Kalitanjung 1"
-    },
-    {
-     "type": "sekolah",
-     "name": "SDN Kanggraksan"
-    },
-    {
-     "type": "sekolah",
-     "name": "PGRI Kota Cirebon"
-    },
-    {
-     "type": "dapur_mbg",
-     "name": "SPPG"
-    },
-    {
-     "type": "dapur_mbg",
-     "name": "SPPG Kota Cirebon"
-    },
-    {
-     "type": "sekolah",
-     "name": "SDN Kalitanjung I Cirebon"
-    }
-   ],
-   "sources": [
-    {
-     "name": "Media Cirebon",
-     "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOWEFMR0wyOGcwVlBsSnhrdmNCTmxBMUItYmRyeGNBbTRRQXNNcE9GU2lJdTVlQVBRS2x3OWh2NzUyUzMzYjZzY3ltREd0TF9ROFR6bUZOVmNUWWJheHU4aUlxSmxjQ1pWVzI1aFBNb0VUZnNXdGF4M0F2XzE0RFlaSml6dWVPdUplMGJ5Q244QXdTbU1feGk2NUh3?oc=5",
-     "title": "Keracunan Massal MBG di SDN Kalitanjung, BGN Suspend SPPG Harjamukti 1",
-     "published": "2026-11-09T23:09:55+07:00"
-    },
-    {
-     "name": "Bisnis.com",
-     "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOVllvT3BYczBvV0w2VWEyY2t1b29ib0NERUUxZERNYlpFSnZiel8xT3VfaEgxaTIxenR3dndoQmxuTGQwMzdqdWR3dmN3WUQ4R2dGYzdITDNfdjBoSkNjTlpHNTJkUjFTTzEtdHpGZklxX3lMZmlEeXFpdmc0cWRXV0hFN0hHNkROODBGbm92dUJYeWlqTmV5VlVXbnZWOXZDdkE?oc=5",
-     "title": "Menu MBG Bikin 18 Siswa Cirebon Mual dan Muntah",
-     "published": "2026-11-10T05:54:36+07:00"
-    },
-    {
-     "name": "Inilahnews",
-     "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxONElFWlp2dVRkZ3VUZWdvWndSeEF1dUV0ekNRMmxtRnd0MXMtSjM3WjNXSG9hLUwyZmdWRUxFb2dVb25KS3F2S0s4bThtd2dqbkY2RlREUTFjVnEwWlFadzlmOFdoeksxWWczMTVndF9ybHlfSkF6YWxObGRES2J2S0IwcEFQMk13SThBa3o4X2l6U0RLdVVrWlF3UmhNSTEtTkpIUVd0cUQxM3ZUUm83QV9adWtLQzNPaldSS2Q0SdIBxAFBVV95cUxQUlZwNENfUW1yRDRVYXpaSzFkbGRBWWx1dURZbmtuTEZBS1RETW5SU18zN0dHTEJuVEpjSmYybDY1ZlZVNndUbmJLZk5RV3JBMVJmZ2ZjRHR4ZzJlRVF5UzlQMTlmZFBWME9zRmpWWV9zbGk4cVo2WlkzRkVza2FOZzkwUDlfWmxVdTMxcl84dm04Ni10c2RPaWMxX0NPOTRQM2l1U0t2SmJNSmFibTducV9heHktUFY1Y0VDMVdERmJ4TGFB?oc=5",
-     "title": "Wali Kota Cirebon Kecewa Siswa Kembali Diduga Keracunan MBG, Minta SPPG Ditutup",
-     "published": "2026-11-10T06:36:34+07:00"
-    },
-    {
-     "name": "Inilahnews",
-     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPWUFNd1pVaWNFY243Y0h2bE9VU1hfR29EQVBoZ2Q4VmVNWnVNSzNDcThfQ2w0a1QxbllIOUZjME9XVzZCd2RJcy0yMEJ4d2RlMUJ6Y21VNjN6RHNaM3NqUnozM05TU0FkRUtVMzhMVFYtLXU3U2pxSHRueXJlbUFkdU5QdVlNbnFLODFPZG1hcW9TeFhLamdIRnVGWVVlTTMxRHFDSzljNE1TUFpLc3IxRHZhVEVPd0HSAbwBQVVfeXFMT0hIYWVqMlEyT1d6V2FZZklBVTVqNDZjSjMtTlUtOC1obGE2MU9JZzJ1OXBsNjlnWmNQQmtTa3JVY2tZa1BnRTZOQWM5QVNDSW1XdlpsdXpaWEhYb3NKZGdUS3h6bFZ4bW5TSXJJMTlKU04yYWp5dXRNc3VtWUt1NzFpZExFWWN0R1lsYmFxQ2FnLTczU3ZzWDZPVlhiYUFDQm51SVhWOS1TSkxCeDE2RWhaRWZET3BuR09aSEM?oc=5",
-     "title": "Siswa SD di Kalitanjung Kota Cirebon Diduga Keracunan MBG, Ini Kata Sekda",
-     "published": "2026-11-10T06:38:48+07:00"
-    },
-    {
-     "name": "Tirto.id",
-     "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNSl9HOWlhZnpnN193T08ySVg1eFpMMk5zcVRNUGNsd1pYYjVudUpHajFjX005cjNiakZCczdaXzNJYzFrRmk4Y01sNzRrcmlybkpYZHJOVFBZMkNCOENTZGNHRzRrQmdJTnllZE1tQTJfQmFyUkphOVdQd2JLc1d1U0NXN2hGc1BV?oc=5",
-     "title": "19 Siswa di Cirebon Diduga Keracunan MBG, Ayam Tepung Berbau",
-     "published": "2026-11-10T07:40:00+07:00"
-    },
-    {
-     "name": "Radar Cirebon",
-     "url": "https://radarcirebon.id/2026/11/10/keracunan-mbg-terjadi-lagi-wali-kota-geram-korwil-bgn-sebut-dapur-langsung-suspend/",
-     "title": "Keracunan MBG Terjadi Lagi, Wali Kota Geram, Korwil BGN Sebut Dapur Langsung Suspend",
-     "published": "2026-11-10T07:53:29+07:00"
-    },
-    {
-     "name": "Radar Cirebon",
-     "url": "https://radarcirebon.id/2026/11/10/parah-kasus-keracunan-mbg-terjadi-lagi-di-wilayah-kalitanjung-ayam-berbau-lolos-ke-meja-siswa/",
-     "title": "Parah! Kasus Keracunan MBG Terjadi Lagi di Wilayah Kalitanjung, Ayam Berbau Lolos ke Meja Siswa",
-     "published": "2026-11-10T07:56:04+07:00"
-    },
-    {
-     "name": "Jempolindo.id",
-     "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNRVVwa3JYdjQ5TzZfeEdYVkpreDNVVEJfbHNlUDBNaC15MTBrWXNZWU5VUVJrVXNDWE9pbXJNbzNHcHVwd3VQNHdvVkEwb184VFBQMmw1UldMQUg0NFZiMW9TbEhsem9RTU1DRGR1T1NZQmdqZ1pTNWpCM0UzbmdnaGQxaUZEMXk0TUVkZllUaGRzdDIyQlBiR2RnUU10RnZyNWFXdDFWcGg3ZmhNbDRpTDd3SkdOR0k?oc=5",
-     "title": "Terungkap! Hasil Laboratorium Ungkap Dua Bakteri Penyebab Keracunan Massal MBG di Kota Cirebon",
-     "published": "2026-11-10T07:58:32+07:00"
-    },
-    {
-     "name": "About Cirebon",
-     "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPbW45VmhQQXhaLVdzYWxHTVRpekdETUdWR2ZycGhJX0dLRUVBdkJuMTNEMWFLbGZiMm5YY3VkLWZzVjdDV21iaDVFdVp1YnNUSDVtNzRIcncwNERiSExtclR4QnY5dVRMUXdsdzIzWjdmcF9aS0tzd0xqU1dfTlU3QUd3NEZOZDM2TkhvTjFjbm1fMUZHUk01Ylp4X21xSmVDSGQwVkRmWjgxN2Yx?oc=5",
-     "title": "Kasus Dugaan Keracunan MBG Terulang, PGRI Kota Cirebon Desak SPPG Bermasalah Ditutup",
-     "published": "2026-11-10T09:51:18+07:00"
-    },
-    {
-     "name": "Arah Pantura",
-     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPTGdyZThHVW5SU1l1ZHhsSUpxT2VZTlRNREdfc0VBekxVOXJQZV9qV0xYenNnMXNQSW4ydFZiek5QclVuNE9TQkJXa1E1bHdkZzBHMTJwQV9kRjYyZjVhVlp6b3JjX2FZN1h1UV9VUGNWV2JuS2Vocm9YZi1MSG9Ya3ptZGVseVVnRHg5aDlhcDlCQ2JOdmxaX0NyamRJTEplSmhrSk1EUmpvVWpIcUFZSmlKZVpYZw?oc=5",
-     "title": "Siswa dan Guru Kembali Diduga Keracunan MBG, PGRI Kota Cirebon Minta SPPG Bermasalah Ditutup",
-     "published": "2026-11-10T10:33:47+07:00"
-    },
-    {
-     "name": "Arah Pantura",
-     "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPcDcwUWhUVkRtY18zRXktVzZRX3hFNXB4Z3FFZnpFWnhUZFVKUHhBV3lDZW5ycTZ4UGpKVDh0ci12TzNSVUQ2ZDdGV0dEOHpHWTRXZ0N4eTRYSVlic3VyNjhUeW9rYUh3dWwtYWh6LVJBSzhxbzlMTVh2R1U0U0pKYmtTb1F5V3MzYWRaUDBqNFdNbkpHcTJBeWtHREN4TkhzMzN5bThDNVZ4RDY4bUE0YXZDSlQ4ejNXNUhldw?oc=5",
-     "title": "Kronologi Puluhan Siswa di Cirebon Mual dan Muntah Usai Santap MBG, Ayam Tepung Diduga Bermasalah",
-     "published": "2026-11-10T10:59:15+07:00"
-    },
-    {
-     "name": "IDN Times Jabar",
-     "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQRUpRTVhwUGtFQWdIdWp1aWxjVVBGUzZpdmttYWZhZ3Jld1hfOVZUWS1PdjlqaDhIMWRaVkF1ZWZBYktMcDhWUVEtVmx4aEJMQWlpNzhjUEt1SG5OTjNuSWRqWWwtc04yZEJqQkJnZGlWNWc2cUFlbngzdW5ndDgxbGlpX0k1RWY5VWpPMGNOcmVrQmRYSU1HNTJULTVBdVZ0WVlueDFKS0VwazBueDRIdFcwbURBSGszeVJF0gHAAUFVX3lxTE1iTFJSSXdKV2hDZURScENEVlMyZHlCMEdGNjNuQnQ2R1kwYndTU2hRRktyNXlzU0I1SG11SS1fckdVZ1N1bUU0Q3BWd0lOb1BNX0RCRnJMSTE2NnhmT3VrRFVyTnRKbktmbF9CREk3R1VuSjV0aGdXQ3dVenh4MjBocmhlZXN3Zzh4VFRfaVZjRWZJTG9sYU51MWRxRjJwRGNNN0xWdVZoLWVnZWU2czJJOWVSTWRlZFAyTmNkdjBPaw?oc=5",
-     "title": "18 Siswa Cirebon Diduga Keracunan MBG, Dapur Langsung Disetop!",
-     "published": "2026-11-10T11:06:10+07:00"
-    },
-    {
-     "name": "republika.co.id",
-     "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNdE1mSlhEaTNQX2o4dGduTGJLTkFTdjc4LWk0cFZXTmNEdUtRMWd3QV9CS2xUSC1taVVwNmlxejIwWGdyb1pydnliam9lNWRWellnNlNDcWtVNm5CLXBsYjhpVWJyaE9PMUJIWWdaQzRkR3RxeXhtMTd3VUdHMllLbWUwNE5GTnpFUjVwdWtZZWh6c3Z2UlJiUUlhN0VRVktfeU5HOGJERFdUVEdvbUVfYlhnR3R2dGtzWmFwRXNCM2l2MDNFVk9nS2ZRNk0?oc=5",
-     "title": "Kembali Berulang, Siswa SD di Cirebon Keracunan Usai Santap Ayam Tepung Bau dari MBG",
-     "published": "2026-11-10T12:18:42+07:00"
-    },
-    {
-     "name": "Fajar Cirebon",
-     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNM280bkJRWHd4TWkyb05qLVpiVTkzRllCeXRUQ0wxZWFtSjNuNEkzc3Q1MTNfRkxfVFR2bEFucmlob0gtLUc5Zkl5Y0MyamloWnAyMkdYSGlaamhRT2ZiTFF4Nl9VQVRsVzEwOXNEdmtWRC10ZUNJVmJ3ZGxZWnpZdG1PN01GS2Zvd2FYSFRkMmRHenVaWWhFNjZlYUhhZVh2Y3RUS1JERi16Y09MaUNub19RQnk3Zm1B?oc=5",
-     "title": "SPPG Harjamukti I Dinonaktifkan, Biaya Perawatan Korban Dugaan Keracunan MBG Ditanggung SPPG",
-     "published": "2026-11-10T12:50:00+07:00"
-    },
-    {
-     "name": "detikJabar",
-     "url": "https://www.detik.com/jabar/berita/d-8746580/sumber-keracunan-mbg-di-kalitanjung-dkpp-temukan-daging-busuk",
-     "title": "Sumber Keracunan MBG di Kalitanjung, DKPP Temukan Daging Busuk",
-     "published": "2026-11-10T14:01:27+07:00"
-    },
-    {
-     "name": "Catatan Bandung",
-     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQZ0thN3pTWTRuQ0NUaXB5S1I0MmJIUHdURHZBS05hRzNkY28wb01SREtnYTMxWWlYR3NEanlBZy02M09NOVlpaVRZcXZzeDlzdXA1OVVKS0xnYWpSeXRBc1NGNmtKZXN6UWhoTjlYdEg0QnZnMjlXODY5N3BlVDdRSjFPR0wxYXQ1Rk5SOGNHNkVMZE4tc1hfaTc4NzM2d2Q2dGJFVk15OUo5V0F5OHZzZmlMVUJwOFpNZ0ltYVRnekhoSXVtOUxCbWdGZ2xYeDhPREhn0gHYAUFVX3lxTE96TzBjREVYVTROUGdCU28zQ05Oa1Y2QnM2a0NPa1VhUW1hZUZBS2hNT1k3ZEMyME9sNWlyNHJGQXQ0U2RQVE91N0R1X05XTDMyaU9jUllnYy1TYmN1anMweThWemg1NzNwaTVFZDczUl9zTzR6Wm8yR3NZZ2dEM0xObFZQV24tbXkzNEhjdkVGOFVyaTRoTy1YTFZJdDc2R1NaRHg2NDJQU1B1WEo1RUgwdFluUTVBTk1HbDh3QkVNcHZtQmRhQkRKZzQ2VlkwbmFGRVZHYmJZZQ?oc=5",
-     "title": "Baru Lima Hari Sepakat Jaga Kualitas Makanan, Siswa Cirebon Kembali Diduga Keracunan MBG",
-     "published": "2026-11-10T16:05:53+07:00"
-    },
-    {
-     "name": "Suara Merdeka",
-     "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQMHpUcFdkaW9JWGdTTTRCdnZSZlVoR2ZMMDhPXzJ1LXhwTFlDTHd0Tk9LX1htQS1wVl9aOEJpTlRLcWNXcVpmNHhBRlp4WEVrUEJ4UXJzYVZ3VEtUY3VBcEdzZTdxMTNjbXcxZER1bF9oVzJPa0kzN0NkRElIQjRiRWJUdDBsT0tIVHNaZ1E1WG9EQVk1WDl3U0ZVazhfVXh5ZFhTMHl2RVBoX2UyVGtLWkpLQWdmTzlFa01fLTNpTmRtSWVSUEUwMXNIOGFjN0ZSMnFUN29xdWdBTVM0VDktSUxR0gHnAUFVX3lxTE5JZklMSERUZzkxb3RpMENhcUN5aE1NVGpmbkdlZm8tckQya0dXRGtEcF9BT3AyZ1NPaXdOeUdjenJDdWc4TGsyUVRfamh2cUhuUHdieWNkLUNJSEdEMERBTWl6eVlDVUd3WEVGUW80WVZsNGJCYUVQeG9HdlhiRGxYeURsWWRCX2hhRkRkRFJHRTFsYWdFM1N5ZjF3M2Vfb1RKOThmWlRoRDFMaVFZT28xcUM2WHBxaFJpRktSenpNS0VmdlpTNTZPaklaY2ZFM3BlVlBSdXVfNUFLczJGOEJ4M2RaUU9GRQ?oc=5",
-     "title": "Baru Lima Hari Teken Komitmen Keamanan Pangan, Kasus Dugaan Keracunan MBG Kembali Terjadi di Cirebon",
-     "published": "2026-11-10T16:47:14+07:00"
-    },
-    {
-     "name": "Hallo Bogor",
-     "url": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQZEh5WEFOUGtISUszWjEwcjFGRkw1Y0QtQ1Jiam9SNmNaVW1TSkFoNENXd0xabzZjV1FEVmVGOWNINDRzc0dHVzV3MXRjUmxMUFI3UnFNeFJiMlZkV3l3eWhITXFfLVdOOGZaZkNfXzVkNDJoblhldG0tdHRYR29Scm5iLUFCV0lYQlVNcFdiM3JWWmxSbHdBZnc2YlRXeFV6cTJRNEx3NkJuWUFmQkVoWTdyRWt1MFo1MlBDS3ZRNV9LTlZ6SGFWRkxFTW05OXJHMEdkd3NFR2XSAdgBQVVfeXFMUGRIeVhBTlBrSElLM1oxMHIxRkZMNWNELUNSYmpvUjZjWlVtU0pBaDRDV3dMWm82Y1dRRFZlRjljSDQ0c3NHR1c1dzF0Y1JsTFBSN1JxTXhSYjJWZFd5d3loSE1xXy1XTjhmWmZDX181ZDQyaG5YZXRtLXR0WEdvUnJuYi1BQldJWEJVTXBXYjNyVlpsUmx3QWZ3NmJUV3hVenEyUTRMdzZCbllBZkJFaFk3ckVrdTBaNTJQQ0t2UTVfS05WekhhVkZMRU1tOTlyRzBHZHdzRUdl?oc=5",
-     "title": "Baru Lima Hari Sepakat Perketat Pengawasan, 25 Siswa di Cirebon Kembali Diduga Keracunan MBG",
-     "published": "2026-11-10T17:38:00+07:00"
-    },
-    {
-     "name": "Era Baru Media",
-     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxONFNpRk5hWGNhaXQzLWJXOFJsNGhyMGtyY1pzUENQVU1YdU1Pc0VpNFU0Z1VSbksyWkRSMkM2bkRtUEJ3SzBxZ3liVjk1SDRpbGc2cWhXbDQ1R1BtT0xDbFN3RzE1WUg4RjdtalIyM1V4cjBYMmJCUjJMNndaUVVPM2ZIUGZ3RzJEQ0NPQ1d0TngwN1dSdnMtZlBVX25wb05TTXZZZngxZzdkX2pUaHRibjl1Szdnem1DbHpwVVNlWkl3Wm9xU3VkdWRWZW11QdIB0wFBVV95cUxQNzlUWm43VURwcmczNGV0M1NCNnR4TGt2cjZBVXhOYWs0NVlvTnZ1b21xUlhEbzJ6Q0hQNGNKQzBHYkdOWlJvRS12Q0JQRVFxWGpjaUJmb3A2NjlLM3J5VnJ1LUxaQUlvWTdab09uVjVoMTJnczM4azRDMTMyUEs1clRBank1ZmVpdTFNcVVsV1d0eEE0TEY3Q3ExZlhuUlJKNVdWU25yZUJKc1E5aWU5TGJBUnNoWC1WYkFmTDA4d0FDZEoxaGFDTGpsbDdwa05vQVZF?oc=5",
-     "title": "25 Siswa Terdampak Dugaan Keracunan MBG di Cirebon, DPRD Minta SPPG Harjamukti 01 Disetop - Erabaru Media",
-     "published": "2026-11-10T17:45:38+07:00"
-    },
-    {
-     "name": "NTT Hits",
-     "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPYk5BNmNxQ3hING93dGpKZDhyV2NZWnNFVzN3OEk0RmdUUjNSU3RHYmxVOUVNdlo2MFN2b1RVd18zeXFXUms4d1VKdVpNT1d0UlNWN2puSmFhNG9ETEhMTWtYM2NuMXp4RHp4YUl2am1Oa25KcldrUUFxRmNJWS1YWnFmRGJXbHNGNWQxUG0zQWxBMGgwUDBraGZ2b2QzVFBDM1BTVkRyRXRjN01RWlJNZmo5NmtiSVZLZHpfeEZTclRPa01NVEdUY0J1VdIB0AFBVV95cUxPZXhKRFpmcl9rQ0VFSEFyOXhzMGhJaE5iUC1fNTJPeEFLTnA4aW9CWE43OU55X3MzcEZwMDJHWDNYMTZzRXp5akk0Q0l6R3RyQzlzVFpwNzVaNWJlM19TMkpHSHlrLUJHbi04QW5reWk5LUR3alFnOTFUVkpPZlV2RGJTbDA2RDYwM0psUmpIaVYzX0pCb1BacGxMUS1PY2VJWkt0TjR4aG9OV1AzTGVZRzBuMjF4bmlfcnJWU3Bub1RyN3QxcjB0Wi1MOTZ0WUZ1?oc=5",
-     "title": "Baru Lima Hari Janji Perbaiki Kualitas MBG, 25 Siswa di Cirebon Kembali Diduga Keracunan",
-     "published": "2026-11-10T18:23:04+07:00"
-    },
-    {
-     "name": "Tribunjabar.id",
-     "url": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxQSWp2OHJJbXR3YlAyZUNZQUF5WnNmWFdud0hOSFVRNjVjTTJNRkZ1UjRhVjJwc2NfRm00bUVraGdSQ3c5UlVGUGlyNnY5cGZnVVRSbTRUWE1WMzBMV3hQazhHamgzX0lYMjFPV2gyR2Y3NDhFYVRLNGZNWHJSdUM0bVg3V1hMczJhV2ZSQVIzVmNZSWNESFluX241Q3ZUOU1IUGJRYlNQVUVIemg1b0x1OVJyeGNuQXRhUTA0TkpELVkzeERGVE9ySWZTSE8zLXVyX0Y4d3VoTVB3Q0tuN2VxSTJn?oc=5",
-     "title": "Update Keracunan MBG di SDN Kalitanjung I Cirebon: Dapur Disuspend, 14 Siswa Diistirahatkan di Rumah",
-     "published": "2026-11-10T19:19:15+07:00"
-    },
-    {
-     "name": "Nawacita Post",
-     "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNTXY5RmdyaWVORHo5Z2tvYkhzdVBFbWZ6YVBnM3hhd1Y4d3VDZEZtUWFfQ2toNlRBZkpURzhtaVZILW93cVpxMFQxaEt2anl3QkJIX0ZBTXN1SXZ5cG1wYkpQZ25VZ01QUWRpUnd4QlY4N1VleHlJbHE4bjRLdDdEYmN5RGRsTThoUjlvMWp3SWM0eXJIR2hVQ1J5OGJjblJaMEptQU4xNFlyZWZHeUFxWlBPVW9uZlpkUjl6ODd30gHDAUFVX3lxTE1ndGZyU2ZuUWhPYlpkTEg0ek0xMTVwWEdQTUtVUWhFSnlOXzA1czFHTlNOTG5JWFE2djJrTFptWU1HdHpjMWJyUGJmYTRWZU8xNmtRamM2T044TUR5MU5MbWVSUk43WnFiU3lqWUszYTA0bTFIdWNwSEh5UnFueEFiLUJlZnQ2U2t0bF9acndZNXhmVmRPOUpCWlFORkM3MTFOTXlFOWoyV3dIb0Q2OHhfOGNpUU1uOUM0czVDUEdwZENYOA?oc=5",
-     "title": "Baru 5 Hari Sepakat, 25 Siswa Cirebon Kembali Diduga Keracunan MBG",
-     "published": "2026-11-10T20:30:38+07:00"
-    }
-   ],
-   "report_count": 22,
-   "extraction": "llm",
-   "confidence": 0.98
-  },
-  {
-   "id": "12ea7a7e51",
-   "category": "tawuran",
-   "subcategory": "kericuhan pertandingan",
-   "title": "Final Kick Boxing Porprov Jabar 2026 Kota Bekasi vs Sukabumi Ricuh — Beyond Your Local News",
-   "summary": "Terjadi kericuhan dalam pertandingan final Kick Boxing Porprov Jabar 2026 antara kontingen Kota Bekasi melawan Sukabumi.",
-   "kab_kota": "Kota Bekasi",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.28083,
-   "lon": 106.97537,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "past": false,
-   "event_age_days": null,
-   "first_reported": "2026-11-10T20:13:00+07:00",
-   "last_reported": "2026-11-10T20:13:00+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "Rakyat Bekasi",
-     "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNTzZnSDRPLS01XzRjSVFBd0paM1hNaDdwLTJNTWhSdVg5Y3RkOWZXZkRZZ2Z0YVhRcUlVUHdaenpBaTBuekdXOUFoWHRWM21ZNGY4bGoxZVZCcllUWXpsTEdoMzI1aTBCNF9RT2xFS0VIdlV3c1VsSHNVT0RMMlJoMmw1aUdLdGdkdFhMSUNnY0J5d3hBZkV0UENGbXBVTTlXT0tRV21jWDNFVDNFQUd0UGdYOGdJb3BJeHJreHRUdlg2X0I3S3Q4Ty1qRXBCaUJvTm5ObHFuNGU4YTgtSHZ3bFZxcUxMZEROMlpQVFR1bjFBUVE?oc=5",
-     "title": "Final Kick Boxing Porprov Jabar 2026 Kota Bekasi vs Sukabumi Ricuh — Beyond Your Local News",
-     "published": "2026-11-10T20:13:00+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "ede725d987",
-   "category": "banjir",
-   "subcategory": "banjir lumpur",
-   "title": "Banjir Lumpur dan Batu Terjang Akses Warga dan SDN 2 Cimanggu Cikembar, Aktivitas Tiga Perusahaan Disorot",
-   "summary": "Banjir lumpur dan batu menerjang akses warga serta SDN 2 Cimanggu di Cikembar, Kabupaten Sukabumi, dengan aktivitas tiga perusahaan turut disorot sebagai dugaan penyebab.",
-   "kab_kota": "Kabupaten Sukabumi",
-   "kecamatan": "Cikembar",
-   "desa": "Cimanggu",
-   "lat": -6.9741,
-   "lon": 106.79797,
-   "location_precision": "kecamatan",
-   "event_time": null,
-   "past": false,
-   "event_age_days": null,
-   "first_reported": "2026-11-10T19:30:00+07:00",
-   "last_reported": "2026-11-10T20:05:00+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "sekolah",
-     "name": "SDN 2 Cimanggu"
-    },
-    {
-     "type": "jalan_jembatan",
-     "name": "Akses Warga"
-    }
-   ],
-   "sources": [
-    {
-     "name": "MediaAksara.id",
-     "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNS0l0SHEzNlUwM2oyaC1DX2UwNV9ybGh5S0E4MXJFcmh6R2w3MlZ4MzlwU3h6Y1BiN3ZJYy1WVWVWeFNUNEFJQlZPa2lrZEN3Ym51VFJUVy1mTWJKVkJXeEFUcWdVamVRS3FScEdMRDVmbmh1STN4ajF1c0h4a2p0MDJmdUNGb1FIVVBWLW5RZGxkWXdnV25mRDBmOGFaZ3FrWFpSeDlzdkFqTTlWcFRzZFNBQWV4VTZjaEplNWFiMnlxeVd0dXJn?oc=5",
-     "title": "Banjir Lumpur dan Batu Terjang Akses Warga dan SDN 2 Cimanggu Cikembar, Aktivitas Tiga Perusahaan Disorot",
-     "published": "2026-11-10T19:30:00+07:00"
-    },
-    {
-     "name": "Sukabumi Update",
-     "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPMVBnM2FrYmRiXzJxYTBjM3Q2RTEwOVp3VXdOdS1WczdJVTVNMmJOWWg0TUduSHcxQ0hlRlM4RVJOeExYbzZUZU9mVjd2N2hZTC1yUjJpWHhTdXNrZ0FLT3J1TmtBUTY4aFRzVWdSNlIwVlBGc0pLcTk3YVhNSnJqa0NCa3hYLU4za3BIdlRnQURha2ZJeWxWVFNmYmhCeTdsaGpwZmM1REN0WTltTURfYlRkLXk0eDI1RlhMUU5GSXQ1NWwwanRURmJmTXp6TXo2VDlTcWlqbkhaQVR2Q1HSAd4BQVVfeXFMTlRObjlpUncxTXFxZFlBNjNwbGhKNHBob0VabWI0cXd5c0hPd25FVmw5bEx4UGtfTE41a0JsS09NU3VGcldqYWlEc25aZjJCZ1BKZGdPNjRVb3diVnl2alRPY2ZpdEpySG1hV0EzdTR3dU8xalNUY25LT2Z6UThjck5jaUlIQWpGN2VuWnpIaVc5WkU2WG9YMG9kZGR2RVJaTVpUaldsdmp3Xy1OZ0lTYzZkQmpJNk5YdkN1ZWJ1MHNJZlpIbWpwMk1VNnEwb3BDMXBDay1KZWNhdzlQb0tB?oc=5",
-     "title": "Banjir Lumpur Rendam Sekolah-Lumpuhkan Jalan di Sukamulya Sukabumi, Warga Sebut Dampak Proyek Lahan",
-     "published": "2026-11-10T20:05:00+07:00"
-    }
-   ],
-   "report_count": 2,
    "extraction": "llm",
    "confidence": 0.95
   },
@@ -1158,55 +1404,6 @@
    "confidence": 0.98
   },
   {
-   "id": "9126557632",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "Pemkot Bandung Siapkan Relokasi Warga Terdampak Kebakaran Pool DAMRI",
-   "summary": "Kebakaran di Pool DAMRI Jalan Kebon Kawung, Cicendo, Kota Bandung pada malam 8 November 2026 menghanguskan 11 bangunan dan memaksa 91 orang mengungsi.",
-   "kab_kota": "Kota Bandung",
-   "kecamatan": "Cicendo",
-   "desa": null,
-   "lat": -6.90175,
-   "lon": 107.58402,
-   "location_precision": "kecamatan",
-   "event_time": "2026-11-08",
-   "past": false,
-   "event_age_days": 2,
-   "first_reported": "2026-11-10T05:00:00+07:00",
-   "last_reported": "2026-11-10T15:05:54+07:00",
-   "victims": {
-    "displaced": 95,
-    "houses": 11
-   },
-   "affected_entities": [
-    {
-     "type": "permukiman",
-     "name": null
-    },
-    {
-     "type": "lainnya",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "Pikiran Rakyat Koran",
-     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNZGJwV3R2V2x0V3ctQUxRc1NSeGNWVjBic2JQb2pNOGwzdjJsc0N3c2l4LWJnMURrdTJUQWdmc0FDTGEwREk1am0tNGRWaHZKSGVTXzNONno1V0lUeFpmMTl5MjFkREcyZkJpOHV5Z3J3UkV4dF9YM004eEllQjU4M2xPb1JlMHN5T2RxaDUxYk1BcTNUb212WERYajRjMmJGRmxYNkNrOTRfcUxfQ1drdU9HVUY3UQ?oc=5",
-     "title": "Kebakaran Kebon Kawung Bandung, 95 Jiwa Bertahan di Pengungsian",
-     "published": "2026-11-10T05:00:00+07:00"
-    },
-    {
-     "name": "detikJabar",
-     "url": "https://www.detik.com/jabar/berita/d-8746692/pemkot-bandung-siapkan-relokasi-warga-terdampak-kebakaran-pool-damri",
-     "title": "Pemkot Bandung Siapkan Relokasi Warga Terdampak Kebakaran Pool DAMRI",
-     "published": "2026-11-10T15:05:54+07:00"
-    }
-   ],
-   "report_count": 2,
-   "extraction": "llm",
-   "confidence": 0.98
-  },
-  {
    "id": "c097ed7b1d",
    "category": "tppo",
    "subcategory": null,
@@ -1335,7 +1532,7 @@
    "category": "longsor",
    "subcategory": null,
    "title": "Empat Kejadian Bencana di Bogor, Rumah Warga Terdampak Longsor",
-   "summary": null,
+   "summary": "Empat kejadian longsor terjadi di Kabupaten Bogor, menyebabkan rumah warga terdampak.",
    "kab_kota": "Kabupaten Bogor",
    "kecamatan": null,
    "desa": null,
@@ -1350,7 +1547,7 @@
    "victims": {},
    "affected_entities": [
     {
-     "type": "desa",
+     "type": "permukiman",
      "name": null
     }
    ],
@@ -1363,8 +1560,8 @@
     }
    ],
    "report_count": 1,
-   "extraction": "rules",
-   "confidence": 0.4
+   "extraction": "llm",
+   "confidence": 0.9
   },
   {
    "id": "a2500fde98",
@@ -1381,17 +1578,13 @@
    "event_time": "2026-11-10T10:28:32+07:00",
    "past": false,
    "event_age_days": 0,
-   "first_reported": "2026-11-10T08:45:40+07:00",
+   "first_reported": "2026-11-10T10:28:32+07:00",
    "last_reported": "2026-11-10T11:03:15+07:00",
    "victims": {
     "affected": 56,
     "houses": 20
    },
    "affected_entities": [
-    {
-     "type": "rumah",
-     "name": null
-    },
     {
      "type": "rumah_ibadah",
      "name": null
@@ -1407,18 +1600,6 @@
    ],
    "sources": [
     {
-     "name": "Media Indonesia",
-     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPMEdwV043U3JZcWVTTkJtODBJcUZCTVhXWjhIYV9VXzBTU2txRkRSVS1rX1V3eHYwU3A1RzlTRXF4VzRmWlVuUnRtTkEwWF9hSG12T0NuaGwxaGhKZUI1STJnN1VGNE5lTzVObzlxRHBvY0ZDX3pTVWIxQl9haDNzSUlWeFBNZEUtYkVPd2ZZcFAtUFVRSHN0aE5ZY3R6VE9DZjMw?oc=5",
-     "title": "Belasan Rumah Terdampak Cuaca Ekstrem di Kota Sukabumi",
-     "published": "2026-11-10T08:45:40+07:00"
-    },
-    {
-     "name": "Tribunnews.com",
-     "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNejBHajVGSmRKcnM5YjMzSDVaQlVPVzRKLWltMFdBQ1JVWHVBRnViQlUxSXZscF96cHpKQnV6MWhUN000WFJjMjY2TzJjNU90aWxyLTRtYXFtbHlOQTNwX2JZWXNYNFRlYmFZRlZuakRDaEhZekRpV2lYdXN1WUF0OGpsbm1MWk1EaElkVmJXbHc4RFdZWnNOdTg2bktkN0xwSEFIZnFqRFFrMEcwYWRReko2WU5fTmRYa1VtekVLeFJNN3pi?oc=5",
-     "title": "Cuaca Ekstrem Terjang Sukabumi, Rumah Warga Terdampak hingga Pohon dan Tower Ambruk",
-     "published": "2026-11-10T08:56:42+07:00"
-    },
-    {
      "name": "Tribunjabar.id",
      "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPMDF2UlJWSU5uRC10cFFHckhxXzkyOE96QUlkaUY3TGFYblBONThwek1fRDhtMWNKVWhTcmRGc3ViOXBpcGhSSUgzdU1idGg4WVpkb3ZjUFRLMms1YzJIc2lSR1hCY01aRTNpVlhvUmRzcHFIXy1fSnUyc2tzX3pEUWpkZTVRRW9YNU9XOHQwUWZITVpKa0Q2b0djM3VHS1E2V01jUEtwWWJFMmh1anBJcmFKSW81TjdWWUFjX0FlNTVLYVMwS0RsWjJJTUEtMzlXMjM1ZUl5MA?oc=5",
      "title": "Hujan Angin Terjang Kota Sukabumi: 20 Rumah Terdampak, Tower Roboh dan Gardu Listrik Meledak",
@@ -1431,7 +1612,7 @@
      "published": "2026-11-10T11:03:15+07:00"
     }
    ],
-   "report_count": 4,
+   "report_count": 2,
    "extraction": "llm",
    "confidence": 0.98
   },
@@ -1549,7 +1730,7 @@
    "id": "0f5c476ba5",
    "category": "tppo",
    "subcategory": null,
-   "title": "Motif Penculikan Bocah di Garut, Ternyata Pelaku Pernah Dipenjara Bareng dengan Ibu Korban",
+   "title": "Polres Garut Tangkap Pelaku Penculikan Anak di Tarogong Kaler",
    "summary": null,
    "kab_kota": "Kabupaten Garut",
    "kecamatan": "Tarogong Kaler",
@@ -1560,17 +1741,11 @@
    "event_time": null,
    "past": false,
    "event_age_days": null,
-   "first_reported": "2026-11-10T02:59:00+07:00",
+   "first_reported": "2026-11-10T09:57:14+07:00",
    "last_reported": "2026-11-10T09:57:14+07:00",
    "victims": {},
    "affected_entities": [],
    "sources": [
-    {
-     "name": "tvOneNews",
-     "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPWWpxLWpZVkprUzRRRkkyZ0M1NS1nenlWUFlnaE1RVlBTWTg3WFozQzZwY3RzSGd3TlVyOTM2Q1Q1azRBejlSMnUwbFU2N2xaN2Q2VEgtVkRZdmxaT1NKSVdWbFAzZXpLSXB4Rk1JdmVkVE9ISEpNLVQ3NURFT3pOYnhXTXVaUVA2YURGUUpIUUNRNW9tYnViWlk1YXpHWExpMUt4QklNNTVNV0dqT0Z5ZTFhazllaEEyb0VIU1UtZ0MxS0FCTWRWRdIBzgFBVV95cUxQR0hFRHBaaVpSSjJicndyN25vWjFKR3lnUElNUDlpM25KbW1oMU5qcFlVVjFBS0NMSlNSN3YtcUtzcmNBSi13dDZ2cmlrN0EwcEpVYk5rZW5TY1hhQ1VTRDBsbGJ6T1l1UXROeHNPRUdLQTMxSThnUnJJczFqWkpuaS1nZi1fZmJVSV8zMUFRVklwaDk2VDRsdnNaY3gzUV9kQXRLQnBpVm9GX0pxdGJ2akRZMzkzclFVSFJlSWdCRm9NU2hfeHc5SjVlNlZsdw?oc=5",
-     "title": "Motif Penculikan Bocah di Garut, Ternyata Pelaku Pernah Dipenjara Bareng dengan Ibu Korban",
-     "published": "2026-11-10T02:59:00+07:00"
-    },
     {
      "name": "Tribunnews.com",
      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNUkFhZktZbG9CRElqaGt3eDhlYm5IQVBGekZxZWhNaDgxU0tJOHBOZUJHMDZwWEIyZlJPWEFBZThtVExTMUpBSlVJVGd6NmxfdnZfTnN2NWxjVFJuYjZVQnJ6ck9WUF9GRzFmVjR1a2FmUHF6LUttbzFLTWxSMVlJSHBKTUdFTTZ1X29lTmljR0RtbEFlQW8zSzRoamNyQi05clJTZm9RWjE?oc=5",
@@ -1578,7 +1753,7 @@
      "published": "2026-11-10T09:57:14+07:00"
     }
    ],
-   "report_count": 2,
+   "report_count": 1,
    "extraction": "rules",
    "confidence": 0.4
   },
@@ -1587,7 +1762,7 @@
    "category": "kekerasan_seksual",
    "subcategory": null,
    "title": "Wamenaker Datangi Pabrik Epson di Bekasi, Dalami Aduan Pekerja soal Upah hingga Dugaan Pelecehan Seksual",
-   "summary": null,
+   "summary": "Wamenaker mengunjungi pabrik Epson di Kabupaten Bekasi untuk menyelidiki aduan pekerja terkait masalah upah dan dugaan pelecehan seksual.",
    "kab_kota": "Kabupaten Bekasi",
    "kecamatan": null,
    "desa": null,
@@ -1603,7 +1778,7 @@
    "affected_entities": [
     {
      "type": "pabrik",
-     "name": null
+     "name": "Pabrik Epson"
     }
    ],
    "sources": [
@@ -1615,264 +1790,8 @@
     }
    ],
    "report_count": 1,
-   "extraction": "rules",
-   "confidence": 0.4
-  },
-  {
-   "id": "b2c0e33d73",
-   "category": "kekerasan_seksual",
-   "subcategory": null,
-   "title": "Keluarga 9 Korban Dugaan Pelecehan Seksual di Ponpes Bekasi Tegas Tolak Mediasi - Halaman 2",
-   "summary": "Dilaporkan ada dugaan pelecehan seksual terhadap sembilan korban di sebuah pondok pesantren di Kabupaten Bekasi, pihak korban menolak mediasi.",
-   "kab_kota": "Kabupaten Bekasi",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.21975,
-   "lon": 107.12171,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "past": false,
-   "event_age_days": null,
-   "first_reported": "2026-11-10T07:23:14+07:00",
-   "last_reported": "2026-11-10T07:23:14+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "lainnya",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "Wartakotalive.com",
-     "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQVDBkUV9jQjZZbkNmdXJLQ2lJRW1OUlNKRUxxR01sTmd4UnZNWFNkelFlY2ZvdFZGS29yblJPZlhKSGJoMmlERWhVREpoelZVVmY5Q3ZZOGZISEdsY2NjeWpZRTRNYWdqa0p3c2pMR1JnMFlRMEkydzZnWk1fMDdadW9jRmNFTE5EWWc3TXFER2EwMFlyUU1sVFh3el9hVGJZSTNMc0tFSFB3eHVvUm9idGdGQVBxNGQ3Sy1tcnl2bUZyWUlzd2xKOXVFamhPdw?oc=5",
-     "title": "Keluarga 9 Korban Dugaan Pelecehan Seksual di Ponpes Bekasi Tegas Tolak Mediasi - Halaman 2",
-     "published": "2026-11-10T07:23:14+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.7
-  },
-  {
-   "id": "c4305e90c6",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "Gara-gara Remaja 14 Tahun Tuang Bensin Sambil Merokok, Rumah di Cirebon Terbakar",
-   "summary": "Sebuah rumah di Kabupaten Cirebon terbakar setelah seorang remaja berusia 14 tahun menumpahkan bensin dan menyalakannya sambil merokok.",
-   "kab_kota": "Kabupaten Cirebon",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.74622,
-   "lon": 108.55216,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "past": false,
-   "event_age_days": null,
-   "first_reported": "2026-11-10T06:51:38+07:00",
-   "last_reported": "2026-11-10T06:51:38+07:00",
-   "victims": {},
-   "affected_entities": [
-    {
-     "type": "rumah_ibadah",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "Tribuncirebon.com",
-     "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOLUhfa0FHeHYwVGI0TlR0Mi15N01hTUNqcFlIZzZSVm5tSVF3VnJSOXVzeWJnTU9PZFRVUFd3cFZDbm82X1JXY0VVXzBJS1BlVHdTRzIzVmlBQjdPckJKbnVISDZsMFVBMC1LanAxTEdEcGh0NWJqSVNFX3BCREJWWUFrQVMzWjJybUktYlNYSVNxSVJmWlVUeE1hazhQU1lqZTBZQkNCZEVJbXNuYnEtbGJpaU1KUloxM21vZkg3WUZHelRrbFYtXzlwYy0?oc=5",
-     "title": "Gara-gara Remaja 14 Tahun Tuang Bensin Sambil Merokok, Rumah di Cirebon Terbakar",
-     "published": "2026-11-10T06:51:38+07:00"
-    }
-   ],
-   "report_count": 1,
    "extraction": "llm",
    "confidence": 0.9
-  },
-  {
-   "id": "5d39b57059",
-   "category": "infrastruktur",
-   "subcategory": null,
-   "title": "Kelurahan Kalimulya Depok Ajukan BTT Perbaiki Rumah Roboh Milik Lansia",
-   "summary": "Kelurahan Kalimulya di Kota Depok mengajukan Bantuan Tanggap Darurat (BTT) untuk memperbaiki rumah roboh milik seorang lansia.",
-   "kab_kota": "Kota Depok",
-   "kecamatan": null,
-   "desa": "Kalimulya",
-   "lat": -6.3962,
-   "lon": 106.81684,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "past": false,
-   "event_age_days": null,
-   "first_reported": "2026-11-10T06:15:00+07:00",
-   "last_reported": "2026-11-10T06:15:00+07:00",
-   "victims": {
-    "houses": 1
-   },
-   "affected_entities": [
-    {
-     "type": "rumah",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "Radar Depok",
-     "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOeFk3SlJkeXIxMVc5RTlwWjFiUE43aTBEQzNTUE1iWnZxOUZyOEc2OENxMEFkd0N2OS05bVR3VlRLMUNFYnoxTGlleVM2WG9HLWRPbVVOemNZYUpVWTJxVHNUbGlROE5MSFdsbUk5MGozekZqSndmVERYX1Y4SmN5b0NqaU54eVlpckpZRVhFSl9GWjBBeWN2Q01ZT0pSSloxSm9XUDNMLVl3Z2VMUEtYRG8tb0lwNGtvV3FWa9IBwgFBVV95cUxPbUtlSVhkSWJ2RWpCTmRkNWV2RE9hcDFJVEZkOUlva09KRjdmVnhtbGxsRE9MSTZ6bjN3cHV1akdNSkVVdnVna2QyLWd5bHB6aG81T3N5ZmtfM2dlRklOd3RoazhHck1aQ1MxUTdIcHhfeUFwNmQ0YXF6RldWeUowejFsVDU4VlZoVGg2ZEZnNXdrekVxUlVIalY2cVE3QWJpdWNMS192cFBDQ1RDS1dtc0NfeG1pZWhNUUN2clpVR3JXUQ?oc=5",
-     "title": "Kelurahan Kalimulya Depok Ajukan BTT Perbaiki Rumah Roboh Milik Lansia",
-     "published": "2026-11-10T06:15:00+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "6ed0ce395a",
-   "category": "tppo",
-   "subcategory": "penculikan anak",
-   "title": "Sederet Fakta Penculikan Balita di Garut",
-   "summary": "Seorang balita laki-laki di Kecamatan Malayu, Kabupaten Garut, diculik oleh seorang perempuan yang merupakan sahabat dekat ibunya pada 5 November 2026. Pelaku berhasil diamankan di Kabupaten Bandung bersama korban setelah bersembunyi selama dua hari.",
-   "kab_kota": "Kabupaten Garut",
-   "kecamatan": "Malayu",
-   "desa": null,
-   "lat": -7.35945,
-   "lon": 107.78794,
-   "location_precision": "kecamatan",
-   "event_time": "2026-11-05T12:00:00+07:00",
-   "past": false,
-   "event_age_days": 5,
-   "first_reported": "2026-11-10T06:00:30+07:00",
-   "last_reported": "2026-11-10T06:00:30+07:00",
-   "victims": {
-    "affected": 1
-   },
-   "affected_entities": [
-    {
-     "type": "lainnya",
-     "name": "Rumah korban di Malayu"
-    }
-   ],
-   "sources": [
-    {
-     "name": "detikJabar",
-     "url": "https://www.detik.com/jabar/hukum-dan-kriminal/d-8745610/sederet-fakta-penculikan-balita-di-garut",
-     "title": "Sederet Fakta Penculikan Balita di Garut",
-     "published": "2026-11-10T06:00:30+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.95
-  },
-  {
-   "id": "4ff3e232d9",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "8 Rumah di Cisolok Sukabumi Terbakar, Api Diduga akibat Korsleting",
-   "summary": "Delapan rumah di Kampung Cikuluwung, Desa Sukarame, Kecamatan Cisolok, Kabupaten Sukabumi terbakar pada 9 November 2026 akibat dugaan korsleting listrik, menimpa 27 jiwa.",
-   "kab_kota": "Kabupaten Sukabumi",
-   "kecamatan": "Cisolok",
-   "desa": "Sukarame",
-   "lat": -6.87829,
-   "lon": 106.46004,
-   "location_precision": "kecamatan",
-   "event_time": "2026-11-09T13:00:00+07:00",
-   "past": false,
-   "event_age_days": 1,
-   "first_reported": "2026-11-10T05:08:23+07:00",
-   "last_reported": "2026-11-10T05:08:23+07:00",
-   "victims": {
-    "affected": 27,
-    "houses": 8
-   },
-   "affected_entities": [
-    {
-     "type": "permukiman",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "Kompas.com Jawa Barat",
-     "url": "https://bandung.kompas.com/read/2026/11/10/050823178/8-rumah-di-cisolok-sukabumi-terbakar-api-diduga-akibat-korsleting",
-     "title": "8 Rumah di Cisolok Sukabumi Terbakar, Api Diduga akibat Korsleting",
-     "published": "2026-11-10T05:08:23+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.98
-  },
-  {
-   "id": "391da39de3",
-   "category": "tppo",
-   "subcategory": null,
-   "title": "Dua Perempuan Asal Bandung Jadi Korban Dugaan TPPO di Malaysia",
-   "summary": "Dua perempuan asal Kota Bandung menjadi korban dugaan TPPO di Malaysia.",
-   "kab_kota": "Kota Bandung",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.91924,
-   "lon": 107.6366,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "past": false,
-   "event_age_days": null,
-   "first_reported": "2026-11-10T05:00:00+07:00",
-   "last_reported": "2026-11-10T05:00:00+07:00",
-   "victims": {
-    "affected": 2
-   },
-   "affected_entities": [
-    {
-     "type": "lainnya",
-     "name": null
-    }
-   ],
-   "sources": [
-    {
-     "name": "Pikiran Rakyat Koran",
-     "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPVGZiSndkUDNXMDBsd1lxVmxnM3Z6cDBPREVYT1VlaGlsRk9SLTFLc0U3N2UtQ045enNXcmJjbk8tUEtvLWI0RFFwdGRweUhZbUFIM2NIbTVfVWVqdTdMWUJYSkRNdDdXNG81U3drVlEwbzFsZ1laWEVpUjRmbjEzUm9Dam50SlI3TS14MzVNTEdwbHpiekdXRTI0VWxQd1dzeElleVBZcjRMMkJOOUJacVFFcmtNdw?oc=5",
-     "title": "Dua Perempuan Asal Bandung Jadi Korban Dugaan TPPO di Malaysia",
-     "published": "2026-11-10T05:00:00+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "llm",
-   "confidence": 0.9
-  },
-  {
-   "id": "6aa221de84",
-   "category": "kebakaran",
-   "subcategory": null,
-   "title": "Penggilingan Padi Milik Jeje di Bandung Barat Terbakar",
-   "summary": null,
-   "kab_kota": "Kabupaten Bandung Barat",
-   "kecamatan": null,
-   "desa": null,
-   "lat": -6.89044,
-   "lon": 107.41498,
-   "location_precision": "kab_kota",
-   "event_time": null,
-   "past": false,
-   "event_age_days": null,
-   "first_reported": "2026-11-09T22:41:54+07:00",
-   "last_reported": "2026-11-09T22:41:54+07:00",
-   "victims": {},
-   "affected_entities": [],
-   "sources": [
-    {
-     "name": "republika.co.id",
-     "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNTFVVaFdiaWZRWGg0TFh0RjdwMFU0YXRNR1BTOWZmREN2WVhDaTc5VlptbVVvaGpMbzJJVTB1bjFuY2FvRVpxVkNOeE9sLUdMNUNKTzlOOGl0d2lxM1B6UzdDaDZzMzk4Xy05Y0dScjR1TFg0VW5oS3ktZHZPbG91N2x4alREVmxWazN3QldidFhxVUlEcDJ3NXVrVmZXUFZlN240N2ln?oc=5",
-     "title": "Penggilingan Padi Milik Jeje di Bandung Barat Terbakar",
-     "published": "2026-11-09T22:41:54+07:00"
-    }
-   ],
-   "report_count": 1,
-   "extraction": "rules",
-   "confidence": 0.4
   }
  ]
 }
