@@ -1,31 +1,30 @@
 {
- "generated_at": "2026-11-16T15:58:01+07:00",
+ "generated_at": "2026-11-23T17:15:24+07:00",
  "retention_days": 30,
  "stats": {
-  "queued_this_run": 36,
-  "accepted": 2,
-  "rejected": 31,
-  "deferred": 7,
-  "pending": 85,
-  "published": 7
+  "queued_this_run": 26,
+  "accepted": 1,
+  "rejected": 30,
+  "deferred": 9,
+  "pending": 68,
+  "published": 6
  },
  "llm_providers": [
   {
    "name": "github-models",
-   "model": "meta/Llama-3.3-70B-Instruct",
-   "calls": 3,
-   "exhausted": "repeated failures: meta/Llama-3.3-70B-Instruct: empty response ",
+   "model": "openai/gpt-4o-mini",
+   "calls": 2,
+   "exhausted": null,
    "dead_models": [],
    "errors": [
     "openai/gpt-4.1-mini: empty response ",
-    "openai/gpt-4o-mini: empty response ",
-    "meta/Llama-3.3-70B-Instruct: empty response "
+    "openai/gpt-4o-mini: empty response "
    ]
   },
   {
    "name": "groq",
    "model": "openai/gpt-oss-120b",
-   "calls": 6,
+   "calls": 4,
    "exhausted": null,
    "dead_models": [],
    "errors": []
@@ -41,27 +40,20 @@
   {
    "name": "glm",
    "model": "glm-4.5-flash",
-   "calls": 5,
-   "exhausted": "all models unavailable (rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}})",
-   "dead_models": [
-    "glm-4.7-flash",
-    "glm-4.5-flash"
-   ],
+   "calls": 4,
+   "exhausted": null,
+   "dead_models": [],
    "errors": [
-    "glm-4.7-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}",
-    "glm-4.5-flash: no response within 60s",
-    "glm-4.5-flash: rate limited: Error code: 429 - {'error': {'code': '1305', 'message': 'The service may be temporarily overloaded, please try again later'}}"
+    "glm-4.7-flash: no response within 60s"
    ]
   },
   {
    "name": "gemini",
    "model": "gemini-flash-lite-latest",
-   "calls": 5,
+   "calls": 4,
    "exhausted": null,
    "dead_models": [],
-   "errors": [
-    "gemini-flash-latest: no response within 60s"
-   ]
+   "errors": []
   }
  ],
  "source_status": [
@@ -79,7 +71,7 @@
    "ok": true,
    "items": 10,
    "error": null,
-   "seconds": 2.3
+   "seconds": 2.2
   },
   {
    "id": "ipb",
@@ -87,7 +79,7 @@
    "ok": true,
    "items": 10,
    "error": null,
-   "seconds": 4.7
+   "seconds": 4.5
   },
   {
    "id": "unpad",
@@ -95,7 +87,7 @@
    "ok": false,
    "items": 0,
    "error": "HTTPStatusError: Client error '403 Forbidden' for url 'https://www.unpad.ac.id/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403",
-   "seconds": 0.5
+   "seconds": 0.4
   },
   {
    "id": "mongabay-id",
@@ -103,26 +95,49 @@
    "ok": true,
    "items": 20,
    "error": null,
-   "seconds": 0.5
+   "seconds": 0.4
   },
   {
    "id": "bing-analisis",
    "name": "Bing News",
    "ok": true,
-   "items": 326,
+   "items": 362,
    "error": null,
-   "seconds": 7.7
+   "seconds": 7.4
   },
   {
    "id": "gnews-analisis",
    "name": "Google News",
    "ok": true,
-   "items": 119,
+   "items": 129,
    "error": null,
    "seconds": 2.2
   }
  ],
  "entries": [
+  {
+   "id": "422e046611",
+   "category": "banjir",
+   "kind": "pendapat_pakar",
+   "title": "Bandung Butuh Rp1,2 Triliun Atasi Banjir, Pengamat Lingkungan: Jangan Cuma Bangun Sodetan dan Kolam Retensi",
+   "url": "https://jabarekspres.com/berita/2026/11/19/bandung-butuh-rp12-triliun-atasi-banjir-pengamat-lingkungan-jangan-cuma-bangun-sodetan-dan-kolam-retensi/",
+   "source": "jabarekspres.com",
+   "published": "2026-11-19T16:17:29+07:00",
+   "experts": [
+    {
+     "name": "Suwatno"
+    }
+   ],
+   "kab_kota": [
+    "Kota Bandung"
+   ],
+   "finding": "Pengamat lingkungan Suwatno menilai penanganan banjir di Bandung harus mengatasi masalah lingkungan seperti berkurangnya kawasan resapan, alih fungsi lahan, dan sedimentasi, bukan hanya membangun sodetan dan kolam retensi.",
+   "evidence": "“Jangan sampai kita hanya sibuk membangun sodetan dan kolam retensi, tetapi persoalan lingkungan yang menjadi penyebab banjir justru tidak disentuh.”",
+   "verified_by": [
+    "groq/openai/gpt-oss-120b",
+    "gemini/gemini-flash-lite-latest"
+   ]
+  },
   {
    "id": "692d764599",
    "category": "longsor",
@@ -239,55 +254,6 @@
    "verified_by": [
     "glm/glm-4.5-flash",
     "gemini/gemini-flash-lite-latest"
-   ]
-  },
-  {
-   "id": "3fef93cb46",
-   "category": "mbg",
-   "kind": "kajian_lembaga",
-   "title": "Keracunan MBG SMKN 1 Gunungguruh Sukabumi, Terkontaminasi Bakteri E coli",
-   "url": "https://radarsukabumi.com/kabupaten-sukabumi/keracunan-mbg-smkn-1-gunungguruh-sukabumi-terkontaminasi-bakteri-e-coli/",
-   "source": "Radar Sukabumi",
-   "published": "2026-10-19T15:11:58+07:00",
-   "experts": [
-    {
-     "name": "Masykur Alawi",
-     "affiliation": "Dinas Kesehatan Kabupaten Sukabumi"
-    }
-   ],
-   "kab_kota": [
-    "Kabupaten Sukabumi"
-   ],
-   "finding": "Hasil penyelidikan epidemiologi dan uji laboratorium Dinas Kesehatan Kabupaten Sukabumi mengungkapkan bahwa keracunan massal pada program MBG di SMKN 1 Gunungguruh dipicu oleh kontaminasi bakteri E. coli pada air sumur dan peralatan makan akibat pelanggaran SOP sanitasi.",
-   "evidence": "Hasil penyelidikan epidemiologi dan uji laboratorium Dinas Kesehatan (Dinkes) Kabupaten Sukabumi mengungkapkan fakta mengejutkan terkait dugaan keracunan massal yang menimpa ratusan siswa dan guru di SMKN 1 Gunungguruh, Kecamatan Gunungguruh, Kabupaten Sukabumi. Air sumur serta peralatan makan yang digunakan penyedia jasa boga terbukti positif terkontaminasi bakteri Escherichia coli (E. coli).",
-   "verified_by": [
-    "gemini/gemini-flash-lite-latest",
-    "groq/openai/gpt-oss-120b"
-   ]
-  },
-  {
-   "id": "b74dd2df11",
-   "category": "gempa",
-   "kind": "pendapat_pakar",
-   "title": "Ratusan Rumah di Sukabumi dan Bogor Rusak, Pakar: Ancaman Gempa Tak Hanya dari Megathrust",
-   "url": "https://www.kompas.com/tren/read/2026/10/18/113000665/ratusan-rumah-di-sukabumi-dan-bogor-rusak-pakar--ancaman-gempa-tak-hanya",
-   "source": "Kompas.com",
-   "published": "2026-10-18T11:30:00+07:00",
-   "experts": [
-    {
-     "name": "Daryono",
-     "affiliation": "Ikatan Ahli Bencana Indonesia (IABI)"
-    }
-   ],
-   "kab_kota": [
-    "Kabupaten Sukabumi",
-    "Kabupaten Bogor"
-   ],
-   "finding": "Wilayah Sukabumi dan Bogor memiliki kondisi tektonik kompleks dengan sesar aktif yang dapat memicu gempa dangkal berpotensi merusak, meski magnitudo kecil, terutama ketika sumber gempa dekat permukiman dan bangunan rentan.",
-   "evidence": "Wilayah Sukabumi dan Bogor berada di kawasan dengan kondisi tektonik yang kompleks. Sejumlah sesar aktif di wilayah tersebut membuat ancaman gempa tidak hanya berasal dari zona megathrust di selatan Jawa, tetapi juga dari aktivitas sesar di daratan yang dapat memicu gempa dangkal di dekat permukiman.",
-   "verified_by": [
-    "openrouter/nvidia/nemotron-3-super-120b-a12b:free",
-    "glm/glm-4.5-flash"
    ]
   }
  ]
